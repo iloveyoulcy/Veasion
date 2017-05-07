@@ -40,9 +40,9 @@ public class VeasionFilter implements Filter{
 		}else if("POST".equalsIgnoreCase(met)){
 			req.setCharacterEncoding("UTF-8");
 			chain.doFilter(request, response);
+		}else{
+			chain.doFilter(request, response);
 		}
-		
-		chain.doFilter(request, response);
 		
 	}
 }

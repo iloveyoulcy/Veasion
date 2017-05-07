@@ -22,6 +22,14 @@ public class PageModel {
 		this.indexPage=indexPage;
 		this.pageCount=pageCount;
 	};
+	/**上一页*/
+	public int getTopPage(){
+		return indexPage>1?indexPage-1:1;
+	}
+	/**下一页*/
+	public int getNextPage(){
+		return indexPage<maxPage?indexPage+1:maxPage;
+	}
 	/**当前页数*/
 	public int getIndexPage() {
 		return indexPage;
