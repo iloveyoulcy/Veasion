@@ -71,7 +71,7 @@
 	</div>
 	<!-- 导航 -->
 	<div style="float:right;z-index: 200;">
-		<a href="http://59.110.241.52/solo" title="Veasion的博客">我的博客${count }</a>
+		<a href="http://59.110.241.52/solo" title="Veasion的博客">我的博客</a>
 		&nbsp;|&nbsp;
 		<a href="https://github.com/veasion" title="My Github.">Github</a>
 		&nbsp;&nbsp;

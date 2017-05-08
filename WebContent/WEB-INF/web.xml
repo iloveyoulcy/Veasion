@@ -2,10 +2,12 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>Veasion</display-name>
   
+  <!-- 监听 -->
   <listener>
   	<listener-class>veasion.handle.VeasionListener</listener-class>
   </listener>
   
+  <!-- 过滤器 -->
   <filter>
   	<filter-name>VeasionFilter</filter-name>
   	<filter-class>veasion.handle.VeasionFilter</filter-class>
@@ -15,15 +17,17 @@
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
   
+  <!-- 请求中央处理器 -->
   <servlet>
   	<servlet-name>VeasionServlet</servlet-name>
-  	<servlet-class>veasion.control.VeasionServlet</servlet-class>
+  	<servlet-class>veasion.handle.VeasionServlet</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>VeasionServlet</servlet-name>
   	<url-pattern>*.vea</url-pattern>
   </servlet-mapping>
   
+  <!-- 首页 -->
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>

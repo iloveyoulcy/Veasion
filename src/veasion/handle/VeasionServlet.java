@@ -1,13 +1,18 @@
-package veasion.control;
+package veasion.handle;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONObject;
 import veasion.bean.StaticValue;
 
 
@@ -24,6 +29,7 @@ public class VeasionServlet extends HttpServlet{
 		String uri=request.getRequestURI();
 		String contextPath=request.getContextPath();
 		String vea=uri.replaceFirst(contextPath, "");
+		//匹配规则，/xxx/xx.vea
 		if(vea.matches("/.*(/.*){1}\\.vea")){
 			vea=vea.replaceFirst("/", "").replace(".vea", "").trim();
 			int index=vea.lastIndexOf("/");
@@ -41,20 +47,33 @@ public class VeasionServlet extends HttpServlet{
 			methodName=methodName.replaceFirst(".", String.valueOf(methodName.charAt(0)).toUpperCase());
 			className=StaticValue.CONTROL_PACKAGE_NAME+"."+className+StaticValue.CONTROL_CLASS_NAME;
 			Class c=null;
+			//反射找到对应control.veasion
 			try {
 				c = Class.forName(className);
 				Object obj=c.newInstance();
-				Field f1=c.getDeclaredField("request");
-				f1.setAccessible(true);
-				f1.set(obj,request);
-				Field f2=c.getDeclaredField("response");
-				f2.setAccessible(true);
-				f2.set(obj, response);
+				Field []fields=c.getDeclaredFields();
+				
+				//反射属性request，response和json数据
+				if(fields!=null&&fields.length>0){
+					for (Field f : fields) {
+						f.setAccessible(true);
+						if(f.getType().getName().endsWith("HttpServletRequest")){
+							f.set(obj,request);
+						}else if(f.getType().getName().endsWith("HttpServletResponse")){
+							f.set(obj, response);
+						}else if(f.getType().getName().endsWith("net.sf.json.JSONObject")){
+							f.set(obj, getParameterData(request));
+						}
+					}
+				}
+				
+				//反射对应类的对应方法
 				Method[] methods = c.getMethods();
 				boolean success=false;
 				for (int i = 0; i < methods.length; i++) {
 					Method method = methods[i];
 					if (method.getName().startsWith(methodName)) {
+						//调用对应方法
 						Object returnObj=method.invoke(obj);
 						if(returnObj==null){
 							success=true;
@@ -68,6 +87,7 @@ public class VeasionServlet extends HttpServlet{
 						}else{
 							int xgIndex=-1;
 							String mlStr="";
+							//url目录层级用../解决
 							while((xgIndex=vea.indexOf("/",xgIndex+1))!=-1){
 								mlStr+="../";
 							}
@@ -88,5 +108,16 @@ public class VeasionServlet extends HttpServlet{
 		}else{
 			response.sendError(404);
 		}
+	}
+	
+	/**分装请求数据*/
+	private JSONObject getParameterData(HttpServletRequest request){
+		Map<String, Object> map=new HashMap<>();
+		Enumeration<String> e=request.getParameterNames();
+		while(e.hasMoreElements()){
+			String element=e.nextElement();
+			map.put(element,request.getParameter(element));
+		}
+		return JSONObject.fromObject(map);
 	}
 }
