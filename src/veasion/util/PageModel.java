@@ -1,60 +1,74 @@
 package veasion.util;
 
 /**
- * ·ÖÒ³Model
+ * åˆ†é¡µModel
  * @author zhuowei.luo
  * @date 2017/5/7
  */
 public class PageModel {
 	
-	/**µ±Ç°Ò³Êı*/
+	/**å½“å‰é¡µæ•°*/
 	private int indexPage=1;
-	/**×î´óÒ³Êı*/
+	/**æœ€å¤§é¡µæ•°*/
 	private int maxPage;
-	/**Ã¿Ò³ÊıÁ¿*/
+	/**æ¯é¡µæ•°é‡*/
 	private int pageCount=10;
-	/**×Ü½á¹û*/
+	/**æ€»ç»“æœ*/
 	private int count;
 	
 	public PageModel(){};
 	
+	/**
+	 * åˆ†é¡µModel
+	 * @param indexPage å½“å‰é¡µæ•°
+	 * @param pageCount æ¯é¡µæ•°é‡
+	 */
 	public PageModel(int indexPage,int pageCount){
 		this.indexPage=indexPage;
 		this.pageCount=pageCount;
 	};
-	/**ÉÏÒ»Ò³*/
+	
+	/**ä¸Šä¸€é¡µ*/
 	public int getTopPage(){
 		return indexPage>1?indexPage-1:1;
 	}
-	/**ÏÂÒ»Ò³*/
+	
+	/**ä¸‹ä¸€é¡µ*/
 	public int getNextPage(){
 		return indexPage<maxPage?indexPage+1:maxPage;
 	}
-	/**µ±Ç°Ò³Êı*/
+	
+	/**å½“å‰é¡µæ•°*/
 	public int getIndexPage() {
 		return indexPage;
 	}
-	/**µ±Ç°Ò³Êı*/
+	
+	/**å½“å‰é¡µæ•°*/
 	public void setIndexPage(int indexPage) {
 		this.indexPage = indexPage;
 	}
-	/**×î´óÒ³Êı*/
+	
+	/**æœ€å¤§é¡µæ•°*/
 	public int getMaxPage() {
 		return (count-1)/pageCount+1;
 	}
-	/**Ã¿Ò³ÊıÁ¿*/
+	
+	/**æ¯é¡µæ•°é‡*/
 	public int getPageCount() {
 		return pageCount;
 	}
-	/**Ã¿Ò³ÊıÁ¿*/
+	
+	/**æ¯é¡µæ•°é‡*/
 	public void setPageCount(int pageCount) {
 		this.pageCount = pageCount;
 	}
-	/**×Ü½á¹û*/
+	
+	/**æ€»ç»“æœ*/
 	public int getCount() {
 		return count;
 	}
-	/**×Ü½á¹û*/
+	
+	/**æ€»ç»“æœ*/
 	public void setCount(int count) {
 		maxPage=(count-1)/pageCount+1;
 		this.count = count;

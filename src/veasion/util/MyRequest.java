@@ -5,6 +5,11 @@ import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
+/**
+ * 处理Get请求编码的Request.
+ * @author zhuowei.luo
+ * @date 2017/5/7 
+ */
 public class MyRequest extends HttpServletRequestWrapper{
 
 	public MyRequest(HttpServletRequest request) {

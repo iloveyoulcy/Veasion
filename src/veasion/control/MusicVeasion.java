@@ -8,12 +8,19 @@ import javax.servlet.http.HttpServletResponse;
 import veasion.bean.StaticValue;
 
 /**
- * ÒôÀÖÇëÇó´¦Àí.
+ * éŸ³ä¹è¯·æ±‚å¤„ç†.
  * @author zhuowei.luo
  */
 public class MusicVeasion {
+	/**
+	 * è¯·æ±‚Request. 
+	 */
 	public HttpServletRequest request;
+	/**
+	 * å“åº”Response. 
+	 */
 	public HttpServletResponse response;
+	
 	
 	public String Veasion(){
 		request.setAttribute("count", StaticValue.ON_LINE);

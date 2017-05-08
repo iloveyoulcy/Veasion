@@ -3,13 +3,17 @@ package veasion.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import net.sf.json.JSONObject;
 
-public class TextUtil {
+/**
+ * æ–¹æ³•å¸®åŠ©ç±».
+ * @author zhuowei.luo
+ * @date 2017/5/7
+ */
+public class VeasionUtil {
 	
 	/**
-	 * »ñÈ¡ JSONObjectµÄKey
+	 * è·å– JSONObjectçš„Key
 	 * @return keys
 	 */
 	public static List<String> getKeys(JSONObject json){
@@ -21,7 +25,7 @@ public class TextUtil {
 		return list;
 	}
 	/**
-	 * ¸ù¾İkeys»ñÈ¡ JSONObjectÖĞ¶ÔÓ¦values
+	 * æ ¹æ®keysè·å– JSONObjectä¸­å¯¹åº”values
 	 * @return values
 	 */
 	public static Object[] getValues(JSONObject json,List<String> keys){
@@ -32,8 +36,8 @@ public class TextUtil {
 		return values;
 	}
 	/**
-	 * Á¬½ÓlistÖĞµÄ×Ö·û´®
-	 * @param joinStr:Á¬½Ó·û 
+	 * è¿æ¥listä¸­çš„å­—ç¬¦ä¸²
+	 * @param joinStr:è¿æ¥ç¬¦ 
 	 */
 	public static StringBuilder getKeys(List<String> list,String joinStr){
 		if(list==null)return null;
@@ -46,8 +50,8 @@ public class TextUtil {
 		return sb;
 	}
 	/**
-	 * »ñÈ¡JSONObjectµÄkeys
-	 * @param joinStr:Á¬½Ó·û 
+	 * è·å–JSONObjectçš„keys
+	 * @param joinStr:è¿æ¥ç¬¦ 
 	 */
 	public static StringBuilder getKeys(JSONObject json,String joinStr){
 		if(json==null)return null;
@@ -63,10 +67,10 @@ public class TextUtil {
 	}
 	
 	/**
-	 * Á¬½Ó·û
-	 * @param symbol:Á¬½ÓµÄ×Ö·û
-	 * @param joinStr:ÖĞ¼äÁ¬½Ó·û
-	 * @param count:¸öÊı
+	 * è¿æ¥ç¬¦
+	 * @param symbol:è¿æ¥çš„å­—ç¬¦
+	 * @param joinStr:ä¸­é—´è¿æ¥ç¬¦
+	 * @param count:ä¸ªæ•°
 	 */
 	public static StringBuilder getSymbol(String symbol,String joinStr,int count){
 		StringBuilder sb=new StringBuilder();
@@ -79,7 +83,7 @@ public class TextUtil {
 	}
 	
 	/**
-	 * °´Ë³Ğò×éºÏÁ½¸öObject[] 
+	 * æŒ‰é¡ºåºç»„åˆä¸¤ä¸ªObject[] 
 	 */
 	public static Object[] joinObject(Object []obj1,Object []obj2){
 		Object []obj=new Object[obj1.length+obj2.length];
@@ -101,7 +105,7 @@ public class TextUtil {
 		return obj;
 	}
 	
-	/**×ªÒåµ¥ÒıºÅºÍË«ÒıºÅ*/
+	/**è½¬ä¹‰å•å¼•å·å’ŒåŒå¼•å·*/
 	public static String replace(String str){
 		if(str==null||"".equals(str.trim()))
 			return str;

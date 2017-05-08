@@ -8,11 +8,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import veasion.bean.StaticValue;
 
+
 /**
- * ÇëÇóÖĞÑë´¦ÀíÆ÷
+ * è¯·æ±‚ä¸­å¤®å¤„ç†å™¨
  * @author zhuowei.luo
  * @date 2017/5/7 
  */

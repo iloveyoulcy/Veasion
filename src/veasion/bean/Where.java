@@ -3,25 +3,32 @@ package veasion.bean;
 import veasion.dao.JoinSql;
 
 /**
- * ����
+ * 条件
  * @author zhuowei.luo
  * @date 2017/5/7 
  */
 public class Where {
 	
-	/**�ֶ���*/
+	/**字段名*/
 	private String column;
-	/**���ӷ�*/
+	/**连接符*/
 	private JoinSql joinSql;
-	/**ֵ*/
+	/**值*/
 	private Object value;
 	
+	/**
+	 * 条件
+	 * @param column 条件字段
+	 * @param joinSql 连接符
+	 * @param value 条件值
+	 */
 	public Where(String column,JoinSql joinSql,Object value){
 		this.column=column;
 		this.joinSql=joinSql;
 		this.value=value;
 	}
 	
+	/**获取占位符的SQL，如 xxx=?*/
 	public StringBuilder getSQL(){
 		StringBuilder sql=new StringBuilder();
 		sql.append(column);
@@ -53,6 +60,7 @@ public class Where {
 		return sql;
 	}
 	
+	/**获取条件值（占位符的值）*/
 	public Object getValue() {
 		return value;
 	}

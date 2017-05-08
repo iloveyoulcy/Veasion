@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import veasion.util.MyRequest;
 
 /**
- * ±àÂë¹ıÂËÆ÷
+ * ç¼–ç è¿‡æ»¤å™¨
  * @author zhuowei.luo
  * @date 2017/5/7 
  */
@@ -23,7 +23,7 @@ public class VeasionFilter implements Filter{
 	@Override
 	public void destroy() {}
 	@Override
-	public void init(FilterConfig arg0) throws ServletException {}
+	public void init(FilterConfig config) throws ServletException {}
 	
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)

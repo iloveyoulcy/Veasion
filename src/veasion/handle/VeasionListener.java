@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSessionListener;
 import veasion.bean.StaticValue;
 
 /**
- * 统计在线人数
+ * Session浼氳瘽鐩戝惉
  * @author zhuowei.luo
  * @date 2017/5/7
  */
@@ -14,7 +14,8 @@ public class VeasionListener implements HttpSessionListener{
 	
 	@Override
 	public void sessionCreated(HttpSessionEvent arg0) {
-		//当一个浏览器访问时tomcat会创建一个session
+		//缁熻鍦ㄧ嚎浜烘暟
+		//褰撲竴涓祻瑙堝櫒璁块棶鏃禩omcat浼氬垱寤轰竴涓猻ession
 		if(StaticValue.ON_LINE!=null)
 			StaticValue.ON_LINE++;
 		else
@@ -23,7 +24,7 @@ public class VeasionListener implements HttpSessionListener{
 
 	@Override
 	public void sessionDestroyed(HttpSessionEvent arg0) {
-		//会话结束
+		//浼氳瘽缁撴潫
 		if(StaticValue.ON_LINE!=null&&StaticValue.ON_LINE>0)
 			StaticValue.ON_LINE--;
 	}

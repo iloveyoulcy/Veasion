@@ -3,17 +3,20 @@ package veasion.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.log4j.Logger;
-
 import net.sf.json.JSONObject;
 import veasion.bean.StaticValue;
 import veasion.bean.Where;
 import veasion.dao.JdbcDao;
 import veasion.service.BeanService;
 import veasion.util.PageModel;
-import veasion.util.TextUtil;
+import veasion.util.VeasionUtil;
 
+/**
+ * 基本数据操作Service实现类 For Mysql.
+ * @author zhuowei.luo
+ * @date 2017/5/7
+ */
 public class BeanServieImpl implements BeanService{
 	/**
 	 * Logger. 
@@ -24,10 +27,14 @@ public class BeanServieImpl implements BeanService{
 	 */
 	JdbcDao dao=new JdbcDao();
 	/**
-	 * ����
+	 * 表名
 	 */
 	private String tableName;
 	
+	/**
+	 * 基本数据操作Service实现类 For Mysql.
+	 * @param tableName 数据表名
+	 */
 	public BeanServieImpl(final String tableName){
 		this.tableName=tableName;
 	};
@@ -35,33 +42,33 @@ public class BeanServieImpl implements BeanService{
 	
 	@Override
 	public final int Add(JSONObject json) {
-		List<String> keys=TextUtil.getKeys(json);
+		List<String> keys=VeasionUtil.getKeys(json);
 		StringBuilder sql=new StringBuilder();
 		sql.append("INSERT INTO ").append(tableName);
 		sql.append("(");
-		sql.append(TextUtil.getKeys(keys, ","));
+		sql.append(VeasionUtil.getKeys(keys, ","));
 		sql.append(") ");
 		sql.append("VALUES(");
-		sql.append(TextUtil.getSymbol("?", ",", keys.size()));
+		sql.append(VeasionUtil.getSymbol("?", ",", keys.size()));
 		sql.append(")");
 		if(StaticValue.PRINT_SQL)
 			System.out.println(sql);
-		return dao.executeInsert(sql.toString(),TextUtil.getValues(json, keys));
+		return dao.executeInsert(sql.toString(),VeasionUtil.getValues(json, keys));
 	}
 	
 	@Override
 	public final int Update(JSONObject setJson,JSONObject whereJson) {
-		List<String> setKeys=TextUtil.getKeys(setJson);
-		List<String> whereKeys=TextUtil.getKeys(whereJson);
+		List<String> setKeys=VeasionUtil.getKeys(setJson);
+		List<String> whereKeys=VeasionUtil.getKeys(whereJson);
 		StringBuilder sql=new StringBuilder();
 		sql.append("UPDATE ").append(tableName).append(" SET ");
-		sql.append(TextUtil.getKeys(setKeys, "=?,"));
+		sql.append(VeasionUtil.getKeys(setKeys, "=?,"));
 		sql.append("=? ").append("WHERE ");
-		sql.append(TextUtil.getKeys(whereKeys, "=? AND "));
+		sql.append(VeasionUtil.getKeys(whereKeys, "=? AND "));
 		sql.append("=?");
-		Object[]values=TextUtil.joinObject(
-				TextUtil.getValues(setJson, setKeys), 
-				TextUtil.getValues(whereJson, whereKeys)
+		Object[]values=VeasionUtil.joinObject(
+				VeasionUtil.getValues(setJson, setKeys), 
+				VeasionUtil.getValues(whereJson, whereKeys)
 				);
 		if(StaticValue.PRINT_SQL)
 			System.out.println(sql);
@@ -92,10 +99,10 @@ public class BeanServieImpl implements BeanService{
 		sql.append(tableName);
 		if(sqls.size()>0)
 			sql.append(" WHERE ");
-		sql.append(TextUtil.getKeys(sqls, " AND "));
+		sql.append(VeasionUtil.getKeys(sqls, " AND "));
 		if(StaticValue.PRINT_SQL)
 			System.out.println(sql);
-		Object result=dao.QueryOnly(sql.toString(), TextUtil.getObjectByList(values));
+		Object result=dao.QueryOnly(sql.toString(), VeasionUtil.getObjectByList(values));
 		int count=0;
 		if(result==null){
 			count=-1;
@@ -133,10 +140,10 @@ public class BeanServieImpl implements BeanService{
 		sql.append("SELECT * FROM ").append(tableName);
 		if(sqls.size()>0)
 			sql.append(" WHERE ");
-		sql.append(TextUtil.getKeys(sqls, " AND "));
+		sql.append(VeasionUtil.getKeys(sqls, " AND "));
 		if(StaticValue.PRINT_SQL)
 			System.out.println(sql);
-		return dao.Query(sql.toString(), TextUtil.getObjectByList(values));
+		return dao.Query(sql.toString(), VeasionUtil.getObjectByList(values));
 	}
 	
 	@Override
@@ -151,12 +158,12 @@ public class BeanServieImpl implements BeanService{
 		sql.append("SELECT * FROM ").append(tableName);
 		if(sqls.size()>0)
 			sql.append(" WHERE ");
-		sql.append(TextUtil.getKeys(sqls, " AND "));
+		sql.append(VeasionUtil.getKeys(sqls, " AND "));
 		String countSQL=sql.toString().replace("*", "COUNT(*)");
 		sql.append(" LIMIT ?,?");
 		if(StaticValue.PRINT_SQL)
 			System.out.println(countSQL);
-		Object countObj=dao.QueryOnly(countSQL, TextUtil.getObjectByList(values));
+		Object countObj=dao.QueryOnly(countSQL, VeasionUtil.getObjectByList(values));
 		if(countObj!=null){
 			pm.setCount(Integer.parseInt(String.valueOf(countObj)));
 		}
@@ -166,7 +173,7 @@ public class BeanServieImpl implements BeanService{
 		values.add((indexPage-1)*pageCount+pageCount);
 		if(StaticValue.PRINT_SQL)
 			System.out.println(sql);
-		return dao.Query(sql.toString(), TextUtil.getObjectByList(values));
+		return dao.Query(sql.toString(), VeasionUtil.getObjectByList(values));
 	}
 	
 }

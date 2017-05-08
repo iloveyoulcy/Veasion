@@ -1,20 +1,21 @@
 package veasion.bean;
 
 /**
- * È«¾Ö±äÁ¿
+ * å…¨å±€å˜é‡
  * @author zhuowei.luo
  * @date 2017/5/7 
  */
 public class StaticValue {
 	
-	/**ÔÚÏßÈËÊı*/
+	/**åœ¨çº¿äººæ•°*/
 	public static Integer ON_LINE;
-	/**´òÓ¡SQL*/
+	/**æ‰“å°SQL*/
 	public static boolean PRINT_SQL=false;
-	/**control°üÃû*/
+	/**controlåŒ…å*/
 	public static final String CONTROL_PACKAGE_NAME="veasion.control";
-	/**control.ClassÃüÃû*/
+	/**control.Classå‘½å*/
 	public static final String CONTROL_CLASS_NAME="Veasion";
-	/**ÖØ¶¨Ïò¹æÔò*/
+	/**é‡å®šå‘è§„åˆ™*/
 	public static final String REDIRECT="redirect:";
+	
 }

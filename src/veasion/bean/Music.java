@@ -1,25 +1,25 @@
 package veasion.bean;
 
 /**
- * 音乐
+ * 闊充箰
  * @author zhuowei.luo
  * @date 2017/5/7 
  */
 public class Music {
 	
-	/**表名*/
+	/**琛ㄥ悕*/
 	public static final String tableName="veasion_music";
-	/**id，int*/
+	/**id锛宨nt*/
 	public static final String id="id";
-	/**歌名，varchar*/
+	/**姝屽悕锛寁archar*/
 	public static final String name="name";
-	/**url，varchar*/
+	/**url锛寁archar*/
 	public static final String url="url";
-	/**歌手，varchar*/
+	/**姝屾墜锛寁archar*/
 	public static final String singer="singer";
-	/**来源，varchar*/
+	/**鏉ユ簮锛寁archar*/
 	public static final String source="source";
-	/**播放次数，int*/
+	/**鎾斁娆℃暟锛宨nt*/
 	public static final String click="click";
 	
 }

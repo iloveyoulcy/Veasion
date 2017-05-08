@@ -8,59 +8,59 @@ import veasion.bean.Where;
 import veasion.util.PageModel;
 
 /**
- * »ù±¾Êı¾İ²Ù×÷Service
+ * åŸºæœ¬æ•°æ®æ“ä½œService
  * @author zhuowei.luo
  * @date 2017/5/7 
  */
 public interface BeanService {
 	
 	/**
-	 * Ôö¼Ó
-	 * @param json ²åÈëµÄ×Ö¶ÎºÍÖµ
-	 * @return ×ÔÔö³¤id
+	 * å¢åŠ 
+	 * @param json æ’å…¥çš„å­—æ®µå’Œå€¼
+	 * @return è‡ªå¢é•¿id
 	 */
 	public int Add(JSONObject json);
 	
 	/**
-	 * ĞŞ¸Ä
-	 * @param setJson ½«Òª±»ĞŞ¸ÄµÄ×Ö¶ÎºÍÖµ
-	 * @param whereJson Ìõ¼şµÄ×Ö¶ÎºÍÖµ
+	 * ä¿®æ”¹
+	 * @param setJson å°†è¦è¢«ä¿®æ”¹çš„å­—æ®µå’Œå€¼
+	 * @param whereJson æ¡ä»¶çš„å­—æ®µå’Œå€¼
 	 */
 	public int Update(JSONObject setJson,JSONObject whereJson);
 	
 	/**
-	 * ¸ù¾İid£¬Ö÷¼üÉ¾³ı
-	 * @param column Ìõ¼ş×Ö¶ÎÃû
-	 * @param value Ìõ¼şÖµ
+	 * æ ¹æ®idï¼Œä¸»é”®åˆ é™¤
+	 * @param column æ¡ä»¶å­—æ®µå
+	 * @param value æ¡ä»¶å€¼
 	 */
 	public int Delete(String column,Object value);
 	
 	/**
 	 * Count
-	 * @param wheres Ìõ¼şºÍÖµ
-	 * @return nullÎª-1£¬ÆäËûÎª>=0
+	 * @param wheres æ¡ä»¶å’Œå€¼
+	 * @return nullä¸º-1ï¼Œå…¶ä»–ä¸º>=0
 	 */
 	public int Count(List<Where> wheres);
 	
 	/**
-	 * ¸ù¾İid£¬Ö÷¼ü²éÑ¯
-	 * @param column Ìõ¼ş×Ö¶Î
-	 * @param value Ìõ¼şÖµ
-	 * @return Ö»·µ»ØµÚÒ»ÌõÊı¾İ
+	 * æ ¹æ®idï¼Œä¸»é”®æŸ¥è¯¢
+	 * @param column æ¡ä»¶å­—æ®µ
+	 * @param value æ¡ä»¶å€¼
+	 * @return åªè¿”å›ç¬¬ä¸€æ¡æ•°æ®
 	 */
 	public Map<String,Object> QueryById(String column,Object value);
 	
 	/**
-	 * ²éÑ¯
-	 * @param wheres Ìõ¼ş×Ö¶ÎºÍÖµ
+	 * æŸ¥è¯¢
+	 * @param wheres æ¡ä»¶å­—æ®µå’Œå€¼
 	 */
 	public List<Map<String, Object>> Query(List<Where> wheres);
 	
 	/**
-	 * ·ÖÒ³²éÑ¯
-	 * @param wheres Ìõ¼ş×Ö¶ÎºÍÖµ
-	 * @param pm ·ÖÒ³Model
-	 * @return ×Ô¶¯Ìî³äPageModelµÄcountºÍmaxPage£¬·µ»Ø½á¹û¼¯
+	 * åˆ†é¡µæŸ¥è¯¢
+	 * @param wheres æ¡ä»¶å­—æ®µå’Œå€¼
+	 * @param pm åˆ†é¡µModel
+	 * @return è‡ªåŠ¨å¡«å……PageModelçš„countå’ŒmaxPageï¼Œè¿”å›ç»“æœé›†
 	 */
 	public List<Map<String, Object>> Query(List<Where> wheres,PageModel pm);
 	

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * JDBCæ“ä½œæ•°æ®åº“.
  * @author zhuowei.luo
  * @date 2017/5/7
  */
@@ -32,7 +33,7 @@ public class JdbcDao {
 		}
 	}
 	
-	/**»ñÈ¡ConnectionÁ¬½Ó*/
+	/**è·å–Connectionè¿æ¥*/
 	public Connection getConnection(){
 		Connection conn = null;
 		try {
@@ -43,7 +44,7 @@ public class JdbcDao {
 		return conn;
 	}
 	
-	/**¹Ø±ÕËùÓĞÁ¬½Ó*/
+	/**å…³é—­æ‰€æœ‰è¿æ¥*/
 	public void closeAll(Connection conn, Statement ps, ResultSet rs){
 		try {
 			if(rs!=null) rs.close();
@@ -56,7 +57,7 @@ public class JdbcDao {
 		} catch (SQLException e) { e.printStackTrace(); }
 	}
 
-	/**Ö´ĞĞÔöÉ¾¸Ä*/
+	/**æ‰§è¡Œå¢åˆ æ”¹*/
 	public int executeUpdate(String sql, Object[] obj){
 		int count = 0;
 		Connection conn = null;
@@ -78,7 +79,7 @@ public class JdbcDao {
 		return count;
 	}
 	
-	/**Ö´ĞĞInsert£¬·µ»Ø×ÔÔö³¤id*/
+	/**æ‰§è¡ŒInsertï¼Œè¿”å›è‡ªå¢é•¿id*/
 	public int executeInsert(String sql, Object[] obj){
 		int id = 0;
 		Connection conn = null;
@@ -111,7 +112,7 @@ public class JdbcDao {
 		return id;
 	}
 	
-	/**Í¨¹ısql²éÑ¯,·µ»ØMap,KeyÊÇ×Ö¶ÎÃû£¬ValueÊÇÖµ*/
+	/**é€šè¿‡sqlæŸ¥è¯¢,è¿”å›Map,Keyæ˜¯å­—æ®µåï¼ŒValueæ˜¯å€¼*/
 	public List<Map<String, Object>> Query(final String sql,Object []obj){
 		List<Map<String, Object>> list=new ArrayList<>();
 		Map<String,Object> map=null;
@@ -145,7 +146,7 @@ public class JdbcDao {
 		return list;
 	}
 	
-	/**»ñÈ¡µ¥¸öÖµ**/
+	/**è·å–å•ä¸ªå€¼**/
 	public Object QueryOnly(final String sql,Object []obj){
 		Object value=null;
 		Connection conn=null;
