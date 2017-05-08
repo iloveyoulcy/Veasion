@@ -78,7 +78,49 @@ public class BeanServieImpl implements BeanService{
 			System.out.println(sql);
 		return dao.executeUpdate(sql.toString(), new Object[]{value});
 	}
-
+	
+	@Override
+	public int Count(List<Where> wheres) {
+		List<String> sqls=new ArrayList<>();
+		List<Object> values=new ArrayList<>();
+		for (Where w : wheres) {
+			sqls.add(w.getSQL().toString());
+			values.add(w.getValue());
+		}
+		StringBuilder sql=new StringBuilder();
+		sql.append("SELECT COUNT(*) FROM ");
+		sql.append(tableName);
+		if(sqls.size()>0)
+			sql.append(" WHERE ");
+		sql.append(TextUtil.getKeys(sqls, " AND "));
+		if(StaticValue.PRINT_SQL)
+			System.out.println(sql);
+		Object result=dao.QueryOnly(sql.toString(), TextUtil.getObjectByList(values));
+		int count=0;
+		if(result==null){
+			count=-1;
+		}else{
+			try{
+				count=Integer.parseInt(result.toString());
+			}catch(Exception e){count=-1;}
+		}
+		return count;
+	}
+	
+	@Override
+	public Map<String, Object> QueryById(String column, Object value) {
+		StringBuilder sql=new StringBuilder();
+		sql.append("SELECT * FROM ").append(tableName);
+		sql.append(" WHERE ").append(column);
+		sql.append(" =? ");
+		if(StaticValue.PRINT_SQL)
+			System.out.println(sql);
+		List<Map<String, Object>> result=dao.Query(sql.toString(), new Object[]{value});
+		if(result==null||result.size()<1)
+			return null;
+		return result.get(0);
+	}
+	
 	@Override
 	public List<Map<String, Object>> Query(List<Where> wheres) {
 		List<String> sqls=new ArrayList<>();

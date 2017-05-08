@@ -26,6 +26,12 @@ public interface BeanService {
 	/**删除*/
 	public int Delete(String column,Object value);
 	
+	/**Count*/
+	public int Count(List<Where> wheres);
+	
+	/**根据id，主键查询，只返回第一条数据*/
+	public Map<String,Object> QueryById(String column,Object value);
+	
 	/**查询*/
 	public List<Map<String, Object>> Query(List<Where> wheres);
 	
