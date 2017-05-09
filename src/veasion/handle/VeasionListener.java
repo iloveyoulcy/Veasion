@@ -1,16 +1,20 @@
 package veasion.handle;
 
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
-
 import veasion.bean.StaticValue;
+import veasion.util.ConfigUtil;
+import veasion.util.VeasionUtil;
 
 /**
- * Session会话监听
+ * 监听器
  * @author zhuowei.luo
  * @date 2017/5/7
  */
-public class VeasionListener implements HttpSessionListener{
+public class VeasionListener implements HttpSessionListener,ServletContextListener{
 	
 	@Override
 	public void sessionCreated(HttpSessionEvent arg0) {
@@ -20,6 +24,7 @@ public class VeasionListener implements HttpSessionListener{
 			StaticValue.ON_LINE++;
 		else
 			StaticValue.ON_LINE=1;
+		System.out.println("-------"+StaticValue.ON_LINE);
 	}
 
 	@Override
@@ -27,6 +32,17 @@ public class VeasionListener implements HttpSessionListener{
 		//会话结束
 		if(StaticValue.ON_LINE!=null&&StaticValue.ON_LINE>0)
 			StaticValue.ON_LINE--;
+	}
+
+	@Override
+	public void contextDestroyed(ServletContextEvent arg0) {
+		System.out.println("停用~\n");
+	}
+
+	@Override
+	public void contextInitialized(ServletContextEvent arg0) {
+		System.out.println(ConfigUtil.getProperty("Hello"));
+		System.out.println(VeasionUtil.getDate("yyyy-MM-dd HH:mm:ss"));
 	}
 	
 }

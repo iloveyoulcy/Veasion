@@ -1,6 +1,8 @@
 package veasion.util;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import net.sf.json.JSONObject;
@@ -115,4 +117,19 @@ public class VeasionUtil {
 			str = str.replaceAll("\"", "\\\\\"");
 		return str;
 	}
+	
+	/**获取当前时间*/
+	public static String getDate(String pattern){
+		return getDate(new Date(),pattern);
+	}
+	
+	/**
+	 * 时间转换
+	 * @param date 时间
+	 * @param pattern 格式
+	 */
+	public static String getDate(Date date,String pattern){
+		return new SimpleDateFormat(pattern).format(date);
+	}
+	
 }
