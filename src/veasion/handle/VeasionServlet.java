@@ -72,7 +72,20 @@ public class VeasionServlet extends HttpServlet{
 				boolean success=false;
 				for (int i = 0; i < methods.length; i++) {
 					Method method = methods[i];
-					if (method.getName().startsWith(methodName)) {
+					if (method.getName().toLowerCase().startsWith(methodName.toLowerCase())) {
+						//查找看有没有同名开头的，有就匹配最长的
+						int methodIndex=i,maxLen=method.getName().length();
+						for (int j = 0; j < methods.length; j++) {
+							Method method2 = methods[j];
+							if (method2.getName().toLowerCase().startsWith(methodName.toLowerCase()) 
+									&& method2.getName().length()>maxLen){
+								methodIndex=j;
+							}
+						}
+						//有同名开头的方法就匹配最长的
+						if(methodIndex!=i){
+							method = methods[methodIndex];
+						}
 						//调用对应方法
 						Object returnObj=method.invoke(obj);
 						if(returnObj==null){

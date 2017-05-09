@@ -1,5 +1,7 @@
 package veasion.bean;
 
+import javax.swing.filechooser.FileSystemView;
+
 import veasion.util.ConfigUtil;
 
 /**
@@ -21,6 +23,8 @@ public class StaticValue {
 	public static final String CONTROL_CLASS_NAME="Veasion";
 	/**重定向规则*/
 	public static final String REDIRECT="redirect:";
+	/**获取桌面路径*/
+	public static String HOME_PATH = FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath();
 	
 	static{
 		try{
