@@ -44,4 +44,22 @@ public class ConfigUtil {
 		}
 	}
 	
+	/**
+	 * 根据key获取值. 
+	 * @param defaultValue 如果没有或报错就返回该默认值.
+	 */
+	public static String getProperty(String key,String defaultValue){
+		String value=null;
+		if(p!=null){
+			try {
+				value=p.getProperty(key);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else{
+			System.err.println(CONFIG_NAME+"，加载异常！");
+		}
+		return value!=null?value:defaultValue;
+	}
+	
 }

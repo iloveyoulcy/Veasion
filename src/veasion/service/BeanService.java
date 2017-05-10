@@ -24,7 +24,7 @@ public interface BeanService {
 	/**
 	 * 修改
 	 * @param setJson 将要被修改的字段和值
-	 * @param whereJson 条件的字段和值
+	 * @param whereJson 条件的字段和值，不能为空
 	 */
 	public int Update(JSONObject setJson,JSONObject whereJson);
 	
@@ -37,7 +37,7 @@ public interface BeanService {
 	
 	/**
 	 * Count
-	 * @param wheres 条件和值
+	 * @param wheres 条件和值，可空
 	 * @return null为-1，其他为>=0
 	 */
 	public int Count(List<Where> wheres);
@@ -52,13 +52,13 @@ public interface BeanService {
 	
 	/**
 	 * 查询
-	 * @param wheres 条件字段和值
+	 * @param wheres 条件字段和值，可空
 	 */
 	public List<Map<String, Object>> Query(List<Where> wheres);
 	
 	/**
 	 * 分页查询
-	 * @param wheres 条件字段和值
+	 * @param wheres 条件字段和值，可空
 	 * @param pm 分页Model
 	 * @return 自动填充PageModel的count和maxPage，返回结果集
 	 */

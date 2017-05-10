@@ -3,6 +3,10 @@ package veasion.control;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
+import veasion.bean.Music;
+import veasion.service.BeanService;
+import veasion.service.impl.MysqlServieImpl;
+import veasion.util.PageModel;
 
 /**
  * 音乐请求处理.
@@ -21,7 +25,10 @@ public class MusicVeasion{
 	 * 数据JSONObject. 
 	 */
 	public JSONObject json;
-	
+	/**
+	 *  Service
+	 */
+	public BeanService service=new MysqlServieImpl(Music.tableName);
 	
 	public String Veasion(){
 		

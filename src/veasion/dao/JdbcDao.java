@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import veasion.bean.StaticValue;
+import veasion.util.ConfigUtil;
+
 /**
  * JDBC操作数据库.
  * @author zhuowei.luo
@@ -19,16 +22,19 @@ import java.util.Map;
  */
 public class JdbcDao {
 	
-	private  final String JDBC_URL="jdbc:mysql://localhost:3306/solo?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull";
-	private static final String DRIVER="com.mysql.jdbc.Driver";
-	private  final String USER_NAME="root";
-	private  final String USER_PWD="root";
-	
+	private static String JDBC_URL;
+	private static String DRIVER;
+	private static String USER_NAME;
+	private static String USER_PWD;
 	
 	static{
 		try {
+			JDBC_URL=ConfigUtil.getProperty(StaticValue.SQL_JDBC_URL);
+			DRIVER=ConfigUtil.getProperty(StaticValue.SQL_DRIVER);
+			USER_NAME=ConfigUtil.getProperty(StaticValue.SQL_USER_NAME);
+			USER_PWD=ConfigUtil.getProperty(StaticValue.SQL_USER_PWD);
 			Class.forName(DRIVER);
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

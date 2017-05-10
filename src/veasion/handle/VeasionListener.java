@@ -24,7 +24,8 @@ public class VeasionListener implements HttpSessionListener,ServletContextListen
 			StaticValue.ON_LINE++;
 		else
 			StaticValue.ON_LINE=1;
-		System.out.println("-------"+StaticValue.ON_LINE);
+		if(StaticValue.PRINT_ON_LINE)
+			System.out.println("在线人数："+StaticValue.ON_LINE+"\n"+VeasionUtil.getDate("yyyy-MM-dd HH:mm:ss"));
 	}
 
 	@Override
@@ -32,6 +33,8 @@ public class VeasionListener implements HttpSessionListener,ServletContextListen
 		//会话结束
 		if(StaticValue.ON_LINE!=null&&StaticValue.ON_LINE>0)
 			StaticValue.ON_LINE--;
+		if(StaticValue.PRINT_ON_LINE)
+			System.out.println("在线人数："+StaticValue.ON_LINE+"\n"+VeasionUtil.getDate("yyyy-MM-dd HH:mm:ss"));
 	}
 
 	@Override
@@ -41,7 +44,7 @@ public class VeasionListener implements HttpSessionListener,ServletContextListen
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		System.out.println(ConfigUtil.getProperty("Hello"));
+		System.out.println(ConfigUtil.getProperty("Hello","欢迎使用！--Veasion"));
 		System.out.println(VeasionUtil.getDate("yyyy-MM-dd HH:mm:ss"));
 	}
 	

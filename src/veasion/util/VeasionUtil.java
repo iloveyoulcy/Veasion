@@ -107,14 +107,16 @@ public class VeasionUtil {
 		return obj;
 	}
 	
-	/**转义单引号和双引号*/
+	/**转义单引号，双引号和斜杠*/
 	public static String replace(String str){
 		if(str==null||"".equals(str.trim()))
 			return str;
+		if(str.indexOf("\\")>=0)
+			str=str.replace("\\", "\\\\");
 		if (str.indexOf("'") >= 0)
 			str = str.replaceAll("'", "\\\\'");
 		if (str.indexOf("\"") >= 0)
-			str = str.replaceAll("\"", "\\\\\"");
+			str = str.replace("\"", "\\\\\"");
 		return str;
 	}
 	

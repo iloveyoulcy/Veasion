@@ -17,11 +17,11 @@ import veasion.util.VeasionUtil;
  * @author zhuowei.luo
  * @date 2017/5/7
  */
-public class BeanServieImpl implements BeanService{
+public class MysqlServieImpl implements BeanService{
 	/**
 	 * Logger. 
 	 */
-	private final Logger LOGGER=Logger.getLogger(BeanServieImpl.class);
+	private final Logger LOGGER=Logger.getLogger(MysqlServieImpl.class);
 	/**
 	 * JDBC. 
 	 */
@@ -31,11 +31,14 @@ public class BeanServieImpl implements BeanService{
 	 */
 	private String tableName;
 	
+	/**打印SQL前缀*/
+	private final String printSQL="SQL:\n\t";
+	
 	/**
 	 * 基本数据操作Service实现类 For Mysql.
 	 * @param tableName 数据表名
 	 */
-	public BeanServieImpl(final String tableName){
+	public MysqlServieImpl(final String tableName){
 		this.tableName=tableName;
 	};
 	
@@ -52,7 +55,7 @@ public class BeanServieImpl implements BeanService{
 		sql.append(VeasionUtil.getSymbol("?", ",", keys.size()));
 		sql.append(")");
 		if(StaticValue.PRINT_SQL)
-			System.out.println(sql);
+			System.out.println(printSQL+sql);
 		return dao.executeInsert(sql.toString(),VeasionUtil.getValues(json, keys));
 	}
 	
@@ -71,7 +74,7 @@ public class BeanServieImpl implements BeanService{
 				VeasionUtil.getValues(whereJson, whereKeys)
 				);
 		if(StaticValue.PRINT_SQL)
-			System.out.println(sql);
+			System.out.println(printSQL+sql);
 		return dao.executeUpdate(sql.toString(),values);
 	}
 
@@ -82,7 +85,7 @@ public class BeanServieImpl implements BeanService{
 		sql.append(" WHERE ").append(column);
 		sql.append("=?");
 		if(StaticValue.PRINT_SQL)
-			System.out.println(sql);
+			System.out.println(printSQL+sql);
 		return dao.executeUpdate(sql.toString(), new Object[]{value});
 	}
 	
@@ -90,9 +93,11 @@ public class BeanServieImpl implements BeanService{
 	public int Count(List<Where> wheres) {
 		List<String> sqls=new ArrayList<>();
 		List<Object> values=new ArrayList<>();
-		for (Where w : wheres) {
-			sqls.add(w.getSQL().toString());
-			values.add(w.getValue());
+		if(wheres!=null){
+			for (Where w : wheres) {
+				sqls.add(w.getSQL().toString());
+				values.add(w.getValue());
+			}
 		}
 		StringBuilder sql=new StringBuilder();
 		sql.append("SELECT COUNT(*) FROM ");
@@ -101,7 +106,7 @@ public class BeanServieImpl implements BeanService{
 			sql.append(" WHERE ");
 		sql.append(VeasionUtil.getKeys(sqls, " AND "));
 		if(StaticValue.PRINT_SQL)
-			System.out.println(sql);
+			System.out.println(printSQL+sql);
 		Object result=dao.QueryOnly(sql.toString(), VeasionUtil.getObjectByList(values));
 		int count=0;
 		if(result==null){
@@ -121,7 +126,7 @@ public class BeanServieImpl implements BeanService{
 		sql.append(" WHERE ").append(column);
 		sql.append(" =? ");
 		if(StaticValue.PRINT_SQL)
-			System.out.println(sql);
+			System.out.println(printSQL+sql);
 		List<Map<String, Object>> result=dao.Query(sql.toString(), new Object[]{value});
 		if(result==null||result.size()<1)
 			return null;
@@ -132,9 +137,11 @@ public class BeanServieImpl implements BeanService{
 	public List<Map<String, Object>> Query(List<Where> wheres) {
 		List<String> sqls=new ArrayList<>();
 		List<Object> values=new ArrayList<>();
-		for (Where w : wheres) {
-			sqls.add(w.getSQL().toString());
-			values.add(w.getValue());
+		if(wheres!=null){
+			for (Where w : wheres) {
+				sqls.add(w.getSQL().toString());
+				values.add(w.getValue());
+			}
 		}
 		StringBuilder sql=new StringBuilder();
 		sql.append("SELECT * FROM ").append(tableName);
@@ -142,7 +149,7 @@ public class BeanServieImpl implements BeanService{
 			sql.append(" WHERE ");
 		sql.append(VeasionUtil.getKeys(sqls, " AND "));
 		if(StaticValue.PRINT_SQL)
-			System.out.println(sql);
+			System.out.println(printSQL+sql);
 		return dao.Query(sql.toString(), VeasionUtil.getObjectByList(values));
 	}
 	
@@ -150,9 +157,11 @@ public class BeanServieImpl implements BeanService{
 	public List<Map<String, Object>> Query(List<Where> wheres, PageModel pm) {
 		List<String> sqls=new ArrayList<>();
 		List<Object> values=new ArrayList<>();
-		for (Where w : wheres) {
-			sqls.add(w.getSQL().toString());
-			values.add(w.getValue());
+		if(wheres!=null){
+			for (Where w : wheres) {
+				sqls.add(w.getSQL().toString());
+				values.add(w.getValue());
+			}
 		}
 		StringBuilder sql=new StringBuilder();
 		sql.append("SELECT * FROM ").append(tableName);
@@ -162,7 +171,7 @@ public class BeanServieImpl implements BeanService{
 		String countSQL=sql.toString().replace("*", "COUNT(*)");
 		sql.append(" LIMIT ?,?");
 		if(StaticValue.PRINT_SQL)
-			System.out.println(countSQL);
+			System.out.println(printSQL+countSQL);
 		Object countObj=dao.QueryOnly(countSQL, VeasionUtil.getObjectByList(values));
 		if(countObj!=null){
 			pm.setCount(Integer.parseInt(String.valueOf(countObj)));
@@ -172,7 +181,7 @@ public class BeanServieImpl implements BeanService{
 		values.add((indexPage-1)*pageCount);
 		values.add((indexPage-1)*pageCount+pageCount);
 		if(StaticValue.PRINT_SQL)
-			System.out.println(sql);
+			System.out.println(printSQL+sql);
 		return dao.Query(sql.toString(), VeasionUtil.getObjectByList(values));
 	}
 	

@@ -13,8 +13,10 @@ public class Music {
 	public static final String id="id";
 	/**歌名，varchar*/
 	public static final String name="name";
-	/**url，varchar*/
+	/**歌url，varchar*/
 	public static final String url="url";
+	/**图片*/
+	public static final String img="img";
 	/**歌手，varchar*/
 	public static final String singer="singer";
 	/**来源，varchar*/

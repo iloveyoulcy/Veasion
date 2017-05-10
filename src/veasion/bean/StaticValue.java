@@ -1,7 +1,6 @@
 package veasion.bean;
 
 import javax.swing.filechooser.FileSystemView;
-
 import veasion.util.ConfigUtil;
 
 /**
@@ -15,8 +14,20 @@ public class StaticValue {
 	public static Integer ON_LINE;
 	/**打印SQL*/
 	public static boolean PRINT_SQL=false;
+	/**打印在线人数*/
+	public static boolean PRINT_ON_LINE=false;
 	/**打印SQL配置key*/
-	private static final String CONFIG_PRINT_SQL="PrintSql";
+	private static final String SQL_PRINT="PrintSql";
+	/**打印在线人数配置key*/
+	public static final String SYSTEM_PRINT_ON_LINE="PrintOnLine";
+	/**JdbcUrl配置key*/
+	public static final String SQL_JDBC_URL="JdbcUrl";
+	/**Driver配置key*/
+	public static final String SQL_DRIVER="Driver";
+	/**UserName配置key*/
+	public static final String SQL_USER_NAME="UserName";
+	/**UserPwd配置key*/
+	public static final String SQL_USER_PWD="UserPwd";
 	/**control包名*/
 	public static final String CONTROL_PACKAGE_NAME="veasion.control";
 	/**control.Class命名*/
@@ -28,7 +39,8 @@ public class StaticValue {
 	
 	static{
 		try{
-			PRINT_SQL=Boolean.parseBoolean(ConfigUtil.getProperty(CONFIG_PRINT_SQL));
+			PRINT_SQL="TRUE".equals(ConfigUtil.getProperty(SQL_PRINT,"FALSE").toUpperCase());
+			PRINT_ON_LINE="TRUE".equals(ConfigUtil.getProperty(SYSTEM_PRINT_ON_LINE,"FALSE").toUpperCase());
 		}catch(Exception e){
 			e.getMessage();
 		}
