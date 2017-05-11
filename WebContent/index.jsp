@@ -42,28 +42,28 @@
 		$("body").css("background-color","pink");
 		$("#huaMazz").show();
 		$("#canvas").hide();
+		$("#"+id).text("晚上");
+		$("#"+id).attr("title","晚上");
+		$(".white").each(function(i){
+			$(this).attr("class","black");
+		});
 	}
 	function wanshang(){
 		$("body").css("background-color","black");
 		$("#canvas").show();
 		$("#huaMazz").hide();
+		$("#"+id).text("白天");
+		$("#"+id).attr("title","白天");
+		$(".black").each(function(i){
+			$(this).attr("class","white");
+		});
 	}
 	function bgChange(id){
 		var bg=$("#"+id).text();
 		if(bg=='晚上'){
 			wanshang();
-			$("#"+id).text("白天");
-			$("#"+id).attr("title","白天");
-			$(".black").each(function(i){
-				$(this).attr("class","white");
-			});
 		}else{
 			baitian();
-			$("#"+id).text("晚上");
-			$("#"+id).attr("title","晚上");
-			$(".white").each(function(i){
-				$(this).attr("class","black");
-			});
 		}
 	}
 </script>
