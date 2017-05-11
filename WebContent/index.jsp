@@ -26,10 +26,11 @@
 		$("#bgsound").attr("src",bgsoundArr[0]);
 		changeImage();
 		var h=new Date().getHours();
-		if(h>=6 && h<=18)
+		if(h>=6 && h<=18){
 			baitian();
-		else
+		}else{
 			wanshang();
+		}
 	});
 	function changeImage(){
 		do{
@@ -42,8 +43,8 @@
 		$("body").css("background-color","pink");
 		$("#huaMazz").show();
 		$("#canvas").hide();
-		$("#"+id).text("晚上");
-		$("#"+id).attr("title","晚上");
+		$("#bgChang").text("晚上");
+		$("#bgChang").attr("title","晚上");
 		$(".white").each(function(i){
 			$(this).attr("class","black");
 		});
@@ -52,14 +53,14 @@
 		$("body").css("background-color","black");
 		$("#canvas").show();
 		$("#huaMazz").hide();
-		$("#"+id).text("白天");
-		$("#"+id).attr("title","白天");
+		$("#bgChang").text("白天");
+		$("#bgChang").attr("title","白天");
 		$(".black").each(function(i){
 			$(this).attr("class","white");
 		});
 	}
-	function bgChange(id){
-		var bg=$("#"+id).text();
+	function bgChange(){
+		var bg=$("#bgChang").text();
 		if(bg=='晚上'){
 			wanshang();
 		}else{
@@ -80,7 +81,7 @@
 		<!-- 黑白切换 -->
 		<div class="black" style="float:left;font-family:微软雅黑;z-index: 200;">
 			&nbsp;&nbsp;
-			<button id="bgChang" onclick="bgChange(this.id);" style="cursor: pointer;" title="晚上">晚上</button>
+			<button id="bgChang" onclick="bgChange();" style="cursor: pointer;" title="晚上">晚上</button>
 		</div>
 		<!-- 导航 -->
 		<div style="float:right;z-index: 200;">
