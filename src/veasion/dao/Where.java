@@ -1,6 +1,4 @@
-package veasion.bean;
-
-import veasion.dao.JoinSql;
+package veasion.dao;
 
 /**
  * 条件

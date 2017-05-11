@@ -8,11 +8,11 @@ import java.util.Set;
 import net.sf.json.JSONObject;
 
 /**
- * 方法帮助类.
+ * SQL方法帮助类.
  * @author zhuowei.luo
  * @date 2017/5/7
  */
-public class VeasionUtil {
+public class SQLUtil {
 	
 	/**
 	 * 获取 JSONObject的Key

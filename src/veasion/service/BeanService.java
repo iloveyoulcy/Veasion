@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.json.JSONObject;
-import veasion.bean.Where;
+import veasion.dao.Where;
 import veasion.util.PageModel;
 
 /**

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
-import veasion.bean.StaticValue;
+import veasion.constant.Constant;
 
 
 /**
@@ -45,7 +45,7 @@ public class VeasionServlet extends HttpServlet{
 			}
 			String methodName=vea.substring(index+1);
 			methodName=methodName.replaceFirst(".", String.valueOf(methodName.charAt(0)).toUpperCase());
-			className=StaticValue.CONTROL_PACKAGE_NAME+"."+className+StaticValue.CONTROL_CLASS_NAME;
+			className=Constant.CONTROL_PACKAGE_NAME+"."+className+Constant.CONTROL_CLASS_NAME;
 			Class c=null;
 			//反射找到对应control.veasion
 			try {
@@ -94,8 +94,8 @@ public class VeasionServlet extends HttpServlet{
 						}
 						String returnUrl=String.valueOf(returnObj);
 						//System.out.println(returnUrl);
-						if(returnUrl.startsWith(StaticValue.REDIRECT)){
-							returnUrl=returnUrl.replace(StaticValue.REDIRECT, "").trim();
+						if(returnUrl.startsWith(Constant.REDIRECT)){
+							returnUrl=returnUrl.replace(Constant.REDIRECT, "").trim();
 							response.sendRedirect(returnUrl);
 						}else{
 							int xgIndex=-1;

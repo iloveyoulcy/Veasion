@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import veasion.bean.StaticValue;
+import veasion.constant.Constant;
 import veasion.util.ConfigUtil;
 
 /**
@@ -29,10 +29,10 @@ public class JdbcDao {
 	
 	static{
 		try {
-			JDBC_URL=ConfigUtil.getProperty(StaticValue.SQL_JDBC_URL);
-			DRIVER=ConfigUtil.getProperty(StaticValue.SQL_DRIVER);
-			USER_NAME=ConfigUtil.getProperty(StaticValue.SQL_USER_NAME);
-			USER_PWD=ConfigUtil.getProperty(StaticValue.SQL_USER_PWD);
+			JDBC_URL=ConfigUtil.getProperty(Constant.SQL_JDBC_URL);
+			DRIVER=ConfigUtil.getProperty(Constant.SQL_DRIVER);
+			USER_NAME=ConfigUtil.getProperty(Constant.SQL_USER_NAME);
+			USER_PWD=ConfigUtil.getProperty(Constant.SQL_USER_PWD);
 			Class.forName(DRIVER);
 		} catch (Exception e) {
 			e.printStackTrace();

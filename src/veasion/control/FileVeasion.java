@@ -9,7 +9,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
-import veasion.bean.StaticValue;
+import veasion.constant.Constant;
 
 public class FileVeasion {
 	
@@ -76,7 +76,7 @@ public class FileVeasion {
 
 		// 设置保存上传文件的路径
 		// 路径可以自行设置 ,默认桌面
-		String realPath = StaticValue.HOME_PATH;
+		String realPath = Constant.HOME_PATH;
 		// String realPath = getServletContext().getRealPath("/") + "images";
 		File fileupload = new File(realPath);
 		System.out.println(realPath);

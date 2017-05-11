@@ -5,9 +5,10 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
-import veasion.bean.StaticValue;
+
+import veasion.constant.Constant;
 import veasion.util.ConfigUtil;
-import veasion.util.VeasionUtil;
+import veasion.util.SQLUtil;
 
 /**
  * 监听器
@@ -20,21 +21,21 @@ public class VeasionListener implements HttpSessionListener,ServletContextListen
 	public void sessionCreated(HttpSessionEvent arg0) {
 		//统计在线人数
 		//当一个浏览器访问时Tomcat会创建一个session
-		if(StaticValue.ON_LINE!=null)
-			StaticValue.ON_LINE++;
+		if(Constant.ON_LINE!=null)
+			Constant.ON_LINE++;
 		else
-			StaticValue.ON_LINE=1;
-		if(StaticValue.PRINT_ON_LINE)
-			System.out.println("在线人数："+StaticValue.ON_LINE+"\n"+VeasionUtil.getDate("yyyy-MM-dd HH:mm:ss"));
+			Constant.ON_LINE=1;
+		if(Constant.PRINT_ON_LINE)
+			System.out.println("在线人数："+Constant.ON_LINE+"\n"+SQLUtil.getDate("yyyy-MM-dd HH:mm:ss"));
 	}
 
 	@Override
 	public void sessionDestroyed(HttpSessionEvent arg0) {
 		//会话结束
-		if(StaticValue.ON_LINE!=null&&StaticValue.ON_LINE>0)
-			StaticValue.ON_LINE--;
-		if(StaticValue.PRINT_ON_LINE)
-			System.out.println("在线人数："+StaticValue.ON_LINE+"\n"+VeasionUtil.getDate("yyyy-MM-dd HH:mm:ss"));
+		if(Constant.ON_LINE!=null&&Constant.ON_LINE>0)
+			Constant.ON_LINE--;
+		if(Constant.PRINT_ON_LINE)
+			System.out.println("在线人数："+Constant.ON_LINE+"\n"+SQLUtil.getDate("yyyy-MM-dd HH:mm:ss"));
 	}
 
 	@Override
@@ -45,7 +46,7 @@ public class VeasionListener implements HttpSessionListener,ServletContextListen
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
 		System.out.println(ConfigUtil.getProperty("Hello","欢迎使用！--Veasion"));
-		System.out.println(VeasionUtil.getDate("yyyy-MM-dd HH:mm:ss"));
+		System.out.println(SQLUtil.getDate("yyyy-MM-dd HH:mm:ss"));
 	}
 	
 }
