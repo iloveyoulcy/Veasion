@@ -3,7 +3,6 @@
 <html>
 <head>
 <title>欢迎来到Veasion专属网站</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="Shortcut Icon" href="${pageContext.request.contextPath}/favicon.ico">
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/MouseClick.js"></script>
