@@ -1,6 +1,7 @@
 package veasion.handle;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Enumeration;
@@ -89,6 +90,14 @@ public class VeasionServlet extends HttpServlet{
 						//调用对应方法
 						Object returnObj=method.invoke(obj);
 						if(returnObj==null){
+							success=true;
+							break;
+						}else if(!(returnObj instanceof String)){
+							JSONObject json=JSONObject.fromObject(returnObj);
+							response.setContentType("text/json;charset=utf-8");
+							PrintWriter pw=response.getWriter();
+							pw.append(json.toString());
+							pw.close();
 							success=true;
 							break;
 						}
