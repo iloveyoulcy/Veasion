@@ -25,6 +25,11 @@
 	$(function(){
 		$("#bgsound").attr("src",bgsoundArr[0]);
 		changeImage();
+		var h=new Date().getHours();
+		if(h>=6 && h<=18)
+			baitian();
+		else
+			wanshang();
 	});
 	function changeImage(){
 		do{
