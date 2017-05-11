@@ -5,9 +5,9 @@
 > test：类名除Veasion之外的字符串，小写 <br/>
 > method：将被调用的方法名 <br/>
  
-> method定义：
-	返回String，表示跳转的url或页面(默认转发，重定向请加redirect:). <br/>
-	返回除String之外的Object，返回该对象的json.<br/>
+> method定义：<br/>
+	&nbsp;&nbsp;返回String，表示跳转的url或页面(默认转发，重定向请加redirect:). <br/>
+	&nbsp;&nbsp;返回除String之外的Object，返回该对象的json.<br/>
 > 该类中可以添加属性HttpServletRequest获取请求对象. <br/>
 > 该类中可以添加属性HttpServletResponse获取响应对象. <br/>
 > 该类中可以添加属性JSONObject获取分装的数据. <br/>
