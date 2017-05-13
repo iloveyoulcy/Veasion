@@ -48,10 +48,12 @@ img {
 
 .headDiv div {
 	float: left;
-	font-family: 微软雅黑;
 	z-index: 200;
 	width: 100%;
+	font-family: 微软雅黑;
 }
+
+a:link,a:visited,a:hover{color:#330099;}
 
 #bgChange {
 	width: 50px;
@@ -62,7 +64,7 @@ img {
 	letter-spacing: 8px;
 	padding-left: 12px;
 	border-radius: 5px;
-	border: 1px solid #666;
+	/* border: 1px solid #666; */
 	box-shadow: 0 1px 2px #B8DCF1 inset, 0 -1px 0 #316F96 inset;
 	text-shadow: 1px 1px 0.5px #22629B;
 	cursor: pointer;
@@ -209,7 +211,7 @@ img {
 		<!-- 白天，蒲花英 -->
 		<div class="snow-container" id="huaMazz"
 			style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100;"></div>
-
+		
 		<br />
 
 		<div class="headDiv">
