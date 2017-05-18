@@ -134,7 +134,7 @@ a:link,a:visited,a:hover{color:#330099;}
 <link rel="Shortcut Icon"
 	href="${pageContext.request.contextPath}/favicon.ico">
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/jquery-1.7.2.min.js"></script>
+	src="${pageContext.request.contextPath}/jquery/jquery/jquery-1.9.0.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/static/MouseClick.js"></script>
 <script type="text/javascript"
