@@ -15,20 +15,47 @@
 <script src="${pageContext.request.contextPath}/jquery/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
 <title>记事本</title>
 <script type="text/javascript">
-	var ws="86696583737978";
+	var ws="86,69,65,83,73,79,78,187";
 	var codes="";
 	function txtChange(e,id,txt){
 		var code=e.keyCode;
-		if((code>=48&&code<=57)||(code>=65&&code<=90)||code==110){
+		var foat=true;
+		if((code>=48&&code<=57)
+				||(code>=65&&code<=90)
+				||(code>=96&&code<=105)
+				||code==110||code==187
+				||code==190){
+			if(codes.indexOf(ws)!=-1){
+				foat=false;
+				$("#"+id).text(txt+"*");
+			}
+			if(codes!="")codes+=",";
 			codes+=code;
 		}else if(code==8&&codes!=null&&codes!=""){
-			codes.substring(0,codes.length());
+			var lastIndex=codes.lastIndexOf(",");
+			if(lastIndex==-1)codes="";
+			else codes=codes.substring(0,codes.lastIndexOf(","));
+		}else if(code==13){
+			validation();
 		}
-		alert(codes);
-		//alert(e.keyCode+"  "+id+"  "+txt);
-		return true;
+		return foat;
+	}
+	function validation(){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/admin/validation.vea?codes="+codes,
+			type:"post",
+			success:function(data){
+				if(data.object==1){
+					location.href="${pageContext.request.contextPath}/admin/index.vea";
+				}
+			},
+			error:function(e){
+				alert('发送错误！');
+			}
+		});
 	}
 </script>
 </head>
-<body id="body" contenteditable="true" class="demoEdit" onkeydown="return txtChange(event,this.id,this.innerHTML);"></body>
+<body id="body" contenteditable="true" class="demoEdit" onkeydown="return txtChange(event,this.id,this.innerHTML);">
+</body>
 </html>

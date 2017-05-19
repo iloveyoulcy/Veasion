@@ -93,7 +93,15 @@ public class VeasionServlet extends HttpServlet{
 							success=true;
 							break;
 						}else if(!(returnObj instanceof String)){
-							JSONObject json=JSONObject.fromObject(returnObj);
+							JSONObject json=null;
+							if(!(returnObj instanceof JSONObject)
+									&&!(returnObj instanceof Map)){
+								Map<String, Object> map=new HashMap<>();
+								map.put("object", returnObj);
+								json=JSONObject.fromObject(map);
+							}else{
+								json=JSONObject.fromObject(returnObj);
+							}
 							response.setContentType("text/json;charset=utf-8");
 							PrintWriter pw=response.getWriter();
 							pw.append(json.toString());

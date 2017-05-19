@@ -46,6 +46,9 @@ public class Constant {
 	/**重定向规则*/
 	public static final String REDIRECT="redirect:";
 	
+	/**admin codes*/
+	public static final String ADMIN_CODES="86,69,65,83,73,79,78,187,65,190,74,65,86,65";
+	
 	/**获取桌面路径*/
 	public static String HOME_PATH = FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath();
 	

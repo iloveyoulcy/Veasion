@@ -11,6 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import veasion.control.AdminVeasion;
 import veasion.util.MyRequest;
 
 /**
@@ -31,6 +32,18 @@ public class VeasionFilter implements Filter{
 		
 		HttpServletRequest request=(HttpServletRequest)req;
 		HttpServletResponse response=(HttpServletResponse)resp;
+		
+		String uri=request.getRequestURI();
+		String vea=uri.replaceFirst(request.getContextPath(), "");
+		
+		//简单过滤admin页面
+		if(vea.startsWith("/admin/")&&vea.indexOf("validation.vea")!=-1){
+			Object obj=request.getSession().getAttribute(AdminVeasion.ADMIN_NAME);
+			if(obj==null||!AdminVeasion.ADMIN_VEA.equals(obj)){
+				return;
+			}
+		}
+		
 		
 		String met=request.getMethod();
 		

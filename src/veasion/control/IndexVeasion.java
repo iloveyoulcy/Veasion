@@ -10,8 +10,8 @@ public class IndexVeasion {
 	HttpServletResponse resp;
 	JSONObject json;
 	
+	/**桌面主页*/
 	public String index(){
-		
 		return "page/win7.jsp";
 	}
 	
