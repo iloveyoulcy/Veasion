@@ -102,7 +102,7 @@
         }
     </style>
 </head>
-<body style="overflow: hidden; background: url(${pageContext.request.contextPath}/page/images/bgimage.jpg) no-repeat  center center;">
+<body style="overflow: hidden; background: url(${pageContext.request.contextPath}/page/images/bgimg_lol2.jpg) no-repeat  center center;">
     <div id="winlinks">
         <ul>
         </ul>
@@ -146,25 +146,23 @@
         }
     });
     
-	function f_open(url, title, icon) {
+	function f_open(url, title, icon,width,height,showMax) {
 		var win = $.ligerDialog.open({
-			height : 500,
+			height : height!=null?height:500,
 			url : url,
-			width : 600,
-			showMax : true,
-			showToggle : true,
+			width : width!=null?width:600,
+			showMax : showMax,
 			showMin : true,
 			isResize : true,
 			modal : false,
 			title : title,
-			slide : false,
-			
-			buttons : [ {
+			slide : false
+			/* ,buttons : [ {
 				text : '确定',
 				onclick : function(item, Dialog, index) {
 					win.hide();
 				}
-			} ]
+			} ] */
 		});
 		var task = jQuery.ligerui.win.tasks[win.id];
 		if (task) {
@@ -174,10 +172,15 @@
 	}
 	
 	var links = [ 
-		       {icon : '${pageContext.request.contextPath}/page/images/3d.png',title : '我的主页',url : '${pageContext.request.contextPath}/index.jsp'}, 
-		       {icon : '${pageContext.request.contextPath}/page/images/folder.png',title : '看电视',url : '#'}, 
-		       {icon : '${pageContext.request.contextPath}/page/images/alienFolder.png',title : '文件夹',url : '#'}, 
-		       {icon : '${pageContext.request.contextPath}/page/images/laji.png',title : '垃圾桶',url : '#'}
+		       {icon : '${pageContext.request.contextPath}/page/images/icon_pc.png',title : '我的主页',url : '${pageContext.request.contextPath}/index.jsp',width:900,height:700}, 
+		       {icon : '${pageContext.request.contextPath}/page/images/icon_movie1.png',title : '电影',url : '#'}, 
+		       {icon : '${pageContext.request.contextPath}/page/images/icon_jishiben3.png',title : '记事本',url : '${pageContext.request.contextPath}/page/notepad.jsp',width:440,height:480,showMax:false}, 
+		       {icon : '${pageContext.request.contextPath}/page/images/icon_liaotian2.png',title : '聊天',url : '#'},
+		       {icon : '${pageContext.request.contextPath}/page/images/icon_music2.png',title : '音乐',url : '#'},
+		       {icon : '${pageContext.request.contextPath}/page/images/icon_qiu.png',title : '游戏',url : '#'},
+		       {icon : '${pageContext.request.contextPath}/page/images/icon_qq.png',title : 'QQ',url : 'http://web2.qq.com/'},
+		       {icon : '${pageContext.request.contextPath}/page/images/icon_search.png',title : '搜索',url : 'http://www.baidu.com'},
+		       {icon : '${pageContext.request.contextPath}/page/images/icon_love.png',title : 'Love',url : '#'}
 	       ];
 	
 	function onResize() {
@@ -217,12 +220,12 @@
 			}).click(function() {
 				var linkindex = $(this).attr("linkindex");
 				var link = links[linkindex];
-				f_open(link.url, link.title, link.icon);
+				f_open(link.url, link.title, link.icon,link.width,link.height,link.showMax!=null?link.showMax:true);
 			});
 			jlink.appendTo(winlinksul);
 		}
 	}
-
+	
 	$(window).resize(onResize);
 	$.ligerui.win.removeTaskbar = function() {
 	}; //不允许移除
