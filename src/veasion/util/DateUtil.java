@@ -38,6 +38,10 @@ public class DateUtil {
 				.format(c.getTime());
 		return dayAfter;
 	}
-
-
+	
+	/**格式化时间*/
+	public static String getFormatDate(Date date,String pattern){
+		return new SimpleDateFormat(pattern).format(date!=null?date:new Date());
+	}
+	
 }

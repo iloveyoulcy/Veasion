@@ -205,7 +205,7 @@ public class JdbcDao {
 	
 	/**执行创建*/
 	public int executeCreate(String sql){
-		int count = 0;
+		int count = -1;
 		Connection conn = null;
 		Statement sta = null;
 		try {

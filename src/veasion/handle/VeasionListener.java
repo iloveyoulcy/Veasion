@@ -10,7 +10,6 @@ import veasion.constant.Constant;
 import veasion.dao.AutoCreateDB;
 import veasion.util.ConfigUtil;
 import veasion.util.SQLUtil;
-import veasion.util.TablesUtil;
 
 /**
  * 监听器
@@ -20,7 +19,7 @@ import veasion.util.TablesUtil;
 public class VeasionListener implements HttpSessionListener,ServletContextListener{
 	
 	@Override
-	public void sessionCreated(HttpSessionEvent arg0) {
+	public void sessionCreated(HttpSessionEvent event) {
 		//统计在线人数
 		//当一个浏览器访问时Tomcat会创建一个session
 		if(Constant.ON_LINE!=null)
@@ -32,7 +31,7 @@ public class VeasionListener implements HttpSessionListener,ServletContextListen
 	}
 
 	@Override
-	public void sessionDestroyed(HttpSessionEvent arg0) {
+	public void sessionDestroyed(HttpSessionEvent event) {
 		//会话结束
 		if(Constant.ON_LINE!=null&&Constant.ON_LINE>0)
 			Constant.ON_LINE--;
@@ -41,12 +40,12 @@ public class VeasionListener implements HttpSessionListener,ServletContextListen
 	}
 
 	@Override
-	public void contextDestroyed(ServletContextEvent arg0) {
+	public void contextDestroyed(ServletContextEvent event) {
 		System.out.println("停用~\n");
 	}
 
 	@Override
-	public void contextInitialized(ServletContextEvent arg0) {
+	public void contextInitialized(ServletContextEvent event) {
 		System.out.println(ConfigUtil.getProperty("Hello","欢迎使用！--Veasion"));
 		System.out.println(SQLUtil.getDate("yyyy-MM-dd HH:mm:ss"));
 		try{

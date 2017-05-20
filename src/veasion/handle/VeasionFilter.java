@@ -11,8 +11,16 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+import veasion.bean.IpRecord;
+import veasion.constant.Constant;
 import veasion.control.AdminVeasion;
+import veasion.service.BeanService;
+import veasion.service.impl.MysqlServieImpl;
+import veasion.util.DateUtil;
+import veasion.util.HttpUtil;
 import veasion.util.MyRequest;
+import veasion.util.SQLUtil;
 
 /**
  * 编码过滤器
@@ -36,11 +44,30 @@ public class VeasionFilter implements Filter{
 		String uri=request.getRequestURI();
 		String vea=uri.replaceFirst(request.getContextPath(), "");
 		
-		//简单过滤admin页面
-		if(vea.startsWith("/admin/")&&vea.indexOf("validation.vea")!=-1){
-			Object obj=request.getSession().getAttribute(AdminVeasion.ADMIN_NAME);
-			if(obj==null||!AdminVeasion.ADMIN_VEA.equals(obj)){
+		//简单过滤Admin页面
+		if (vea.startsWith("/admin/") && vea.indexOf("validation.vea") != -1) {
+			Object obj = request.getSession().getAttribute(AdminVeasion.ADMIN_NAME);
+			if (obj == null || !AdminVeasion.ADMIN_VEA.equals(obj)) {
 				return;
+			}
+		}
+		
+		if(request.getSession().isNew()){
+			String ip=HttpUtil.getIpAddress(request);
+			if (	!"0:0:0:0:0:0:0:1".equals(ip) 
+					&& !"127.0.0.1".equals(ip) 
+					&& !"localhost".equals(ip)) {
+				try {
+					// 来访记录
+					BeanService service = new MysqlServieImpl(IpRecord.tableName);
+					JSONObject data = new JSONObject();
+					data.put(IpRecord.ip, ip);
+					data.put(IpRecord.date, SQLUtil.getDate());
+					data.put(IpRecord.line, Constant.ON_LINE);
+					service.Add(data);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		

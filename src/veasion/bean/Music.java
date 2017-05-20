@@ -2,8 +2,9 @@ package veasion.bean;
 
 /**
  * 音乐
+ * 
  * @author zhuowei.luo
- * @date 2017/5/7 
+ * @date 2017/5/7
  */
 public class Music {
 	

@@ -144,4 +144,10 @@ public class SQLUtil {
 		}catch(Exception e){}
 		return v;
 	}
+	
+	/**获取当前时间*/
+	public static String getDate(){
+		return DateUtil.getFormatDate(new Date(), "yyyy-MM-dd HH:mm:ss");
+	}
+	
 }
