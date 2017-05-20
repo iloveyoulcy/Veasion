@@ -1,10 +1,8 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1"
-	charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8" />
 <title>欢迎来到Veasion专属网站</title>
 <style type="text/css">
 body {

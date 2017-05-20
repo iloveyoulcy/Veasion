@@ -46,7 +46,11 @@
 			type:"post",
 			success:function(data){
 				if(data.object==1){
-					location.href="${pageContext.request.contextPath}/admin/index.vea";
+					var icon_id='${param.icon_id}';
+					var obj=window.top.window.getOpenObj(icon_id);
+					var win=window.top.window.f_open("admin", "${pageContext.request.contextPath}/admin/index.vea", "后台管理", "${pageContext.request.contextPath}/page/images/icon_tool.png", 1100, 550, true);
+					win.show();
+					obj.close();
 				}
 			},
 			error:function(e){

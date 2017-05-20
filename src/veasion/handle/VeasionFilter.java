@@ -45,7 +45,7 @@ public class VeasionFilter implements Filter{
 		String vea=uri.replaceFirst(request.getContextPath(), "");
 		
 		//简单过滤Admin页面
-		if (vea.startsWith("/admin/") && vea.indexOf("validation.vea") != -1) {
+		if (vea.startsWith("/admin/") && vea.indexOf("validation.vea") == -1) {
 			Object obj = request.getSession().getAttribute(AdminVeasion.ADMIN_NAME);
 			if (obj == null || !AdminVeasion.ADMIN_VEA.equals(obj)) {
 				return;
