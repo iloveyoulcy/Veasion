@@ -134,4 +134,14 @@ public class SQLUtil {
 		return new SimpleDateFormat(pattern).format(date);
 	}
 	
+	/**
+	 * 返回数字 
+	 */
+	public static Integer valueOfInteger(Object obj){
+		Integer v=null;
+		try{
+			v=Integer.valueOf(String.valueOf(obj));
+		}catch(Exception e){}
+		return v;
+	}
 }

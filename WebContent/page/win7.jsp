@@ -173,7 +173,7 @@
 	
 	var links = [ 
 		       {icon : '${pageContext.request.contextPath}/page/images/icon_pc.png',title : '我的主页',url : '${pageContext.request.contextPath}/index.jsp',width:900,height:700}, 
-		       {icon : '${pageContext.request.contextPath}/page/images/icon_movie1.png',title : '电影',url : '#'}, 
+		       {icon : '${pageContext.request.contextPath}/page/images/icon_movie1.png',title : '电影',url : 'http://www.youku.com/',width:1200,height:600}, 
 		       {icon : '${pageContext.request.contextPath}/page/images/icon_jishiben3.png',title : '记事本',url : '${pageContext.request.contextPath}/page/notepad.jsp',width:440,height:480}, 
 		       {icon : '${pageContext.request.contextPath}/page/images/icon_liaotian2.png',title : '聊天',url : '#'},
 		       {icon : '${pageContext.request.contextPath}/page/images/icon_music2.png',title : '音乐',url : 'http://web.kugou.com/',width:750,height:600},

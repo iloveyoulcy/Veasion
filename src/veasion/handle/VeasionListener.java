@@ -7,8 +7,10 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 import veasion.constant.Constant;
+import veasion.dao.AutoCreateDB;
 import veasion.util.ConfigUtil;
 import veasion.util.SQLUtil;
+import veasion.util.TablesUtil;
 
 /**
  * 监听器
@@ -47,6 +49,10 @@ public class VeasionListener implements HttpSessionListener,ServletContextListen
 	public void contextInitialized(ServletContextEvent arg0) {
 		System.out.println(ConfigUtil.getProperty("Hello","欢迎使用！--Veasion"));
 		System.out.println(SQLUtil.getDate("yyyy-MM-dd HH:mm:ss"));
+		try{
+			//检查数据库和表，没有则自动创建
+			AutoCreateDB.autoCreateDB();
+		}catch(Exception e){e.printStackTrace();}
 	}
 	
 }

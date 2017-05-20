@@ -26,6 +26,8 @@ public class JdbcDao {
 	private static String DRIVER;
 	private static String USER_NAME;
 	private static String USER_PWD;
+	/**是否改变默认数据库*/
+	private static boolean isDbChange;
 	
 	static{
 		try {
@@ -33,11 +35,34 @@ public class JdbcDao {
 			DRIVER=ConfigUtil.getProperty(Constant.SQL_DRIVER);
 			USER_NAME=ConfigUtil.getProperty(Constant.SQL_USER_NAME);
 			USER_PWD=ConfigUtil.getProperty(Constant.SQL_USER_PWD);
+			isDbChange=false;
 			Class.forName(DRIVER);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * 切换数据库
+	 * @param 数据库名字
+	 */
+	public JdbcDao(final String databaseName){
+		int index1=JDBC_URL.lastIndexOf("/");
+		int index2=JDBC_URL.indexOf("?");
+		String url=JDBC_URL.substring(0,index1+1);
+		url+=databaseName;
+		url+=JDBC_URL.substring(index2);
+		this.JDBC_URL=url;
+		isDbChange=true;
+	}
+	
+	public JdbcDao(){
+		if(isDbChange){
+			JDBC_URL=ConfigUtil.getProperty(Constant.SQL_JDBC_URL);
+			isDbChange=false;
+		}
+	}
+	
 	
 	/**获取Connection连接*/
 	public Connection getConnection(){
@@ -178,6 +203,22 @@ public class JdbcDao {
 		return value;
 	}
 	
+	/**执行创建*/
+	public int executeCreate(String sql){
+		int count = 0;
+		Connection conn = null;
+		Statement sta = null;
+		try {
+			conn = getConnection();
+			sta = conn.createStatement();
+			count=sta.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			closeAll(conn,sta, null);
+		}
+		return count;
+	} 
 	
 	public static void main(String[] args) throws SQLException {
 		JdbcDao dao=new JdbcDao();
