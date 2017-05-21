@@ -3,6 +3,7 @@ package veasion.control;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,10 +59,10 @@ public class AdminVeasion {
 	
 	/**ICON分页查询*/
 	public Map iconSearch() {
-		Integer indexPage = json.getInt(PageModel.INDEX_PAGE);
-		Integer pageCount = json.getInt(PageModel.PAGE_COUNT);
-		String title = json.getString(DesktopCloumn.title);
-
+		System.out.println(json);
+		Integer indexPage = json.getInt("page");
+		Integer pageCount = json.getInt("pagesize");
+		String title = json.optString(DesktopCloumn.title, null);
 		Map<String, Object> map = new HashMap();
 		service = new MysqlServieImpl(DesktopCloumn.tableName);
 		PageModel pm = new PageModel(indexPage, pageCount);

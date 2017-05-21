@@ -21,11 +21,16 @@ a{text-decoration:none}
 }
 </style>
 <script type="text/javascript">
-	var IconData = {};
-	var maxPage=1;
+
 	var grid = null;
+	
 	$(function() {
+		loadData(null);
+	});
+	
+	function loadData(parms){
 		grid = $("#maingrid4").ligerGrid({
+			url:"${pageContext.request.contextPath}/admin/iconSearch.vea",
 			columns : [ {
 				display : 'id',
 				name : 'id'
@@ -62,7 +67,6 @@ a{text-decoration:none}
 				name : 'del'
 			} ],
 			pageSize : 10,
-			data : $.extend(true, {}, IconData),
 			width : '100%',
 			height : '100%',
 			rowAttrRender: function (rowdata,rowid){
@@ -78,16 +82,10 @@ a{text-decoration:none}
 				rowdata.del="<a href=\"javascript:del('"+id+"','"+title+"');\" style='color:red;'>删除</a>";
 				return null;
 			},
-			onReload :function(gid){f_search('=');},
-			onToFirst : function(element){f_search('<<');},
-			onToPrev : function(element){f_search('<');},
-			onToNext : function(element){f_search('>');},
-			onToLast : function(element){f_search('>>');}
+			parms : parms
 		});
-		//加载数据
-		loadData(1, 10, "");
 		$("#pageloading").hide();
-	});
+	}
 	
 	function openUrl(tabid, text, url){
 		window.parent.window.f_addTab(tabid, text, url);
@@ -105,52 +103,17 @@ a{text-decoration:none}
 		}
 	}
 	
-	//加载数据
-	function loadData(page,pageCount,title){
-		$.ajax({
-			url:"${pageContext.request.contextPath}/admin/iconSearch.vea",
-			data:{"indexPage":page,"pageCount":pageCount,"title":title},
-			type:"post",
-			success:function(data){
-				IconData=data;
-				maxPage=(data.Total-1)/pageCount+1;
-				//新数据
-				grid.options.data =IconData;
-				//重新加载
-				grid.loadData(null);
-			},
-			error:function(e){
-				alert("发生错误！");
-			}
-		});
+	//查询
+	function search() {
+		loadData({"title":$("#title").val()});
 	}
 	
-	//查询
-	function f_search(cz) {
-		var page=parseInt($(".pcontrol input").val());
-		var indexPage=page;
-		if(cz!='='){
-			if(cz=='<<')page=1;
-			else if(cz=='<')page=page-1;
-			else if(cz=='>')page=page+1;
-			else if(cz=='>>')page=maxPage;
-			if(page<1||page>maxPage){
-				page=indexPage;
-				return;
-			}
-			$(".pcontrol input").val(page);
-		}
-		var pageCount=$("select[name='rp']").val();
-		var title=$("#title").val();
-		//请求数据
-		loadData(page, pageCount, title);
-	}
 </script>
 </head>
 <body style="padding: 6px; overflow: hidden;">
 	<div id="searchbar">
-		标题：<input id="title" type="text" /> 
-		<input id="btnOK" type="button" value="搜索" onclick="f_search('=');" />
+		标题：<input id="title" type="text" value=""/> 
+		<input id="btnOK" type="button" value="搜索" onclick="search();" />
 		<img class="icon" style="float: right;" onclick="add();" src="${pageContext.request.contextPath}/jquery/ligerUI/skins/icons/add.gif" title="新增" alt="新增">
 	</div>
 	<div id="maingrid4" style="margin: 0; padding: 0"></div>
