@@ -31,9 +31,6 @@ public class MysqlServieImpl implements BeanService{
 	 */
 	private String tableName;
 	
-	/**打印SQL前缀*/
-	private final String printSQL="SQL:\n\t";
-	
 	/**
 	 * 基本数据操作Service实现类 For Mysql.
 	 * @param tableName 数据表名
@@ -54,8 +51,6 @@ public class MysqlServieImpl implements BeanService{
 		sql.append("VALUES(");
 		sql.append(SQLUtil.getSymbol("?", ",", keys.size()));
 		sql.append(")");
-		if(Constant.PRINT_SQL)
-			System.out.println(printSQL+sql);
 		return dao.executeInsert(sql.toString(),SQLUtil.getValues(json, keys));
 	}
 	
@@ -73,8 +68,6 @@ public class MysqlServieImpl implements BeanService{
 				SQLUtil.getValues(setJson, setKeys), 
 				SQLUtil.getValues(whereJson, whereKeys)
 				);
-		if(Constant.PRINT_SQL)
-			System.out.println(printSQL+sql);
 		return dao.executeUpdate(sql.toString(),values);
 	}
 
@@ -84,8 +77,6 @@ public class MysqlServieImpl implements BeanService{
 		sql.append("DELETE FROM ").append(tableName);
 		sql.append(" WHERE ").append(column);
 		sql.append("=?");
-		if(Constant.PRINT_SQL)
-			System.out.println(printSQL+sql);
 		return dao.executeUpdate(sql.toString(), new Object[]{value});
 	}
 	
@@ -105,8 +96,6 @@ public class MysqlServieImpl implements BeanService{
 		if(sqls.size()>0)
 			sql.append(" WHERE ");
 		sql.append(SQLUtil.getKeys(sqls, " AND "));
-		if(Constant.PRINT_SQL)
-			System.out.println(printSQL+sql);
 		Object result=dao.QueryOnly(sql.toString(), SQLUtil.getObjectByList(values));
 		int count=0;
 		if(result==null){
@@ -125,8 +114,6 @@ public class MysqlServieImpl implements BeanService{
 		sql.append("SELECT * FROM ").append(tableName);
 		sql.append(" WHERE ").append(column);
 		sql.append(" =? ");
-		if(Constant.PRINT_SQL)
-			System.out.println(printSQL+sql);
 		List<Map<String, Object>> result=dao.Query(sql.toString(), new Object[]{value});
 		if(result==null||result.size()<1)
 			return null;
@@ -148,8 +135,6 @@ public class MysqlServieImpl implements BeanService{
 		if(sqls.size()>0)
 			sql.append(" WHERE ");
 		sql.append(SQLUtil.getKeys(sqls, " AND "));
-		if(Constant.PRINT_SQL)
-			System.out.println(printSQL+sql);
 		return dao.Query(sql.toString(), SQLUtil.getObjectByList(values));
 	}
 	
@@ -170,8 +155,6 @@ public class MysqlServieImpl implements BeanService{
 		sql.append(SQLUtil.getKeys(sqls, " AND "));
 		String countSQL=sql.toString().replace("*", "COUNT(*)");
 		sql.append(" LIMIT ?,?");
-		if(Constant.PRINT_SQL)
-			System.out.println(printSQL+countSQL);
 		Object countObj=dao.QueryOnly(countSQL, SQLUtil.getObjectByList(values));
 		if(countObj!=null){
 			pm.setCount(Integer.parseInt(String.valueOf(countObj)));
@@ -180,8 +163,6 @@ public class MysqlServieImpl implements BeanService{
 		int pageCount=pm.getPageCount();
 		values.add((indexPage-1)*pageCount);
 		values.add((indexPage-1)*pageCount+pageCount);
-		if(Constant.PRINT_SQL)
-			System.out.println(printSQL+sql);
 		return dao.Query(sql.toString(), SQLUtil.getObjectByList(values));
 	}
 	

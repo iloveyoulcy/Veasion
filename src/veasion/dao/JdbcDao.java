@@ -14,6 +14,7 @@ import java.util.Map;
 
 import veasion.constant.Constant;
 import veasion.util.ConfigUtil;
+import veasion.util.SQLUtil;
 
 /**
  * JDBC操作数据库.
@@ -101,6 +102,7 @@ public class JdbcDao {
 					ps.setObject(i+1, obj[i]);
 				}
 			}
+			SQLUtil.printSQL(sql, obj);
 			count = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -124,6 +126,7 @@ public class JdbcDao {
 					ps.setObject(i+1, obj[i]);
 				}
 			}
+			SQLUtil.printSQL(sql, obj);
 			int count = ps.executeUpdate();
 			if(count<1){
 				id=-1;
@@ -158,6 +161,7 @@ public class JdbcDao {
 					ps.setObject(i+1, obj[i]);
 				}
 			}
+			SQLUtil.printSQL(sql, obj);
 			rs=ps.executeQuery();
 			ResultSetMetaData rsmd=null;
 			while(rs.next()){
@@ -191,6 +195,7 @@ public class JdbcDao {
 					ps.setObject(i+1, obj[i]);
 				}
 			}
+			SQLUtil.printSQL(sql, obj);
 			rs=ps.executeQuery();
 			if(rs!=null && rs.next()){
 				value=rs.getObject(1);
@@ -204,13 +209,14 @@ public class JdbcDao {
 	}
 	
 	/**执行创建*/
-	public int executeCreate(String sql){
+	public int executeCreate(final String sql){
 		int count = -1;
 		Connection conn = null;
 		Statement sta = null;
 		try {
 			conn = getConnection();
 			sta = conn.createStatement();
+			SQLUtil.printSQL(sql, null);
 			count=sta.executeUpdate(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -2,12 +2,14 @@ package veasion.util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import net.sf.json.JSONObject;
+import veasion.constant.Constant;
 
 /**
  * SQL方法帮助类.
@@ -191,5 +193,18 @@ public class SQLUtil {
 		return newMap;
 	}
 	
+	/**打印SQL*/
+	public static void printSQL(Object sql,Object param){
+		if(Constant.PRINT_SQL){
+			System.out.println();
+			System.out.println(sql);
+			if(param!=null){
+				if(param instanceof Object[])
+					System.out.println(Arrays.toString((Object[])param));
+				else
+					System.out.println(String.valueOf(param));
+			}
+		}
+	}
 	
 }

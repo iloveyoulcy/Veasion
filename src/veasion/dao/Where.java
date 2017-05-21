@@ -23,7 +23,7 @@ public class Where {
 	public Where(String column,JoinSql joinSql,Object value){
 		if(joinSql==JoinSql.like){
 			if(value!=null
-					&& String.valueOf(value).trim().startsWith("%")){
+					&& !String.valueOf(value).trim().startsWith("%")){
 				value="%"+value+"%";
 			}
 		}
