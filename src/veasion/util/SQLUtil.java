@@ -207,4 +207,15 @@ public class SQLUtil {
 		}
 	}
 	
+	/**
+	 * 返回想要的key-value
+	 * @param source 来源数据
+	 * @param 封装数据
+	 * @param keys 想要封装的key 
+	 */
+	public static void fillJsonObject(JSONObject source,JSONObject data,String ...keys){
+		for (String key : keys) {
+			data.put(key, source.get(key));
+		}
+	} 
 }

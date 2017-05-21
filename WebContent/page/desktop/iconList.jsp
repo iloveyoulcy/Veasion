@@ -94,13 +94,15 @@ a{text-decoration:none}
 	}
 	
 	function add(){
-		window.parent.window.f_addTab("addIcon", "新增Icon", "#");
+		window.parent.window.f_addTab("addIcon", "新增Icon", "${pageContext.request.contextPath}/admin/goIconModify.vea");
 	}
 	function update(id,title){
-		window.parent.window.f_addTab("updateIcon", title, "#");
+		window.parent.window.f_addTab("updateIcon", title, "${pageContext.request.contextPath}/admin/goIconModify.vea?id="+id);
 	}
 	function del(id,title){
-		alert(id+"--"+title);
+		if(confirm("确定要删除“"+title+"”?")){
+			location.href="${pageContext.request.contextPath}/admin/iconDelete.vea?id="+id;
+		}
 	}
 	
 	//加载数据

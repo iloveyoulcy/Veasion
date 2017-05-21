@@ -10,9 +10,10 @@ public class DesktopCloumn {
 	
 	/**
 	 * show类型
-	 * 0:showMax=false 1:showMax=true
+	 * <br/>
+	 * "常规","最大化","最小化","打开新窗体"
 	 */
-	public static final Object[] showTypes={false,true};
+	public static final String[] showTypes={"常规","最大化","最小化","打开新窗体"};
 	
 	/**表名*/
 	public static final String tableName="desktop_cloumn";
