@@ -7,6 +7,9 @@ package veasion.util;
  */
 public class PageModel {
 	
+	public final static String INDEX_PAGE="indexPage";
+	public final static String PAGE_COUNT="pageCount";
+	
 	/**当前页数*/
 	private int indexPage=1;
 	/**最大页数*/

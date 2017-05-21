@@ -160,7 +160,7 @@ body, html {width: 100%;height: 100%;}
 				id : "icon_6",
 				icon : '${pageContext.request.contextPath}/page/images/icon_qiu.png',
 				title : '游戏',
-				url : '#'
+				url : 'http://www.4399.com/'
 			},
 			{
 				id : "icon_7",
@@ -178,7 +178,21 @@ body, html {width: 100%;height: 100%;}
 				width : 900
 			},
 			{
-				id : "icon_19",
+				id : "icon_9",
+				icon : '${pageContext.request.contextPath}/page/images/icon_github1.jpg',
+				title : 'Github',
+				url : 'https://github.com/veasion',
+				open : true
+			},
+			{
+				id : "icon_10",
+				icon : '${pageContext.request.contextPath}/page/images/icon_blog.png',
+				title : '博客',
+				url : 'http://59.110.241.52/solo',
+				open : true
+			},
+			{
+				id : "icon_11",
 				icon : '${pageContext.request.contextPath}/page/images/icon_love.png',
 				title : 'Love',
 				url : '#'
@@ -222,7 +236,11 @@ body, html {width: 100%;height: 100%;}
 					function() {
 						var linkindex = $(this).attr("linkindex");
 						var link = links[linkindex];
-						f_open(link.id, link.url, link.title, link.icon, link.width,link.height,link.showMax != null ? link.showMax : true);
+						if(link.open){
+							window.open(link.url); 
+						}else{
+							f_open(link.id, link.url, link.title, link.icon, link.width,link.height,link.showMax != null ? link.showMax : true);
+						}
 					});
 			jlink.appendTo(winlinksul);
 		}

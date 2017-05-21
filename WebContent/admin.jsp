@@ -33,11 +33,11 @@ body {padding: 0px;margin: 0;overflow: hidden;}
 		text : 'desktop',
 		isexpand : false,
 		children : [ {
-			url : "#",
-			text : "style管理"
+			text : "style管理",
+			url : "#"
 		}, {
-			url : "#",
-			text : "icon管理"
+			text : "icon管理",
+			url : "${pageContext.request.contextPath}/admin/icon.vea"
 		} ]
 	} ];
 
@@ -68,14 +68,12 @@ body {padding: 0px;margin: 0;overflow: hidden;}
 			showSwitch : true,
 			onAfterAddTabItem : function(tabdata) {
 				tabItems.push(tabdata);
-				saveTabStatus();
 			},
 			onAfterRemoveTabItem : function(tabid) {
 				for (var i = 0; i < tabItems.length; i++) {
 					var o = tabItems[i];
 					if (o.tabid == tabid) {
 						tabItems.splice(i, 1);
-						saveTabStatus();
 						break;
 					}
 				}

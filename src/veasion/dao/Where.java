@@ -21,6 +21,12 @@ public class Where {
 	 * @param value 条件值
 	 */
 	public Where(String column,JoinSql joinSql,Object value){
+		if(joinSql==JoinSql.like){
+			if(value!=null
+					&& String.valueOf(value).trim().startsWith("%")){
+				value="%"+value+"%";
+			}
+		}
 		this.column=column;
 		this.joinSql=joinSql;
 		this.value=value;

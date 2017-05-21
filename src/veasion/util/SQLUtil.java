@@ -3,7 +3,9 @@ package veasion.util;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import net.sf.json.JSONObject;
 
@@ -149,5 +151,45 @@ public class SQLUtil {
 	public static String getDate(){
 		return DateUtil.getFormatDate(new Date(), "yyyy-MM-dd HH:mm:ss");
 	}
+	
+	/** 
+	 * 过滤key
+	 * 
+	 * @param list 原数据
+	 * @param newAdd 新增数据
+	 * @param keyValueToStr 转换为String类型的key
+	 * @param keys 过滤的key
+	 */
+	public static List<Map<String, Object>> filterListMap(List<Map<String, Object>> list, Map<String, Object> newAdd,
+			String[] keyValueToStr, String... keys) {
+		if (list == null || list.isEmpty())
+			return list;
+		List<Map<String, Object>> newMap = new ArrayList<>();
+		Map<String, Object> m = null;
+		for (Map<String, Object> map : list) {
+			m = new HashMap<>();
+			k: for (String key : keys) {
+				if (keyValueToStr != null) {
+					for (String s : keyValueToStr) {
+						if (key.equals(s)) {
+							Object v = map.get(key);
+							if (v instanceof Date) {
+								m.put(key, DateUtil.getFormatDate((Date) v, "yyyy-MM-dd HH:mm:ss"));
+							} else {
+								m.put(key, String.valueOf(v != null ? v : ""));
+							}
+							continue k;
+						}
+					}
+				}
+				m.put(key, map.get(key));
+			}
+			if (newAdd != null)
+				m.putAll(newAdd);
+			newMap.add(m);
+		}
+		return newMap;
+	}
+	
 	
 }

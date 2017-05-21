@@ -16,6 +16,8 @@ public class DesktopCloumn {
 	
 	/**表名*/
 	public static final String tableName="desktop_cloumn";
+	/**id*/
+	public static final String id="id";
 	/**打开链接*/
 	public static final String url="url";
 	/**标题*/

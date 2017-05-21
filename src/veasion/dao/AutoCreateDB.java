@@ -35,7 +35,8 @@ public class AutoCreateDB {
 		// 判断数据库是否存在，不存在则创建
 		if (count == null || count < 1) {
 			
-			count = dao.executeCreate("create database " + DATABASE);
+			//创建数据库 utf-8编码
+			count = dao.executeCreate("CREATE DATABASE `"+DATABASE+"` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
 			
 			if (count != null && count > 0) {
 				LOGGER.info("创建数据库：" + DATABASE + "，成功！");

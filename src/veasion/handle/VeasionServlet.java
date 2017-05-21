@@ -74,16 +74,16 @@ public class VeasionServlet extends HttpServlet{
 				for (int i = 0; i < methods.length; i++) {
 					Method method = methods[i];
 					if (method.getName().toLowerCase().startsWith(methodName.toLowerCase())) {
-						//查找看有没有同名开头的，有就匹配最长的
-						int methodIndex=i,maxLen=method.getName().length();
+						//查找看有没有同名开头的，有就匹配最短的
+						int methodIndex=i,minLen=method.getName().length();
 						for (int j = 0; j < methods.length; j++) {
 							Method method2 = methods[j];
 							if (method2.getName().toLowerCase().startsWith(methodName.toLowerCase()) 
-									&& method2.getName().length()>maxLen){
+									&& method2.getName().length()<minLen){
 								methodIndex=j;
 							}
 						}
-						//有同名开头的方法就匹配最长的
+						//有同名开头的方法就匹配最短的
 						if(methodIndex!=i){
 							method = methods[methodIndex];
 						}
