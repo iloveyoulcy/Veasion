@@ -49,6 +49,9 @@ public class Constant {
 	/**admin codes*/
 	public static final String ADMIN_CODES="86,69,65,83,73,79,78,187,65,190,74,65,86,65";
 	
+	/**作者*/
+	public static final String AUTHOR="veasion";
+	
 	/**获取桌面路径*/
 	public static String HOME_PATH = FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath();
 	

@@ -32,9 +32,15 @@ public class Where {
 		this.value=value;
 	}
 	
-	/**获取占位符的SQL，如 xxx=?*/
-	public StringBuilder getSQL(){
+	/**
+	 * 获取占位符的SQL，如 xxx=?
+	 * @param as 命名xx.xxx=?
+	 */
+	public StringBuilder getSQL(String as){
 		StringBuilder sql=new StringBuilder();
+		if(as!=null){
+			sql.append(as).append(".");
+		}
 		sql.append(column);
 		switch (joinSql) {
 			case eq:

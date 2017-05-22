@@ -1,12 +1,17 @@
 package veasion.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.log4j.Logger;
 import net.sf.json.JSONObject;
 import veasion.constant.Constant;
 import veasion.dao.JdbcDao;
+import veasion.dao.Relation;
 import veasion.dao.Where;
 import veasion.service.BeanService;
 import veasion.util.PageModel;
@@ -86,7 +91,7 @@ public class MysqlServieImpl implements BeanService{
 		List<Object> values=new ArrayList<>();
 		if(wheres!=null){
 			for (Where w : wheres) {
-				sqls.add(w.getSQL().toString());
+				sqls.add(w.getSQL(null).toString());
 				values.add(w.getValue());
 			}
 		}
@@ -126,7 +131,7 @@ public class MysqlServieImpl implements BeanService{
 		List<Object> values=new ArrayList<>();
 		if(wheres!=null){
 			for (Where w : wheres) {
-				sqls.add(w.getSQL().toString());
+				sqls.add(w.getSQL(null).toString());
 				values.add(w.getValue());
 			}
 		}
@@ -144,7 +149,7 @@ public class MysqlServieImpl implements BeanService{
 		List<Object> values=new ArrayList<>();
 		if(wheres!=null){
 			for (Where w : wheres) {
-				sqls.add(w.getSQL().toString());
+				sqls.add(w.getSQL(null).toString());
 				values.add(w.getValue());
 			}
 		}
@@ -165,5 +170,82 @@ public class MysqlServieImpl implements BeanService{
 		values.add((indexPage-1)*pageCount+pageCount);
 		return dao.Query(sql.toString(), SQLUtil.getObjectByList(values));
 	}
+
+
+	@Override
+	public List<Map<String, Object>> MultiTableQuery(Map<String, List<Where>> whereMap,List<Relation> relations,PageModel pm) {
+		//select * from A a,B b,C c where 1=1 and a.id=b.id and b.id=c.id and a.xxx=? and b.xxx=? and c.xx=? limit ?,?
+		
+		if(whereMap==null)whereMap=new HashedMap();
+		
+		//select * from A a,B b,C c 
+		StringBuilder sql=new StringBuilder();
+		sql.append("SELECT * FROM ");
+		Map<String, String> tableAs=new HashMap<>();
+		if(!whereMap.containsKey(tableName)){
+			whereMap.put(tableName, null);
+		}
+		if(relations!=null && !relations.isEmpty()){
+			for (Relation r : relations) {
+				if(!whereMap.containsKey(r.getTableName1())){
+					whereMap.put(r.getTableName1(), null);
+				}
+				if(!whereMap.containsKey(r.getTableName2())){
+					whereMap.put(r.getTableName2(), null);
+				}
+			}
+		}
+		Set<String> tables=whereMap.keySet();
+		String asTemp=null;
+		for (String table : tables) {
+			asTemp=Constant.AUTHOR+"_"+table;
+			tableAs.put(table,asTemp);
+			sql.append(table).append(" ");
+			sql.append(asTemp).append(",");
+		}
+		
+		sql.setLength(sql.length()-1);
+		
+		//where 1=1 and a.id=b.id and b.id=c.id 
+		sql.append(" WHERE 1=1 ");
+		if(relations!=null && !relations.isEmpty()){
+			for (Relation r : relations) {
+				sql.append(" AND ");
+				sql.append(r.getSQL(tableAs));
+			}
+		}
+		List<Object> values=new ArrayList<>();
+		for (String table : tables) {
+			//and a.xxx=? and b.xxx=? and c.xx=? 
+			List<Where> list=whereMap.get(table);
+			if(list!=null){
+				for (Where w : list) {
+					sql.append(" AND ");
+					sql.append(w.getSQL(tableAs.get(table)));
+					values.add(w.getValue());
+				}
+			}
+		}
+		//不分页
+		if(pm==null){
+			return dao.Query(sql.toString(), SQLUtil.getObjectByList(values));
+		}
+		//分页，查询count
+		String countSQL=sql.toString().replace("*", "COUNT(*)");
+		Object countObj=dao.QueryOnly(countSQL, SQLUtil.getObjectByList(values));
+		if(countObj!=null){
+			pm.setCount(Integer.parseInt(String.valueOf(countObj)));
+		}
+		
+		//分页，查询结果
+		sql.append(" LIMIT ?,?");
+		int indexPage=pm.getIndexPage();
+		int pageCount=pm.getPageCount();
+		values.add((indexPage-1)*pageCount);
+		values.add((indexPage-1)*pageCount+pageCount);
+		return dao.Query(sql.toString(), SQLUtil.getObjectByList(values));
+	}
+	
+	
 	
 }

@@ -34,7 +34,7 @@ body {padding: 0px;margin: 0;overflow: hidden;}
 		isexpand : false,
 		children : [ {
 			text : "style管理",
-			url : "#"
+			url : "${pageContext.request.contextPath}/admin/styleSearch.vea"
 		}, {
 			text : "icon管理",
 			url : "${pageContext.request.contextPath}/admin/icon.vea"

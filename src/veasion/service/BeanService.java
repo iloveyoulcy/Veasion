@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.json.JSONObject;
+import veasion.dao.Relation;
 import veasion.dao.Where;
 import veasion.util.PageModel;
 
@@ -64,5 +65,12 @@ public interface BeanService {
 	 */
 	public List<Map<String, Object>> Query(List<Where> wheres,PageModel pm);
 	
+	/**
+	 * 多表联查，可分页
+	 * @param whereMap key表名，value条件，可空
+	 * @param relations 表关系字段对应，可空
+	 * @param pm 分页model，可空
+	 */
+	public List<Map<String, Object>> MultiTableQuery(Map<String, List<Where>> whereMap,List<Relation> relations, PageModel pm);
 	
 }

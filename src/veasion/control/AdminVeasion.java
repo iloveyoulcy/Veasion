@@ -2,8 +2,6 @@ package veasion.control;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 import veasion.bean.BeanConstant;
 import veasion.bean.DesktopCloumn;
+import veasion.bean.DesktopStyle;
+import veasion.bean.Music;
 import veasion.constant.Constant;
 import veasion.dao.JoinSql;
+import veasion.dao.Relation;
 import veasion.dao.Where;
 import veasion.service.BeanService;
 import veasion.service.impl.MysqlServieImpl;
@@ -144,5 +145,12 @@ public class AdminVeasion {
 		else
 			return "page/failure.jsp";
 	}
+	
+	/**STYLE分页查询*/
+	public String styleSearch(){
+		
+		return "page/desktop/styleList.jsp";
+	}
+	
 	
 }
