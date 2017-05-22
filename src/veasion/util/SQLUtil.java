@@ -208,7 +208,7 @@ public class SQLUtil {
 	}
 	
 	/**
-	 * 返回想要的key-value
+	 * 过滤map返回想要的key-value
 	 * @param source 来源数据
 	 * @param 封装数据
 	 * @param keys 想要封装的key 

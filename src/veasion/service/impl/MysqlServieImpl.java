@@ -40,10 +40,14 @@ public class MysqlServieImpl implements BeanService{
 	 * 基本数据操作Service实现类 For Mysql.
 	 * @param tableName 数据表名
 	 */
-	public MysqlServieImpl(final String tableName){
-		this.tableName=tableName;
+	public MysqlServieImpl(final String useTableName){
+		this.tableName=useTableName;
 	};
 	
+	/**切换表*/
+	public void useTable(final String tableName) {
+		this.tableName = tableName;
+	}
 	
 	@Override
 	public final int Add(JSONObject json) {

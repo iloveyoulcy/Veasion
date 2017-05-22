@@ -61,9 +61,11 @@
 			<tr>
 				<th>URL：</th>
 				<td>
-					<input id="url" name="url" type="text" value="${obj.url }" /> <a href="javascript:openURL($('#url').val());">浏览</a>
+					<input id="url" name="url" type="text" value="${obj.url }" />
 				</td>
-				<td></td>
+				<td>
+					<a href="javascript:openURL($('#url').val());">浏览</a>
+				</td>
 			</tr>
 			<tr>
 				<th>宽度：</th>
@@ -88,7 +90,7 @@
 						</c:forEach>
 					</select>
 				</td>
-				<td></td>
+				<td>&nbsp;</td>
 			</tr>
 			<tr>
 				<th colspan="3">

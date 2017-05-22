@@ -10,10 +10,14 @@ import veasion.util.PageModel;
 
 /**
  * 基本数据操作Service
+ * 
  * @author zhuowei.luo
  * @date 2017/5/7 
  */
 public interface BeanService {
+	
+	/**切换表*/
+	public void useTable(final String tableName);
 	
 	/**
 	 * 增加

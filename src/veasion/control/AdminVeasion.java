@@ -31,7 +31,7 @@ public class AdminVeasion {
 	HttpServletRequest req;
 	HttpServletResponse resp;
 	JSONObject json;
-	BeanService service;
+	BeanService service=new MysqlServieImpl(null);
 	
 	/**验证*/
 	public int validation(){
@@ -60,12 +60,13 @@ public class AdminVeasion {
 	
 	/**ICON分页查询*/
 	public Map iconSearch() {
-		System.out.println(json);
+		//切换表
+		service.useTable(DesktopCloumn.tableName);
+		//System.out.println(json);
 		Integer indexPage = json.getInt("page");
 		Integer pageCount = json.getInt("pagesize");
 		String title = json.optString(DesktopCloumn.title, null);
 		Map<String, Object> map = new HashMap();
-		service = new MysqlServieImpl(DesktopCloumn.tableName);
 		PageModel pm = new PageModel(indexPage, pageCount);
 		List<Where> wheres = new ArrayList<>();
 		if (title != null && !"".equals(title.trim())) {
@@ -77,7 +78,6 @@ public class AdminVeasion {
 				DesktopCloumn.showType, DesktopCloumn.status, DesktopCloumn.createDate);
 		map.put("Rows", result);
 		map.put("Total", pm.getCount());
-		System.out.println(pm.getCount());
 		return map;
 	}
 	
@@ -85,7 +85,7 @@ public class AdminVeasion {
 	public String goIconModify(){
 		Object id=json.get(DesktopCloumn.id);
 		if(id!=null && SQLUtil.valueOfInteger(id)!=null){
-			service=new MysqlServieImpl(DesktopCloumn.tableName);
+			service.useTable(DesktopCloumn.tableName);
 			req.setAttribute(BeanConstant.OBJECT, service.QueryById(DesktopCloumn.id, id));
 		}
 		req.setAttribute("showTypes", DesktopCloumn.showTypes);
@@ -109,7 +109,7 @@ public class AdminVeasion {
 	/**ICON增加、修改*/
 	public String iconUpdate() throws IOException{
 		Object idObj=json.get(DesktopCloumn.id);
-		service=new MysqlServieImpl(DesktopCloumn.tableName);
+		service.useTable(DesktopCloumn.tableName);
 		JSONObject data=new JSONObject();
 		Integer id=null;
 		int count=0;
@@ -137,7 +137,7 @@ public class AdminVeasion {
 		Integer id=null;
 		int count=0;
 		if(obj!=null && (id=SQLUtil.valueOfInteger(obj))!=null){
-			service=new MysqlServieImpl(DesktopCloumn.tableName);
+			service.useTable(DesktopCloumn.tableName);
 			count=service.Delete(DesktopCloumn.id, id);
 		}
 		if(count>0)
