@@ -77,14 +77,14 @@
 			<tr>
 				<th>宽度：</th>
 				<td>
-					<input name="cloumn_width" type="text" value="${obj.cloumn_width!=null?obj.cloumn_width:500 }" maxlength="4" onkeydown="return inputInt(event);"/>
+					<input name="cloumn_width" type="text" value="${obj.cloumn_width!=null?obj.cloumn_width:36 }" maxlength="4" onkeydown="return inputInt(event);"/>
 				</td>
 				<td></td>
 			</tr>
 			<tr>
 				<th>高度：</th>
 				<td>
-					<input name="cloumn_height" type="text" value="${obj.cloumn_height!=null?obj.cloumn_height:500 }" maxlength="4" onkeydown="return inputInt(event);"/>
+					<input name="cloumn_height" type="text" value="${obj.cloumn_height!=null?obj.cloumn_height:36 }" maxlength="4" onkeydown="return inputInt(event);"/>
 				</td>
 				<td></td>
 			</tr>
