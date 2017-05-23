@@ -10,8 +10,8 @@
 <script src="${pageContext.request.contextPath}/jquery/ligerUI/js/core/base.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/jquery/ligerUI/js/plugins/ligerGrid.js" type="text/javascript"></script>
 <style>
-td,th{width:100px; height:40px;}
-div img{width: 36px; height: 36px;}
+td,th{width:100px; height:66px;}
+div img{width: 36px; height: 36px;cursor: pointer; }
 a{text-decoration:none}
 
 .icon {
@@ -20,7 +20,7 @@ a{text-decoration:none}
     cursor: pointer;
 }
 </style>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 
 	var grid = null;
 	
@@ -35,30 +35,29 @@ a{text-decoration:none}
 				display : 'id',
 				name : 'id'
 			}, {
-				display : '图标',
-				name : 'icon'
+				display : '背景',
+				name : 'bgimg',
+				align: 'center'
 			}, {
 				display : '标题',
-				name : 'title'
+				name : 'name'
 			}, {
-				display : '链接',
-				name : 'url',
-				width:200
+				display : '作者',
+				name : 'author',
 			}, {
 				display : '宽度',
-				name : 'width'
+				name : 'cloumn_width'
 			}, {
 				display : '高度',
-				name : 'height'
+				name : 'cloumn_height'
 			}, {
-				display : '显示类型',
-				name : 'show_type'
-			}, {
-				display : '状态',
-				name : 'status'
+				display : 'Icons',
+				name : 'cloumn_ids',
+				width : 200
 			}, {
 				display : '创建时间',
-				name : 'create_date'
+				name : 'create_date',
+				width : 80
 			}, {
 				display : '编辑',
 				name : 'edit'
@@ -71,15 +70,15 @@ a{text-decoration:none}
 			height : '100%',
 			rowAttrRender: function (rowdata,rowid){
 				var id=rowdata.id;
-				var url=rowdata.url;
-				var title=rowdata.title;
+				var name=rowdata.name;
 				var date=rowdata.create_date;
-				rowdata.icon="<img src='"+rowdata.icon+"'/>";
-				rowdata.title="<span title='"+title+"'>"+title+"</span>";
+				var icons=rowdata.cloumn_ids;
+				rowdata.bgimg="<img src='"+rowdata.bgimg+"' title='查看大图' onclick='openUrl(\""+id+"\",\"查看大图\",\""+rowdata.bgimg+"\");'/>";
+				rowdata.name="<span title='"+name+"'>"+name+"</span>";
+				rowdata.cloumn_ids="<span title='"+icons+"'>"+icons+"</span>";
 				rowdata.create_date="<span title='"+date+"'>"+date+"</span>";
-				rowdata.url="<a href=\"javascript:openUrl('"+id+"','"+title+"','"+url+"');\" title='"+url+"'>"+url+"</a>";
-				rowdata.edit="<a href=\"javascript:update('"+id+"','"+title+"');\">修改</a>";
-				rowdata.del="<a href=\"javascript:del('"+id+"','"+title+"');\" style='color:red;'>删除</a>";
+				rowdata.edit="<a href=\"javascript:update('"+id+"','"+name+"');\">修改</a>";
+				rowdata.del="<a href=\"javascript:del('"+id+"','"+name+"');\" style='color:red;'>删除</a>";
 				return null;
 			},
 			parms : parms
@@ -92,27 +91,27 @@ a{text-decoration:none}
 	}
 	
 	function add(){
-		window.parent.window.f_addTab("addIcon", "新增Icon", "${pageContext.request.contextPath}/admin/goIconModify.vea");
+		window.parent.window.f_addTab("addStyle", "新增Style", "${pageContext.request.contextPath}/admin/goStyleModify.vea");
 	}
 	function update(id,title){
-		window.parent.window.f_addTab("updateIcon", title, "${pageContext.request.contextPath}/admin/goIconModify.vea?id="+id);
+		window.parent.window.f_addTab("updateStyle", title, "${pageContext.request.contextPath}/admin/goStyleModify.vea?id="+id);
 	}
 	function del(id,title){
 		if(confirm("确定要删除“"+title+"”?")){
-			location.href="${pageContext.request.contextPath}/admin/iconDelete.vea?id="+id;
+			location.href="${pageContext.request.contextPath}/admin/styleDelete.vea?id="+id;
 		}
 	}
 	
 	//查询
 	function search() {
-		loadData({"title":$("#title").val()});
+		loadData({"name":$("#name").val()});
 	}
 	
-</script> -->
+</script>
 </head>
 <body style="padding: 6px; overflow: hidden;">
 	<div id="searchbar">
-		标题：<input id="title" type="text" value=""/> 
+		标题：<input id="name" type="text" value="" /> 
 		<input id="btnOK" type="button" value="搜索" onclick="search();" />
 		<img class="icon" style="float: right;" onclick="add();" src="${pageContext.request.contextPath}/jquery/ligerUI/skins/icons/add.gif" title="新增" alt="新增">
 	</div>

@@ -146,7 +146,12 @@ public class VeasionServlet extends HttpServlet{
 		Enumeration<String> e=request.getParameterNames();
 		while(e.hasMoreElements()){
 			String element=e.nextElement();
-			map.put(element,request.getParameter(element));
+			String []values=request.getParameterValues(element);
+			if(values==null || values.length<=1){//只有一个值
+				map.put(element,request.getParameter(element));
+			}else{//多个值
+				map.put(element,values);
+			}
 		}
 		return JSONObject.fromObject(map);
 	}

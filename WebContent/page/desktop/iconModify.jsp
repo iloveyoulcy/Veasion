@@ -77,7 +77,7 @@
 			<tr>
 				<th>高度：</th>
 				<td>
-					<input name="height" type="text" value="${obj.width!=null?obj.width:500 }" maxlength="4" onkeydown="return inputInt(event);"/>
+					<input name="height" type="text" value="${obj.height!=null?obj.height:500 }" maxlength="4" onkeydown="return inputInt(event);"/>
 				</td>
 				<td></td>
 			</tr>

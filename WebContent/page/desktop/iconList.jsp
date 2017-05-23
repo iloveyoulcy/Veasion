@@ -33,7 +33,8 @@ a{text-decoration:none}
 			url:"${pageContext.request.contextPath}/admin/iconSearch.vea",
 			columns : [ {
 				display : 'id',
-				name : 'id'
+				name : 'id',
+				width : 35
 			}, {
 				display : '图标',
 				name : 'icon'
@@ -43,7 +44,7 @@ a{text-decoration:none}
 			}, {
 				display : '链接',
 				name : 'url',
-				width:200
+				width : 180
 			}, {
 				display : '宽度',
 				name : 'width'
@@ -58,7 +59,8 @@ a{text-decoration:none}
 				name : 'status'
 			}, {
 				display : '创建时间',
-				name : 'create_date'
+				name : 'create_date',
+				width : 80
 			}, {
 				display : '编辑',
 				name : 'edit'

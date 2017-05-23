@@ -3,6 +3,7 @@ package veasion.control;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import veasion.service.BeanService;
 import veasion.service.impl.MysqlServieImpl;
 import veasion.util.PageModel;
 import veasion.util.SQLUtil;
+import veasion.util.TextUtil;
 
 public class AdminVeasion {
 	
@@ -146,11 +148,101 @@ public class AdminVeasion {
 			return "page/failure.jsp";
 	}
 	
-	/**STYLE分页查询*/
-	public String styleSearch(){
-		
+	/**Style管理*/
+	public String style(){
 		return "page/desktop/styleList.jsp";
 	}
 	
+	/**Style分页查询*/
+	public Map styleSearch() {
+		//切换表
+		service.useTable(DesktopStyle.tableName);
+		System.out.println(json);
+		Integer indexPage = json.getInt("page");
+		Integer pageCount = json.getInt("pagesize");
+		String name = json.optString(DesktopStyle.name, null);
+		Map<String, Object> map = new HashMap();
+		PageModel pm = new PageModel(indexPage, pageCount);
+		List<Where> wheres = new ArrayList<>();
+		if (name != null && !"".equals(name.trim())) {
+			wheres.add(new Where(DesktopStyle.name, JoinSql.like, name));
+		}
+		List<Map<String, Object>> result = service.Query(wheres, pm);
+		result = SQLUtil.filterListMap(result, null, new String[] { DesktopStyle.createDate }, DesktopStyle.id,
+				DesktopStyle.author, DesktopStyle.name, DesktopStyle.bgimg, DesktopStyle.cloumnHeight,
+				DesktopStyle.cloumnWidth, DesktopStyle.cloumnIds, DesktopStyle.createDate);
+		map.put("Rows", result);
+		map.put("Total", pm.getCount());
+		return map;
+	}
+	
+	/**Go Style增加、修改页面*/
+	public String goStyleModify(){
+		Object id=json.get(DesktopStyle.id);
+		if(id!=null && SQLUtil.valueOfInteger(id)!=null){
+			service.useTable(DesktopStyle.tableName);
+			req.setAttribute(BeanConstant.OBJECT, service.QueryById(DesktopStyle.id, id));
+		}
+		List<String> bgimgs=new ArrayList<>();
+		//读取Style背景图标名称
+		try {
+			String path=req.getServletContext().getRealPath("page/images");
+			String imgPath=req.getContextPath()+"/page/images/";
+			File fd=new File(path);
+			if(fd.isDirectory()){
+				for (File f : fd.listFiles()) {
+					if(f.getName().startsWith("bgimg_"))
+						bgimgs.add(f.getName());
+				}
+			}
+		} catch (Exception e) {e.printStackTrace();}
+		service.useTable(DesktopCloumn.tableName);
+		List<Map<String, Object>> icons=service.Query(null);
+		req.setAttribute(DesktopStyle.cloumnIds, icons);
+		req.setAttribute("bgimgs", bgimgs);
+		return "page/desktop/styleModify.jsp";
+	}
+	
+	/**Style增加、修改*/
+	public String styleUpdate() throws IOException{
+		Object idObj=json.get(DesktopStyle.id);
+		service.useTable(DesktopStyle.tableName);
+		JSONObject data=new JSONObject();
+		Integer id=null;
+		int count=0;
+		SQLUtil.fillJsonObject(json, data, DesktopStyle.name,DesktopStyle.author,DesktopStyle.bgimg,DesktopStyle.cloumnHeight,DesktopStyle.cloumnWidth);
+		String []cloumnIds=req.getParameterValues(DesktopStyle.cloumnIds);
+		data.put(DesktopStyle.cloumnIds, TextUtil.joinObjectArr(cloumnIds, ","));
+		System.out.println(data);
+		if(idObj!=null && (id=SQLUtil.valueOfInteger(idObj))!=null){
+			JSONObject where=new JSONObject();
+			where.put(DesktopStyle.id, id);
+			//修改
+			count=service.Update(data, where);
+		}else{
+			data.put(DesktopStyle.createDate, SQLUtil.getDate());
+			//新增
+			count=service.Add(data);
+		}
+		if(count>0)
+			return "page/success.jsp";
+		else
+			return "page/failure.jsp";
+	}
+	
+	/**Style删除*/
+	public String styleDelete(){
+		Object obj=json.get(DesktopStyle.id);
+		Integer id=null;
+		int count=0;
+		if(obj!=null && (id=SQLUtil.valueOfInteger(obj))!=null){
+			service.useTable(DesktopStyle.tableName);
+			count=service.Delete(DesktopStyle.id, id);
+		}
+		if(count>0)
+			return "page/success.jsp";
+		else
+			return "page/failure.jsp";
+	}
 	
 }
