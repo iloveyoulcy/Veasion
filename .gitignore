@@ -1,4 +1,4 @@
 /.settings/
-/build/
+/target/
 .classpath
 .project
