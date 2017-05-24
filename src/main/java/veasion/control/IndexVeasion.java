@@ -43,7 +43,6 @@ public class IndexVeasion {
 				List<Where> wheres=new ArrayList<>();
 				wheres.add(new Where(DesktopCloumn.id, JoinSql.in, String.valueOf(get).split(",")));
 				List<Map<String, Object>> icons=service.Query(wheres);
-				System.out.println(icons.size());
 				for (Map<String, Object> icon : icons) {
 					int showType=SQLUtil.valueOfInteger(icon.get(DesktopCloumn.showType));
 					//"常规","最大化","最小化","打开新窗体","不准最大化"
