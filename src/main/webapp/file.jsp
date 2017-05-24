@@ -7,12 +7,19 @@
 <title>Insert title here</title>
 </head>
 <body>
+<br />
+	上传文件：
 	<form action="/Veasion/file/upFile.vea" method="post" enctype="multipart/form-data">  
-        <input id="myfile" name="myfile" type="file" /> 
-        <input type="submit" value="提交" />${result}
-    </form>  
+        <input name="fileName" type="file" />
+        <input type="submit" value="提交" />
+    </form>
+    ${result}
+    <br />
          下载：  
-    <a href="/Veasion/file/downloadFile.vea?filename=ws1.jpg">ws1.jsp</a>  
-       ${errorResult}
+     <form action="/Veasion/file/downloadFile.vea" method="post">  
+        <input name="fileName" type="text" value="ws1.jpg"/>
+        <input type="submit" value="下载" />
+    </form>
+    <span style="color: red;"> ${downloadFileErr }</span>
 </body>
 </html>
