@@ -86,7 +86,7 @@
 				<td>
 					<select id="show_type" name="show_type">
 						<c:forEach items="${showTypes }" var="type" varStatus="s">
-							<option value="${s.count }">${type }</option>
+							<option value="${s.count-1 }">${type }</option>
 						</c:forEach>
 					</select>
 				</td>

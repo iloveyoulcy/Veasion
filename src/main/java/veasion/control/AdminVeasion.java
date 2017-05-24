@@ -3,7 +3,6 @@ package veasion.control;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,11 +13,9 @@ import net.sf.json.JSONObject;
 import veasion.bean.BeanConstant;
 import veasion.bean.DesktopCloumn;
 import veasion.bean.DesktopStyle;
-import veasion.bean.Music;
 import veasion.constant.Constant;
 import veasion.dao.JdbcDao;
 import veasion.dao.JoinSql;
-import veasion.dao.Relation;
 import veasion.dao.Where;
 import veasion.service.BeanService;
 import veasion.service.impl.MysqlServieImpl;
@@ -34,7 +31,9 @@ public class AdminVeasion {
 	HttpServletRequest req;
 	HttpServletResponse resp;
 	JSONObject json;
+	
 	BeanService service=new MysqlServieImpl(null);
+	
 	
 	/**验证*/
 	public int validation(){
@@ -62,14 +61,14 @@ public class AdminVeasion {
 	}
 	
 	/**ICON分页查询*/
-	public Map iconSearch() {
+	public Map<String,Object> iconSearch() {
 		//切换表
 		service.useTable(DesktopCloumn.tableName);
 		//System.out.println(json);
 		Integer indexPage = json.getInt("page");
 		Integer pageCount = json.getInt("pagesize");
 		String title = json.optString(DesktopCloumn.title, null);
-		Map<String, Object> map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		PageModel pm = new PageModel(indexPage, pageCount);
 		List<Where> wheres = new ArrayList<>();
 		if (title != null && !"".equals(title.trim())) {
@@ -89,14 +88,14 @@ public class AdminVeasion {
 		Object id=json.get(DesktopCloumn.id);
 		if(id!=null && SQLUtil.valueOfInteger(id)!=null){
 			service.useTable(DesktopCloumn.tableName);
-			req.setAttribute(BeanConstant.OBJECT, service.QueryById(DesktopCloumn.id, id));
+			req.setAttribute(BeanConstant.OBJECT, service.QueryOnly(DesktopCloumn.id, id));
 		}
 		req.setAttribute("showTypes", DesktopCloumn.showTypes);
 		List<String> icons=new ArrayList<>();
 		//读取icon图标名称
 		try {
 			String path=req.getServletContext().getRealPath("page/images");
-			String imgPath=req.getContextPath()+"/page/images/";
+			//String imgPath=req.getContextPath()+"/page/images/";
 			File fd=new File(path);
 			if(fd.isDirectory()){
 				for (File f : fd.listFiles()) {
@@ -155,14 +154,14 @@ public class AdminVeasion {
 	}
 	
 	/**Style分页查询*/
-	public Map styleSearch() {
+	public Map<String, Object> styleSearch() {
 		//切换表
 		service.useTable(DesktopStyle.tableName);
 		System.out.println(json);
 		Integer indexPage = json.getInt("page");
 		Integer pageCount = json.getInt("pagesize");
 		String name = json.optString(DesktopStyle.name, null);
-		Map<String, Object> map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		PageModel pm = new PageModel(indexPage, pageCount);
 		List<Where> wheres = new ArrayList<>();
 		if (name != null && !"".equals(name.trim())) {
@@ -182,13 +181,13 @@ public class AdminVeasion {
 		Object id=json.get(DesktopStyle.id);
 		if(id!=null && SQLUtil.valueOfInteger(id)!=null){
 			service.useTable(DesktopStyle.tableName);
-			req.setAttribute(BeanConstant.OBJECT, service.QueryById(DesktopStyle.id, id));
+			req.setAttribute(BeanConstant.OBJECT, service.QueryOnly(DesktopStyle.id, id));
 		}
 		List<String> bgimgs=new ArrayList<>();
 		//读取Style背景图标名称
 		try {
 			String path=req.getServletContext().getRealPath("page/images");
-			String imgPath=req.getContextPath()+"/page/images/";
+			//String imgPath=req.getContextPath()+"/page/images/";
 			File fd=new File(path);
 			if(fd.isDirectory()){
 				for (File f : fd.listFiles()) {

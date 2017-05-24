@@ -27,3 +27,37 @@ function fillForm(map){
 	   if(obj!=null)obj[0].value=map[key]
 	}
 }
+
+//可拖动
+$(function() {
+	$.fn.Drag = function(did) {
+		var M = false;
+		var Rx, Ry;
+		var t = $(this);
+		var d = $("#" + did);
+		var isDrag = false;
+		t.mousedown(function(event) {
+			Rx = event.pageX - (parseInt(t.css("left")) || 0);
+			Ry = event.pageY - (parseInt(t.css("top")) || 0);
+			M = true;
+		}).mouseup(function(event) {
+			M = false;
+			t.css('cursor', 'default');
+		});
+		d.mouseout(function(event) {
+			isDrag = false;
+			t.css('cursor', 'default');
+		}).mouseover(function(event) {
+			isDrag = true;
+		});
+		$(document).mousemove(function(event) {
+			if (M && isDrag) {
+				t.css({
+					top : event.pageY - Ry,
+					left : event.pageX - Rx,
+					cursor : "move"
+				});
+			}
+		});
+	}
+});

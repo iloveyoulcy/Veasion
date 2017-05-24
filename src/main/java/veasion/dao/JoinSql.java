@@ -19,5 +19,7 @@ public enum JoinSql {
 	/**大于等于，>=*/
 	greaterEq,
 	/**小于等于，<=*/
-	lessEq
+	lessEq,
+	/**in*/
+	in
 }

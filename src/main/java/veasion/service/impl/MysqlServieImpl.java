@@ -96,7 +96,12 @@ public class MysqlServieImpl implements BeanService{
 		if(wheres!=null){
 			for (Where w : wheres) {
 				sqls.add(w.getSQL(null).toString());
-				values.add(w.getValue());
+				Object value=w.getValue();
+				if(value instanceof List){
+					values.addAll((List)value);
+				}else{
+					values.add(value);
+				}
 			}
 		}
 		StringBuilder sql=new StringBuilder();
@@ -118,7 +123,7 @@ public class MysqlServieImpl implements BeanService{
 	}
 	
 	@Override
-	public Map<String, Object> QueryById(String column, Object value) {
+	public Map<String, Object> QueryOnly(String column, Object value) {
 		StringBuilder sql=new StringBuilder();
 		sql.append("SELECT * FROM ").append(tableName);
 		sql.append(" WHERE ").append(column);
@@ -136,7 +141,12 @@ public class MysqlServieImpl implements BeanService{
 		if(wheres!=null){
 			for (Where w : wheres) {
 				sqls.add(w.getSQL(null).toString());
-				values.add(w.getValue());
+				Object value=w.getValue();
+				if(value instanceof List){
+					values.addAll((List)value);
+				}else{
+					values.add(value);
+				}
 			}
 		}
 		StringBuilder sql=new StringBuilder();
@@ -154,7 +164,12 @@ public class MysqlServieImpl implements BeanService{
 		if(wheres!=null){
 			for (Where w : wheres) {
 				sqls.add(w.getSQL(null).toString());
-				values.add(w.getValue());
+				Object value=w.getValue();
+				if(value instanceof List){
+					values.addAll((List)value);
+				}else{
+					values.add(value);
+				}
 			}
 		}
 		StringBuilder sql=new StringBuilder();
@@ -226,7 +241,12 @@ public class MysqlServieImpl implements BeanService{
 				for (Where w : list) {
 					sql.append(" AND ");
 					sql.append(w.getSQL(tableAs.get(table)));
-					values.add(w.getValue());
+					Object value=w.getValue();
+					if(value instanceof List){
+						values.addAll((List)value);
+					}else{
+						values.add(value);
+					}
 				}
 			}
 		}

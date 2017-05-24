@@ -11,9 +11,9 @@ public class DesktopCloumn {
 	/**
 	 * show类型
 	 * <br/>
-	 * "常规","最大化","最小化","打开新窗体"
+	 * "常规","最大化","最小化","打开新窗体","不准最大化"
 	 */
-	public static final String[] showTypes={"常规","最大化","最小化","打开新窗体"};
+	public static final String[] showTypes={"常规","最大化","最小化","打开新窗体","不准最大化"};
 	
 	/**表名*/
 	public static final String tableName="desktop_cloumn";

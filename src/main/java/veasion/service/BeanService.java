@@ -48,12 +48,12 @@ public interface BeanService {
 	public int Count(List<Where> wheres);
 	
 	/**
-	 * 根据id，主键查询
+	 * 查询单个数据
 	 * @param column 条件字段
 	 * @param value 条件值
 	 * @return 只返回第一条数据
 	 */
-	public Map<String,Object> QueryById(String column,Object value);
+	public Map<String,Object> QueryOnly(String column,Object value);
 	
 	/**
 	 * 查询
