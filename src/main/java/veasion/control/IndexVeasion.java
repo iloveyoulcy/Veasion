@@ -31,7 +31,6 @@ public class IndexVeasion {
 	
 	/**请求桌面数据*/
 	public Map<String, Object> desktopData(){
-		
 		Map<String,Object> data=new HashMap<>();
 		service.useTable(DesktopStyle.tableName);
 		Map<String, Object> styleMap=service.QueryOnly(DesktopStyle.status, DesktopStyle.STATUS_USE);
@@ -59,30 +58,6 @@ public class IndexVeasion {
 				data.put("icons", icons);
 			}
 		}
-		
-		System.out.println("data:"+data);
-		/*
-		if(link.open){
-			window.open(link.url); 
-		}else{
-			f_open(link.id, link.url, link.title, link.icon, link.width,link.height,link.showMax != null ? link.showMax : true);
-		}
-		
-		id : "icon_1",
-		icon : '${pageContext.request.contextPath}/page/images/icon_pc.png',
-		title : '我的主页',
-		url : '${pageContext.request.contextPath}/index.jsp',
-		width : 900,
-		height : 700
-		
-		id : "icon_10",
-		icon : '${pageContext.request.contextPath}/page/images/icon_blog.png',
-		title : '博客',
-		url : 'http://59.110.241.52/solo',
-		open : true
-		
-		 */
-		
 		return data;
 	}
 	
