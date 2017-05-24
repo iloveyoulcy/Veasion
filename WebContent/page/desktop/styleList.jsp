@@ -59,6 +59,9 @@ a{text-decoration:none}
 				name : 'create_date',
 				width : 80
 			}, {
+				display : "使用",
+				name : 'status'
+			}, {
 				display : '编辑',
 				name : 'edit'
 			}, {
@@ -73,6 +76,8 @@ a{text-decoration:none}
 				var name=rowdata.name;
 				var date=rowdata.create_date;
 				var icons=rowdata.cloumn_ids;
+				var status=(1==rowdata.status);
+				rowdata.status="<a href=\"javascript:switchStatus('"+id+"',"+status+");\" title=\""+(status?"正在使用！":"使用")+"\" style=\""+(status?"color:green;":"")+"\">"+status+"</a>";
 				rowdata.bgimg="<img src='"+rowdata.bgimg+"' title='查看大图' onclick='openUrl(\""+id+"\",\"查看大图\",\""+rowdata.bgimg+"\");'/>";
 				rowdata.name="<span title='"+name+"'>"+name+"</span>";
 				rowdata.cloumn_ids="<span title='"+icons+"'>"+icons+"</span>";
@@ -101,6 +106,23 @@ a{text-decoration:none}
 			location.href="${pageContext.request.contextPath}/admin/styleDelete.vea?id="+id;
 		}
 	}
+	function switchStatus(id,status){
+		if(status)return;
+		$.ajax({
+			url:"${pageContext.request.contextPath}/admin/styleSwitchStatus.vea?id="+id,
+			type:"post",
+			success:function(data){
+				if(data.object>0){
+					loadData({"name":$("#name").val()});
+				}else{
+					alert("修改失败！");
+				}
+			},
+			error:function(e){
+				alert('发送错误！');
+			}
+		});	
+	}	
 	
 	//查询
 	function search() {

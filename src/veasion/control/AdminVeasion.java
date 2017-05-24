@@ -16,6 +16,7 @@ import veasion.bean.DesktopCloumn;
 import veasion.bean.DesktopStyle;
 import veasion.bean.Music;
 import veasion.constant.Constant;
+import veasion.dao.JdbcDao;
 import veasion.dao.JoinSql;
 import veasion.dao.Relation;
 import veasion.dao.Where;
@@ -170,7 +171,7 @@ public class AdminVeasion {
 		List<Map<String, Object>> result = service.Query(wheres, pm);
 		result = SQLUtil.filterListMap(result, null, new String[] { DesktopStyle.createDate }, DesktopStyle.id,
 				DesktopStyle.author, DesktopStyle.name, DesktopStyle.bgimg, DesktopStyle.cloumnHeight,
-				DesktopStyle.cloumnWidth, DesktopStyle.cloumnIds, DesktopStyle.createDate);
+				DesktopStyle.cloumnWidth, DesktopStyle.cloumnIds, DesktopStyle.createDate,DesktopStyle.status);
 		map.put("Rows", result);
 		map.put("Total", pm.getCount());
 		return map;
@@ -244,5 +245,23 @@ public class AdminVeasion {
 		else
 			return "page/failure.jsp";
 	}
+	
+	/**改变Style状态*/
+	public int styleSwitchStatus() {
+		int id = json.optInt(DesktopStyle.id, -1);
+		if (id <= 0)
+			return 0;
+		StringBuilder sql = new StringBuilder();
+		sql.append("update ");
+		sql.append(DesktopStyle.tableName);
+		sql.append(" set ").append(DesktopStyle.status);
+		sql.append(" = case ").append(DesktopStyle.id);
+		sql.append(" when ?").append(" then ?");
+		sql.append(" else ?").append(" end ");
+		JdbcDao dao = new JdbcDao();
+		return dao.executeUpdate(sql.toString(),
+				new Object[] { id, DesktopStyle.STATUS_USE, DesktopStyle.STATUS_STOP });
+	}
+	
 	
 }

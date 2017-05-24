@@ -8,6 +8,11 @@ package veasion.bean;
  */
 public class DesktopStyle {
 	
+	/**使用状态*/
+	public static final int STATUS_USE=1;
+	/**停用状态*/
+	public static final int STATUS_STOP=0;
+	
 	/**表名*/
 	public static final String tableName="desktop_style";
 	/**id*/
@@ -26,5 +31,7 @@ public class DesktopStyle {
 	public static final String cloumnIds="cloumn_ids";
 	/**创建时间*/
 	public static final String createDate="create_date";
+	/**状态*/
+	public static final String status="status";
 	
 }

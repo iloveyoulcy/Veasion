@@ -9,7 +9,8 @@
 <script src="${pageContext.request.contextPath}/jquery/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/static/util.js" type="text/javascript"></script>
 <style type="text/css">
-.icon{width: 36px;height: 36px;cursor: pointer;}
+.icon{width: 36px;height: 36px;vertical-align: -12px;}
+a{text-decoration: none;}
 </style>
 </head>
 <script type="text/javascript">
@@ -26,7 +27,7 @@
 			if(ids!=""){
 				var idArr=ids.trim().split(",");
 				for(var i=0,l=idArr.length;i<l; i++){
-					$("#icon_"+idArr[i]).attr("checked",true);
+					$("#icon_"+idArr[i]).prop("checked",true);
 				}
 			}
 		}else{
@@ -36,6 +37,37 @@
 	
 	function openURL(url,title){
 		window.parent.window.f_addTab("browse_url", title, url);
+	}
+	
+	function iconAll(id){
+		var check=$("#"+id).prop("checked");
+		$("input[id^='icon_']").each(function(){
+			$(this).prop("checked",check);
+		});
+	}
+	
+	function iconChange(id){
+		var checked=$("#"+id).prop("checked");
+		if(!checked)
+			$("#all_icon").prop("checked",false);
+		else{
+			var all=true;
+			$("input[id^='icon_']").each(function(){
+				var c=$(this).prop("checked");
+				if(!c){
+					all=false;
+					return false;
+				}
+			});
+			if(all)$("#all_icon").prop("checked",true);
+		}
+	}
+	
+	function imgIcon(id){
+		var obj=$("#"+id);
+		var c=obj.prop("checked");
+		obj.prop("checked",!c);
+		obj.trigger("change");
 	}
 </script>
 <body>
@@ -91,12 +123,13 @@
 		</tbody>
 	</table>
 	<h4>图标：</h4>
-	<div style="border:1px solid #666;overflow-y:scroll;height: 140px;width: 600px;">
+	<input id="all_icon" type="checkbox" onchange="iconAll(this.id);"/>全选
+	<div style="border:1px solid #666;overflow-y:scroll;height: 140px;width: 600px;padding-top: 5px;padding-left: 5px;">
 		<c:forEach items="${cloumn_ids }" var="ico">
-			<div style="float: left;border:1px solid pink;text-align: center;">
-				<input id="icon_${ico.id }" type="checkbox" value="${ico.id }" name="cloumn_ids"/>
+			<div style="float: left;border:1px solid pink;text-align: center;margin-left: 5px;">
+				<input id="icon_${ico.id }" type="checkbox" value="${ico.id }" name="cloumn_ids" onchange="iconChange(this.id);" />
 				<a href="javascript:openURL('${ico.url}','预览${ico.title }');" title="预览${ico.title }">${ico.title}</a>
-				<img src="${ico.icon }" class="icon"/>
+				<img src="${ico.icon }" class="icon" onclick="imgIcon('icon_${ico.id }');"/>
 			</div>
 		</c:forEach>
 	</div><br />
