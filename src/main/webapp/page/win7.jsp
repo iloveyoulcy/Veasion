@@ -142,14 +142,21 @@ body, html {width: 100%;height: 100%;}
 			url : "${pageContext.request.contextPath}/index/desktopData.vea",
 			type : "post",
 			success : function(data) {
-				links = data.icons;
-				$("body").css("background","url("+ data.style.bgimg+") no-repeat center center");
+				if(data!=null)links = data.icons;
+				if(data==null || links==null || links.length<1){
+					links=[{id:"icon_jsb",url:"/Veasion/page/notepad.jsp",icon:"/Veasion/page/images/icon_jishiben3.png",title:"记事本",showMax:false}];
+				}
+				
 				createIcons();
-				if(data.style.cloumn_width !=36 || data.style.cloumn_height !=36){
+				
+				if(data!=null && data.style!=null){
+					$("body").css("background","url("+ data.style.bgimg+") no-repeat center center");
 					$("#winlinks li img").css("width",data.style.cloumn_width).css("height",data.style.cloumn_height);
 				}else{
 					$("#winlinks li img").css("width",36).css("height",36);
+					$("body").css("background-color","black");
 				}
+				
 				onResize();
 			},
 			error : function(e) {
