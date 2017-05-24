@@ -69,6 +69,7 @@ a{text-decoration: none;}
 		obj.prop("checked",!c);
 		obj.trigger("change");
 	}
+	
 </script>
 <body>
 <br/>
@@ -126,10 +127,10 @@ a{text-decoration: none;}
 	<input id="all_icon" type="checkbox" onchange="iconAll(this.id);"/>全选
 	<div style="border:1px solid #666;overflow-y:scroll;height: 140px;width: 600px;padding-top: 5px;padding-left: 5px;">
 		<c:forEach items="${cloumn_ids }" var="ico">
-			<div style="float: left;border:1px solid pink;text-align: center;margin-left: 5px;">
+			<div style="float: left;border:1px solid pink;text-align: center;margin-left: 5px;margin-top: 2px;" >
 				<input id="icon_${ico.id }" type="checkbox" value="${ico.id }" name="cloumn_ids" onchange="iconChange(this.id);" />
 				<a href="javascript:openURL('${ico.url}','预览${ico.title }');" title="预览${ico.title }">${ico.title}</a>
-				<img src="${ico.icon }" class="icon" onclick="imgIcon('icon_${ico.id }');"/>
+				<img src="${ico.icon }" class="icon" onclick="imgIcon('icon_${ico.id }');" id="img_${ico.id }"/>
 			</div>
 		</c:forEach>
 	</div><br />

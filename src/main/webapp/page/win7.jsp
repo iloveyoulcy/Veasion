@@ -151,6 +151,7 @@ body, html {width: 100%;height: 100%;}
 				
 				if(data!=null && data.style!=null){
 					$("body").css("background","url("+ data.style.bgimg+") no-repeat center center");
+					//$("body").css("background-image","url("+ data.style.bgimg+")");
 					$("#winlinks li img").css("width",data.style.cloumn_width).css("height",data.style.cloumn_height);
 				}else{
 					$("#winlinks li img").css("width",36).css("height",36);
