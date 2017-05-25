@@ -30,7 +30,7 @@ a{text-decoration:none}
 	
 	function loadData(parms){
 		grid = $("#maingrid4").ligerGrid({
-			url:"${pageContext.request.contextPath}/admin/styleSearch.vea",
+			url:"${pageContext.request.contextPath}/admin/desktop/styleSearch.vea",
 			columns : [ {
 				display : 'id',
 				name : 'id'
@@ -96,20 +96,20 @@ a{text-decoration:none}
 	}
 	
 	function add(){
-		window.parent.window.f_addTab("addStyle", "新增Style", "${pageContext.request.contextPath}/admin/goStyleModify.vea");
+		window.parent.window.f_addTab("addStyle", "新增Style", "${pageContext.request.contextPath}/admin/desktop/goStyleModify.vea");
 	}
 	function update(id,title){
-		window.parent.window.f_addTab("updateStyle", title, "${pageContext.request.contextPath}/admin/goStyleModify.vea?id="+id);
+		window.parent.window.f_addTab("updateStyle", title, "${pageContext.request.contextPath}/admin/desktop/goStyleModify.vea?id="+id);
 	}
 	function del(id,title){
 		if(confirm("确定要删除“"+title+"”?")){
-			location.href="${pageContext.request.contextPath}/admin/styleDelete.vea?id="+id;
+			location.href="${pageContext.request.contextPath}/admin/desktop/styleDelete.vea?id="+id;
 		}
 	}
 	function switchStatus(id,status){
 		if(status)return;
 		$.ajax({
-			url:"${pageContext.request.contextPath}/admin/styleSwitchStatus.vea?id="+id,
+			url:"${pageContext.request.contextPath}/admin/desktop/styleSwitchStatus.vea?id="+id,
 			type:"post",
 			success:function(data){
 				if(data.object>0){
@@ -135,7 +135,8 @@ a{text-decoration:none}
 	<div id="searchbar">
 		标题：<input id="name" type="text" value="" /> 
 		<input id="btnOK" type="button" value="搜索" onclick="search();" />
-		<img class="icon" style="float: right;margin-left: 6px;margin-right: 3px;" onclick="openUrl('home_yl','预览桌面','/Veasion/index/index.vea');" src="${pageContext.request.contextPath}/jquery/ligerUI/skins/icons/home.gif" title="预览桌面" alt="预览" />
+		<img class="icon" style="float: right;margin-left: 6px;margin-right: 3px;" onclick="openUrl('upfile_bgimg','上传背景','${pageContext.request.contextPath}/page/desktop/upFile.jsp?type=bgimg');" src="${pageContext.request.contextPath}/jquery/ligerUI/skins/icons/up.gif" title="上传背景" alt="上传背景" />
+		<img class="icon" style="float: right;margin-left: 6px;margin-right: 3px;" onclick="openUrl('home_yl','预览桌面','${pageContext.request.contextPath}/index/index.vea');" src="${pageContext.request.contextPath}/jquery/ligerUI/skins/icons/home.gif" title="预览桌面" alt="预览" />
 		<img class="icon" style="float: right;" onclick="add();" src="${pageContext.request.contextPath}/jquery/ligerUI/skins/icons/add.gif" title="新增" alt="新增" />
 	</div>
 	<div id="maingrid4" style="margin: 0; padding: 0"></div>

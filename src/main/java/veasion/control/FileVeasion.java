@@ -15,7 +15,7 @@ public class FileVeasion {
 	public String upFile() throws Exception {
 		FileUtil fileUtil=new FileUtil();
 		//最大1M
-		String fileName=fileUtil.upFile(req, 1*1024*1024L, "page/desktop");
+		String fileName=fileUtil.upFile(req, 1*1024*1024L, "page/desktop","test_");
 		
 		System.out.println(fileName);
 		

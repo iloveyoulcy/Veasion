@@ -30,7 +30,7 @@ a{text-decoration:none}
 	
 	function loadData(parms){
 		grid = $("#maingrid4").ligerGrid({
-			url:"${pageContext.request.contextPath}/admin/iconSearch.vea",
+			url:"${pageContext.request.contextPath}/admin/desktop/iconSearch.vea",
 			columns : [ {
 				display : 'id',
 				name : 'id',
@@ -94,14 +94,14 @@ a{text-decoration:none}
 	}
 	
 	function add(){
-		window.parent.window.f_addTab("addIcon", "新增Icon", "${pageContext.request.contextPath}/admin/goIconModify.vea");
+		window.parent.window.f_addTab("addIcon", "新增Icon", "${pageContext.request.contextPath}/admin/desktop/goIconModify.vea");
 	}
 	function update(id,title){
-		window.parent.window.f_addTab("updateIcon", title, "${pageContext.request.contextPath}/admin/goIconModify.vea?id="+id);
+		window.parent.window.f_addTab("updateIcon", title, "${pageContext.request.contextPath}/admin/desktop/goIconModify.vea?id="+id);
 	}
 	function del(id,title){
 		if(confirm("确定要删除“"+title+"”?")){
-			location.href="${pageContext.request.contextPath}/admin/iconDelete.vea?id="+id;
+			location.href="${pageContext.request.contextPath}/admin/desktop/iconDelete.vea?id="+id;
 		}
 	}
 	
@@ -116,6 +116,7 @@ a{text-decoration:none}
 	<div id="searchbar">
 		标题：<input id="title" type="text" value=""/> 
 		<input id="btnOK" type="button" value="搜索" onclick="search();" />
+		<img class="icon" style="float: right;margin-left: 6px;margin-right: 3px;" onclick="openUrl('upfile_icon','上传图标','${pageContext.request.contextPath}/page/desktop/upFile.jsp?type=icon');" src="${pageContext.request.contextPath}/jquery/ligerUI/skins/icons/up.gif" title="上传图标" alt="上传图标" />
 		<img class="icon" style="float: right;" onclick="add();" src="${pageContext.request.contextPath}/jquery/ligerUI/skins/icons/add.gif" title="新增" alt="新增">
 	</div>
 	<div id="maingrid4" style="margin: 0; padding: 0"></div>

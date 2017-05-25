@@ -34,10 +34,10 @@ body {padding: 0px;margin: 0;overflow: hidden;}
 		isexpand : false,
 		children : [ {
 			text : "style管理",
-			url : "${pageContext.request.contextPath}/admin/style.vea"
+			url : "${pageContext.request.contextPath}/admin/desktop/style.vea"
 		}, {
 			text : "icon管理",
-			url : "${pageContext.request.contextPath}/admin/icon.vea"
+			url : "${pageContext.request.contextPath}/admin/desktop/icon.vea"
 		} ]
 	} ];
 
@@ -154,6 +154,17 @@ body {padding: 0px;margin: 0;overflow: hidden;}
 			}
 		});
 	}
+	
+	function exit(){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/admin/exit.vea",
+			type:"post",
+			success:function(data){}
+		});
+		var icon_id='${param.icon_id}';
+		var obj=window.top.window.getOpenObj(icon_id);
+		obj.close();
+	}
 </script>
 </head>
 <body style="padding: 0px; background: #EAEEF5;">
@@ -161,7 +172,7 @@ body {padding: 0px;margin: 0;overflow: hidden;}
 	<div id="topmenu" class="l-topmenu">
 		<div class="l-topmenu-logo">Veasion管理后台</div>
 		<div class="l-topmenu-welcome">
-			<a href="#" style="margin-right: 6px;">退出系统</a>
+			<a href="javascript:exit();" style="margin-right: 6px;">退出系统</a>
 		</div>
 	</div>
 	<div id="layout1"

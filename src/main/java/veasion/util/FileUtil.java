@@ -21,7 +21,7 @@ import veasion.constant.Constant;
 public class FileUtil {
 
 	/**获取单个上传文件，返回文件名字*/
-	public String upFile(HttpServletRequest req,Long maxSize,String webPath) throws Exception {
+	public String upFile(HttpServletRequest req,Long maxSize,String webPath,String fileNamePrefix) throws Exception {
 		// 从request当中获取流信息
 		InputStream fileSource = req.getInputStream();
 		String tempFileName = Constant.HOME_PATH + "/VeasionTempFile";
@@ -53,6 +53,8 @@ public class FileUtil {
 		int beginIndex = str.lastIndexOf("=") + 2;
 		int endIndex = str.lastIndexOf("\"");
 		String filename = str.substring(beginIndex, endIndex);
+		if(!filename.startsWith(fileNamePrefix))
+			filename=fileNamePrefix+filename;
 		// 重新定位文件指针到文件头
 		randomFile.seek(0);
 		long startPosition = 0;

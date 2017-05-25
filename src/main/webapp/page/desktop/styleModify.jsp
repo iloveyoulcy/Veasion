@@ -74,7 +74,7 @@ a{text-decoration: none;}
 <body>
 <br/>
 <div>
-	<form action="${pageContext.request.contextPath}/admin/styleUpdate.vea" method="post" onsubmit="return check();">
+	<form action="${pageContext.request.contextPath}/admin/desktop/styleUpdate.vea" method="post" onsubmit="return check();">
 	<c:if test="${obj !=null }">
 		<input type="hidden" name="id" value="${obj.id }"/>
 	</c:if>

@@ -17,7 +17,6 @@ import veasion.constant.Constant;
 import veasion.control.AdminVeasion;
 import veasion.service.BeanService;
 import veasion.service.impl.MysqlServieImpl;
-import veasion.util.DateUtil;
 import veasion.util.HttpUtil;
 import veasion.util.MyRequest;
 import veasion.util.SQLUtil;
@@ -48,6 +47,7 @@ public class VeasionFilter implements Filter{
 		if (vea.startsWith("/admin/") && vea.indexOf("validation.vea") == -1) {
 			Object obj = request.getSession().getAttribute(AdminVeasion.ADMIN_NAME);
 			if (obj == null || !AdminVeasion.ADMIN_VEA.equals(obj)) {
+				response.setStatus(404);
 				return;
 			}
 		}
