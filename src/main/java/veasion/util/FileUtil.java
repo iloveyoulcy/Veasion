@@ -87,6 +87,23 @@ public class FileUtil {
 			fileupload.mkdir();
 		}
 		File saveFile = new File(realPath, filename);
+		int index=filename.lastIndexOf("."),count=0;
+		String startFileName=filename.substring(0, index);
+		String endFileName=filename.substring(index);
+		//有重复文件就命名为原名字+1直到没有重复为止
+		if(fileupload.isDirectory()){
+			File[]files=fileupload.listFiles();
+			if(files!=null){
+				for (int v=0,l=files.length;v<l;v++) {
+					File f=files[v];
+					if(f.getName().equals(saveFile.getName())){
+						saveFile = new File(realPath, startFileName+(++count)+endFileName);
+						filename=startFileName+count+endFileName;
+						v=-1;
+					}
+				}
+			}
+		}
 		RandomAccessFile randomAccessFile = new RandomAccessFile(saveFile, "rw");
 		// 从临时文件当中读取文件内容（根据起止位置获取）
 		randomFile.seek(startPosition);
