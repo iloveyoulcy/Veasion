@@ -22,7 +22,7 @@ import veasion.util.MyRequest;
 import veasion.util.SQLUtil;
 
 /**
- * 编码过滤器
+ * 过滤器
  * @author zhuowei.luo
  * @date 2017/5/7 
  */
