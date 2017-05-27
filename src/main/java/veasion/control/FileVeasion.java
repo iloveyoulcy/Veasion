@@ -14,8 +14,8 @@ public class FileVeasion {
 	/**上传单个文件*/
 	public String upFile() throws Exception {
 		FileUtil fileUtil=new FileUtil();
-		//最大1M
-		String fileName=fileUtil.upFile(req, 1*1024*1024L, "page/desktop","test_");
+		//最大500kb
+		String fileName=fileUtil.upFile(req, 500*1024L, "page/desktop","test_");
 		
 		System.out.println(fileName);
 		
