@@ -1,11 +1,17 @@
 package veasion.handle;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -13,9 +19,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import net.sf.json.JSONObject;
 import veasion.bean.BeanConstant;
 import veasion.constant.Constant;
+import veasion.util.VeaUtil;
 import veasion.util.annotation.Veasion;
 
 /**
@@ -26,6 +37,11 @@ import veasion.util.annotation.Veasion;
  */
 public class VeasionServlet extends HttpServlet {
 
+	/**
+	 * 保存文件上传的临时文件，请求结束便删除临时文件. 
+	 */
+	List<File> fileList=new ArrayList<>();
+	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -87,8 +103,15 @@ public class VeasionServlet extends HttpServlet {
 		} catch (Exception e) {
 			response.sendError(500);
 			e.printStackTrace();
+		}finally {
+			// 如果是文件上传则删除临时文件
+			if(!VeaUtil.isNullEmpty(fileList)){
+				fileList.forEach((f)->{
+					f.delete();
+				});
+			}
+			fileList.clear();
 		}
-		
 	}
 	
 	/**注解方法判断*/
@@ -166,6 +189,41 @@ public class VeasionServlet extends HttpServlet {
 				map.put(element, values);
 			}
 		}
+		
+		// 判断是否为文件上传
+		if(ServletFileUpload.isMultipartContent(request)){
+			DiskFileItemFactory factory = new DiskFileItemFactory(); 
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			upload.setSizeMax(Constant.UP_FILE_MAX);
+			try{
+				List<FileItem> items = upload.parseRequest(request); 
+				//Map param = new HashMap(); 
+				for(FileItem item : items){ 
+				    if (item.isFormField()) {
+				    	map.put(item.getFieldName(), item.getString("utf-8"));
+				    }else{
+				    	String fileName = new File(item.getName()).getName();
+				    	InputStream fileSource = item.getInputStream();
+						String tempFileName = Constant.HOME_PATH+File.separator+fileName;
+						// tempFile指向临时文件
+						File tempFile = new File(tempFileName);
+						// outputStram文件输出流指向这个临时文件
+						FileOutputStream outputStream = new FileOutputStream(tempFile);
+						byte b[] = new byte[1024];
+						int n;
+						while ((n = fileSource.read(b)) != -1) {
+							outputStream.write(b, 0, n);
+						}
+						// 关闭输出流、输入流
+						outputStream.close();
+						fileSource.close();
+						fileList.add(tempFile);
+						map.put(item.getFieldName(), tempFileName);
+				    }
+				}
+			}catch(Exception e1){e1.printStackTrace();}
+		}
+		
 		return JSONObject.fromObject(map);
 	}
 

@@ -11,6 +11,7 @@ public class FileUtil {
 	 * 获取文件类型. 
 	 */
 	public static final String getContentType(String fileName) {
+		if(fileName.indexOf(".")==-1) return "text/html";
 		String fileExtension = fileName.substring(fileName.lastIndexOf("."));
 		if ("bmp".equalsIgnoreCase(fileExtension))
 			return "image/bmp";

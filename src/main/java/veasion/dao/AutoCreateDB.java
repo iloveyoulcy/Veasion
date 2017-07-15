@@ -3,6 +3,9 @@ package veasion.dao;
 import java.util.Map;
 import java.util.Map.Entry;
 import org.apache.log4j.Logger;
+
+import veasion.constant.Constant;
+import veasion.util.ConfigUtil;
 import veasion.util.SQLUtil;
 import veasion.util.TablesUtil;
 
@@ -17,13 +20,16 @@ public class AutoCreateDB {
 	private final static Logger LOGGER = Logger.getLogger(AutoCreateDB.class);
 
 	/** 默认数据库名 */
-	private final static String DATABASE = "veasion";
+	private static String DATABASE = "veasion";
 
 	/** 
 	 * 开始执行自动创建数据库和表 
 	 */
 	public static void autoCreateDB() {
 		LOGGER.info("正在检查数据库和表...");
+		
+		DATABASE=getDataBase();
+		
 		// 切换到mysql数据库
 		JdbcDao dao = new JdbcDao("mysql");
 		
@@ -87,4 +93,15 @@ public class AutoCreateDB {
 		return TablesUtil.getTablesMap();
 	}
 	
+	private static String getDataBase(){
+		String database=ConfigUtil.getProperty(Constant.SQL_JDBC_URL, DATABASE);
+		//jdbc:mysql://localhost:3306/veasion?autoReconnect=
+		int start=database.lastIndexOf("/");
+		int end=database.indexOf("?");
+		if(end!=-1){
+			return database.substring(start+1, end);
+		}else{
+			return database.substring(start+1);
+		}
+	}
 }

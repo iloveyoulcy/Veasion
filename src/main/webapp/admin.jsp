@@ -32,13 +32,20 @@ body {padding: 0px;margin: 0;overflow: hidden;}
 	var indexdata = [ {
 		text : 'desktop',
 		isexpand : false,
-		children : [ {
-			text : "style管理",
-			url : "${pageContext.request.contextPath}/admin/desktop/style.vea"
-		}, {
-			text : "icon管理",
-			url : "${pageContext.request.contextPath}/admin/desktop/icon.vea"
-		} ]
+		children : [ 
+			{
+				text : "style管理",
+				url : "${pageContext.request.contextPath}/admin/desktop/style.vea"
+			},
+			{
+				text : "icon管理",
+				url : "${pageContext.request.contextPath}/admin/desktop/icon.vea"
+			},
+			{
+				text : "url管理",
+				url : "${pageContext.request.contextPath}/admin/desktop/url.vea"
+			}
+		]
 	} ];
 
 	var tab = null;
@@ -130,7 +137,6 @@ body {padding: 0px;margin: 0;overflow: hidden;}
 			jform.attr('target', '_blank');
 			jform.trigger('submit');
 		}
-		;
 
 		tab = liger.get("framecenter");
 		accordion = liger.get("accordion1");
@@ -144,7 +150,10 @@ body {padding: 0px;margin: 0;overflow: hidden;}
 		if (accordion && options.middleHeight - 24 > 0)
 			accordion.setHeight(options.middleHeight - 24);
 	}
+	
+	// 打开新窗口
 	function f_addTab(tabid, text, url) {
+		f_delTab(tabid);
 		tab.addTabItem({
 			tabid : tabid,
 			text : text,
@@ -153,6 +162,11 @@ body {padding: 0px;margin: 0;overflow: hidden;}
 				//打开页面回调
 			}
 		});
+	}
+	
+	// 关闭窗口
+	function f_delTab(tabid){
+		tab.removeTabItem(tabid);
 	}
 	
 	function exit(){

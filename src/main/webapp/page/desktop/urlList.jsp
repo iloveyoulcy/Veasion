@@ -30,33 +30,20 @@ a{text-decoration:none}
 	
 	function loadData(parms){
 		grid = $("#maingrid4").ligerGrid({
-			url:"${pageContext.request.contextPath}/admin/desktop/iconSearch.vea",
+			url:"${pageContext.request.contextPath}/admin/desktop/urlSearch.vea",
 			columns : [ {
 				display : 'id',
 				name : 'id',
 				width : 35
 			}, {
-				display : '图标',
-				name : 'icon'
+				display : '名称',
+				name : 'name'
 			}, {
-				display : '标题',
-				name : 'title'
+				display : 'url',
+				name : 'url'
 			}, {
-				display : '链接',
-				name : 'url',
-				width : 180
-			}, {
-				display : '宽度',
-				name : 'width'
-			}, {
-				display : '高度',
-				name : 'height'
-			}, {
-				display : '显示类型',
-				name : 'show_type'
-			}, {
-				display : '状态',
-				name : 'status'
+				display : '类型',
+				name : 'type'
 			}, {
 				display : '创建时间',
 				name : 'create_date',
@@ -74,17 +61,20 @@ a{text-decoration:none}
 			rowAttrRender: function (rowdata,rowid){
 				var id=rowdata.id;
 				var url=rowdata.url;
-				var title=rowdata.title;
+				var name=rowdata.name;
+				var type=rowdata.type;
 				var date=rowdata.create_date;
-				var type=rowdata.show_type;
-				var types=["常规","最大化","最小化","打开新窗体","不准最大化"];
-				rowdata.show_type=types[type];
-				rowdata.icon="<img src='"+rowdata.icon+"'/>";
-				rowdata.title="<span title='"+title+"'>"+title+"</span>";
+				rowdata.name="<span title='"+name+"'>"+name+"</span>";
 				rowdata.create_date="<span title='"+date+"'>"+date+"</span>";
-				rowdata.url="<a href=\"javascript:openUrl('"+id+"','"+title+"','"+url+"');\" title='"+url+"'>"+url+"</a>";
-				rowdata.edit="<a href=\"javascript:update('"+id+"','"+title+"');\">修改</a>";
-				rowdata.del="<a href=\"javascript:del('"+id+"','"+title+"');\" style='color:red;'>删除</a>";
+				if(type==2 || type==3){
+					rowdata.type=type==2 ? "桌面背景" : "图标";
+					rowdata.url="<img src='"+rowdata.url+"'/>";
+				}else if(type==1 || type==4){
+					rowdata.type=type==1 ? "访问链接" : "文件链接";
+					rowdata.url="<a href=\"javascript:openUrl('"+id+"','"+name+"','"+url+"');\" title='"+url+"'>"+url+"</a>";
+				}
+				rowdata.edit="<a href=\"javascript:update('"+id+"','"+name+"');\">修改</a>";
+				rowdata.del="<a href=\"javascript:del('"+id+"','"+name+"');\" style='color:red;'>删除</a>";
 				return null;
 			},
 			parms : parms
@@ -92,34 +82,41 @@ a{text-decoration:none}
 		$("#pageloading").hide();
 	}
 	
-	function openUrl(tabid, text, url){
-		window.parent.window.f_addTab(tabid, text, url);
+	function openUrl(tabid, name, url){
+		window.parent.window.f_addTab(tabid, name, url);
 	}
 	
 	function add(){
-		window.parent.window.f_addTab("addIcon", "新增Icon", "${pageContext.request.contextPath}/admin/desktop/goIconModify.vea");
+		window.parent.window.f_addTab("addUrl", "新增Url", "${pageContext.request.contextPath}/admin/desktop/goUrlModify.vea");
 	}
-	function update(id,title){
-		window.parent.window.f_addTab("updateIcon", title, "${pageContext.request.contextPath}/admin/desktop/goIconModify.vea?id="+id);
+	function update(id,name){
+		window.parent.window.f_addTab("updateUrl", name, "${pageContext.request.contextPath}/admin/desktop/goUrlModify.vea?id="+id);
 	}
-	function del(id,title){
-		if(confirm("确定要删除“"+title+"”?")){
-			location.href="${pageContext.request.contextPath}/admin/desktop/iconDelete.vea?id="+id;
+	function del(id,name){
+		if(confirm("确定要删除“"+name+"”?")){
+			location.href="${pageContext.request.contextPath}/admin/desktop/urlDelete.vea?id="+id;
 		}
 	}
 	
 	//查询
 	function search() {
-		loadData({"title":$("#title").val()});
+		loadData({"name":$("#name").val(),"type":$("#type").val()});
 	}
 	
 </script>
 </head>
 <body style="padding: 6px; overflow: hidden;">
 	<div id="searchbar">
-		标题：<input id="title" type="text" value=""/> 
+		名称：<input id="name" type="text" value=""/>
+		类型：
+		<select id="type">
+			<option value="0">全部</option>
+			<option value="1">访问链接</option>
+			<option value="2">桌面背景</option>
+			<option value="3">图标</option>
+			<option value="4">文件链接</option>
+		</select>
 		<input id="btnOK" type="button" value="搜索" onclick="search();" />
-		<img class="icon" style="float: right;margin-left: 6px;margin-right: 3px;" onclick="openUrl('upfile_icon','上传图标','${pageContext.request.contextPath}/page/desktop/upFile.jsp?type=icon');" src="${pageContext.request.contextPath}/jquery/ligerUI/skins/icons/up.gif" title="上传图标" alt="上传图标" />
 		<img class="icon" style="float: right;" onclick="add();" src="${pageContext.request.contextPath}/jquery/ligerUI/skins/icons/add.gif" title="新增" alt="新增">
 	</div>
 	<div id="maingrid4" style="margin: 0; padding: 0"></div>

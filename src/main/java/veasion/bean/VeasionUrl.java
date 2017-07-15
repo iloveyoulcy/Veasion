@@ -1,5 +1,12 @@
 package veasion.bean;
 
+import java.util.List;
+import java.util.Map;
+
+import veasion.service.BeanService;
+import veasion.service.impl.MysqlServieImpl;
+import veasion.util.VeaUtil;
+
 /**
  * url表
  * 
@@ -14,6 +21,10 @@ public class VeasionUrl {
 	public static final int TYPE_STYLE=2;
 	/**ICON图标URL*/
 	public static final int TYPE_ICON=3;
+	/**文件链接*/
+	public static final int TYPE_FILE=4;
+	/**默认URL*/
+	public static final String DEFAULT_URL="#";
 	
 	/**表名*/
 	public static final String tableName="veasion_url";
@@ -27,5 +38,38 @@ public class VeasionUrl {
 	public static final String type="type";
 	/**创建时间*/
 	public static final String createDate="create_date";
+	
+	/**
+	 * 填充url
+	 * @since 根据指定key填充url
+	 */
+	public static void fillUrlForMap(final Map<String, Object> map,final String ...keys){
+		if(!VeaUtil.isNullEmpty(map) && !VeaUtil.isNullEmpty(keys)){
+			for (String key : keys) {
+				Object id=map.getOrDefault(key, null);
+				if(id==null){
+					map.put(key, DEFAULT_URL);
+				}else{
+					BeanService service=new MysqlServieImpl(tableName);
+					Map<String, Object> mapData=service.QueryOnly(VeasionUrl.id, id);
+					if(VeaUtil.isNullEmpty(mapData))
+						map.put(key,DEFAULT_URL);
+					else
+						map.put(key, mapData.getOrDefault(VeasionUrl.url, DEFAULT_URL));
+				}
+			}
+		}
+	}
+	
+	/**
+	 * 填充url
+	 * @since 根据指定key填充url
+	 */
+	public static void fillUrlForMap(final List<Map<String, Object>> mapList,final String ...key){
+		if(VeaUtil.isNullEmpty(mapList)) return;
+		mapList.forEach((map)->{
+			fillUrlForMap(map,key);
+		});
+	}
 	
 }

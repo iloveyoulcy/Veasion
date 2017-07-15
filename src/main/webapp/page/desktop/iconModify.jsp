@@ -19,6 +19,7 @@
 		var obj="${object}";
 		if(obj!=""&&obj!="null"){
 			$("#icon").val("${object.icon}");
+			$("#url").val($("option[data-url='${object.url}']").val());
 			$("#show_type").val("${object.show_type}");
 		}else{
 			$('#icon').trigger("change");
@@ -48,11 +49,19 @@
 			<tr>
 				<th>图标：</th>
 				<th>
-					<select id="icon" name="icon" onchange="document.icon_img.src=options[selectedIndex].value">
+					<script type="text/javascript">
+						function iconChange(obj){
+							var opt=$(obj).find("option:selected");
+							document.icon_img.src=obj.value;
+							$("input[name='icon']").val(opt.attr("data-id"));
+						}
+					</script>
+					<select id="icon" onchange="iconChange(this);">
 						<c:forEach items="${icons }" var="ico">
-							<option value="${pageContext.request.contextPath}/page/images/${ico }">${ico }</option>
+							<option value="${ico.url }" data-id="${ico.id }">${ico.name }</option>
 						</c:forEach>
 					</select>
+					<input type="hidden" value="0" name="icon" />
 				</th>
 				<th>
 					<img name="icon_img" src="${object.icon }" style="width: 36px;height: 36px;">
@@ -61,10 +70,15 @@
 			<tr>
 				<th>URL：</th>
 				<td>
-					<input id="url" name="url" type="text" value="${object.url }" />
+					<select id="url" name="url">
+						<option value="0" data-id="#">--请选择--</option>
+						<c:forEach items="${urls }" var="url">
+							<option value="${url.id }" data-url="${url.url }">${url.name }</option>
+						</c:forEach>
+					</select>
 				</td>
 				<td>
-					<a href="javascript:openURL($('#url').val());">浏览</a>
+					<a href="javascript:openURL($('#url').find('option:selected').attr('data-url'));">浏览</a>
 				</td>
 			</tr>
 			<tr>

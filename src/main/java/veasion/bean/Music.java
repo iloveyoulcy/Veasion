@@ -14,9 +14,9 @@ public class Music {
 	public static final String id="id";
 	/**歌名，varchar*/
 	public static final String name="name";
-	/**歌url，varchar*/
+	/**歌url,int对应veasion_url的id*/
 	public static final String url="url";
-	/**图片*/
+	/**图片,int对应veasion_url的id*/
 	public static final String img="img";
 	/**歌手，varchar*/
 	public static final String singer="singer";

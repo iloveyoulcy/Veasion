@@ -19,11 +19,11 @@ public class DesktopCloumn {
 	public static final String tableName="desktop_cloumn";
 	/**id*/
 	public static final String id="id";
-	/**打开链接*/
+	/**打开链接,int对应veasion_url的id*/
 	public static final String url="url";
 	/**标题*/
 	public static final String title="title";
-	/**图标*/
+	/**图标,int对应veasion_url的id*/
 	public static final String icon="icon";
 	/**宽度*/
 	public static final String width="width";

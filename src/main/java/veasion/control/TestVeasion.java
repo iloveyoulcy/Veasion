@@ -1,5 +1,6 @@
 package veasion.control;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -52,7 +53,8 @@ public class TestVeasion {
 	
 	/**
 	 * 测试方法1
-	 * @throws IOException 
+	 * 
+	 * @since response输出流
 	 */
 	public String Method1() throws IOException{
 		response.setContentType("text/html;charset=utf-8");
@@ -66,6 +68,8 @@ public class TestVeasion {
 	
 	/**
 	 * 测试方法2
+	 * 
+	 * @since 跳转页面
 	 */
 	public String Method2(){
 		request.setAttribute("temp", "测试！");
@@ -75,6 +79,8 @@ public class TestVeasion {
 	
 	/**
 	 * 测试方法3
+	 * 
+	 * @since 返回json
 	 */
 	public JSONObject Method3(){
 		json=new JSONObject();
@@ -84,6 +90,8 @@ public class TestVeasion {
 	
 	/**
 	 * 测试方法4 
+	 * 
+	 * @since 返回自定义json
 	 */
 	public Object Method4(){
 		ReturnJson rj=new ReturnJson();
@@ -103,5 +111,18 @@ public class TestVeasion {
 		return "index.jsp";
 	}
 	
+	/**
+	 * 测试6 
+	 * 
+	 * @since 文件上传
+	 */
+	public String Method6(){
+		// 文件上传 post multipart/form-data
+		// 假如上传文件的name为fileName
+		String filePath=json.optString("fileName");
+		File file=new File(filePath);
+		System.out.println("上传的临时文件路径："+file);
+		return "page/success.jsp";
+	}
 	
 }

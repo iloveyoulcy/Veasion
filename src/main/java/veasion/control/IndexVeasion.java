@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 import veasion.bean.DesktopCloumn;
 import veasion.bean.DesktopStyle;
+import veasion.bean.VeasionUrl;
 import veasion.dao.JoinSql;
 import veasion.dao.Where;
 import veasion.service.BeanService;
 import veasion.service.impl.MysqlServieImpl;
 import veasion.util.SQLUtil;
+import veasion.util.VeaUtil;
 
 public class IndexVeasion {
 	
@@ -34,7 +36,9 @@ public class IndexVeasion {
 		Map<String,Object> data=new HashMap<>();
 		service.useTable(DesktopStyle.tableName);
 		Map<String, Object> styleMap=service.QueryOnly(DesktopStyle.status, DesktopStyle.STATUS_USE);
-		if(styleMap!=null && !styleMap.isEmpty()){
+		if(!VeaUtil.isNullEmpty(styleMap)){
+			// 填充Url
+			VeasionUrl.fillUrlForMap(styleMap, DesktopStyle.bgimg);
 			data.put("style", styleMap);
 			Object get=styleMap.get(DesktopStyle.cloumnIds);
 			if(get!=null){
@@ -43,6 +47,8 @@ public class IndexVeasion {
 				List<Where> wheres=new ArrayList<>();
 				wheres.add(new Where(DesktopCloumn.id, JoinSql.in, String.valueOf(get).split(",")));
 				List<Map<String, Object>> icons=service.Query(wheres);
+				// 填充Url
+				VeasionUrl.fillUrlForMap(icons, DesktopCloumn.icon, DesktopCloumn.url);
 				for (Map<String, Object> icon : icons) {
 					int showType=SQLUtil.valueOfInteger(icon.get(DesktopCloumn.showType));
 					//"常规","最大化","最小化","打开新窗体","不准最大化"

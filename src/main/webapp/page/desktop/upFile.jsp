@@ -42,6 +42,7 @@
 		}
 		$("#imgurl").prop("src",url);
 		$("#imgurl").prop("class",type);
+		$("#filePath").val($("#img").val());
 	}
 </script>
 </head>
@@ -64,12 +65,14 @@
 	<br/>
 	<c:if test="${param.type!=null}">
 		<form action="${pageContext.request.contextPath}/admin/desktop/upFile.vea?type=${param.type }" method="post" enctype="multipart/form-data" onsubmit="return check();">
-	        <input id="img" name="fileName" type="file" onchange="imgChange(this);"/>
+	        <input id="img" name="file" type="file" onchange="imgChange(this);"/><br/>
+	                   文件命名：
+	        <input name="name" type="text" value="" title="默认文件名"/><br/>
+	        <input id="filePath" name="filePath" type="hidden" value=""/>
 	        <input type="submit" value="开始上传" />
 	    </form>
     </c:if>
     <br/>
-    
     
 </body>
 </html>

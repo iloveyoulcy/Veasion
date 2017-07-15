@@ -25,6 +25,9 @@ public class Constant {
 	/**打印在线人数配置key*/
 	public static final String SYSTEM_PRINT_ON_LINE="PrintOnLine";
 	
+	/**最大文件上传字节 2G*/
+	public static final long UP_FILE_MAX= 2*1024*1024*1024L;
+	
 	/**JdbcUrl配置key*/
 	public static final String SQL_JDBC_URL="JdbcUrl";
 	
@@ -63,5 +66,4 @@ public class Constant {
 			e.getMessage();
 		}
 	}
-	
 }

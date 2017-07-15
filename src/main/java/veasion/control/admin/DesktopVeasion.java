@@ -6,23 +6,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.aliyun.oss.OSSClient;
 
 import net.sf.json.JSONObject;
 import veasion.bean.BeanConstant;
 import veasion.bean.DesktopCloumn;
 import veasion.bean.DesktopStyle;
+import veasion.bean.VeasionUrl;
 import veasion.dao.JdbcDao;
 import veasion.dao.JoinSql;
 import veasion.dao.Where;
 import veasion.service.BeanService;
 import veasion.service.impl.MysqlServieImpl;
-import veasion.util.FileUtil;
 import veasion.util.PageModel;
 import veasion.util.SQLUtil;
 import veasion.util.TextUtil;
+import veasion.util.oss.OssUploadFile;
+import veasion.util.oss.OssUtil;
 
 /**
  * desktop管理
@@ -36,7 +41,7 @@ public class DesktopVeasion {
 	HttpServletResponse resp;
 	JSONObject json;
 	
-	BeanService service=new MysqlServieImpl(null);
+	final BeanService service=new MysqlServieImpl(null);
 	
 	/**ICON管理*/
 	public String icon(){
@@ -58,6 +63,7 @@ public class DesktopVeasion {
 			wheres.add(new Where(DesktopCloumn.title, JoinSql.like, title));
 		}
 		List<Map<String, Object>> result = service.Query(wheres, pm);
+		VeasionUrl.fillUrlForMap(result, DesktopCloumn.icon, DesktopCloumn.url);
 		result = SQLUtil.filterListMap(result, null, new String[] { DesktopCloumn.createDate }, DesktopCloumn.id,
 				DesktopCloumn.icon, DesktopCloumn.title, DesktopCloumn.url, DesktopCloumn.width, DesktopCloumn.height,
 				DesktopCloumn.showType, DesktopCloumn.status, DesktopCloumn.createDate);
@@ -71,23 +77,22 @@ public class DesktopVeasion {
 		Object id=json.get(DesktopCloumn.id);
 		if(id!=null && SQLUtil.valueOfInteger(id)!=null){
 			service.useTable(DesktopCloumn.tableName);
-			req.setAttribute(BeanConstant.object, service.QueryOnly(DesktopCloumn.id, id));
+			Map<String, Object> map=service.QueryOnly(DesktopCloumn.id, id);
+			VeasionUrl.fillUrlForMap(map, DesktopCloumn.icon, DesktopCloumn.url);
+			req.setAttribute(BeanConstant.object, map);
 		}
 		req.setAttribute("showTypes", DesktopCloumn.showTypes);
-		List<String> icons=new ArrayList<>();
-		//读取icon图标名称
-		try {
-			String path=req.getServletContext().getRealPath("page/images");
-			//String imgPath=req.getContextPath()+"/page/images/";
-			File fd=new File(path);
-			if(fd.isDirectory()){
-				for (File f : fd.listFiles()) {
-					if(f.getName().startsWith("icon_"))
-						icons.add(f.getName());
-				}
-			}
-		} catch (Exception e) {e.printStackTrace();}
+		service.useTable(VeasionUrl.tableName);
+		List<Where> wheres=new ArrayList<>();
+		// 加载所有图标
+		wheres.add(new Where(VeasionUrl.type, JoinSql.eq, VeasionUrl.TYPE_ICON));
+		List<Map<String, Object>> icons=service.Query(wheres);
+		wheres.clear();
+		// 加载所有Url
+		wheres.add(new Where(VeasionUrl.type, JoinSql.eq, VeasionUrl.TYPE_URL));
+		List<Map<String, Object>> urls=service.Query(wheres);
 		req.setAttribute("icons", icons);
+		req.setAttribute("urls", urls);
 		return "page/desktop/iconModify.jsp";
 	}
 	
@@ -104,11 +109,13 @@ public class DesktopVeasion {
 			where.put(DesktopCloumn.id, id);
 			//修改
 			count=service.Update(data, where);
+			req.setAttribute("tabid", "updateIcon");
 		}else{
 			data.put(DesktopCloumn.status, 1);
 			data.put(DesktopCloumn.createDate, SQLUtil.getDate());
 			//新增
 			count=service.Add(data);
+			req.setAttribute("tabid", "addIcon");
 		}
 		if(count>0)
 			return "page/success.jsp";
@@ -151,6 +158,7 @@ public class DesktopVeasion {
 			wheres.add(new Where(DesktopStyle.name, JoinSql.like, name));
 		}
 		List<Map<String, Object>> result = service.Query(wheres, pm);
+		VeasionUrl.fillUrlForMap(result, DesktopStyle.bgimg);
 		result = SQLUtil.filterListMap(result, null, new String[] { DesktopStyle.createDate }, DesktopStyle.id,
 				DesktopStyle.author, DesktopStyle.name, DesktopStyle.bgimg, DesktopStyle.cloumnHeight,
 				DesktopStyle.cloumnWidth, DesktopStyle.cloumnIds, DesktopStyle.createDate,DesktopStyle.status);
@@ -164,23 +172,17 @@ public class DesktopVeasion {
 		Object id=json.get(DesktopStyle.id);
 		if(id!=null && SQLUtil.valueOfInteger(id)!=null){
 			service.useTable(DesktopStyle.tableName);
-			req.setAttribute(BeanConstant.object, service.QueryOnly(DesktopStyle.id, id));
+			Map<String, Object> map=service.QueryOnly(DesktopStyle.id, id);
+			VeasionUrl.fillUrlForMap(map, DesktopStyle.bgimg);
+			req.setAttribute(BeanConstant.object, map);
 		}
-		List<String> bgimgs=new ArrayList<>();
-		//读取Style背景图标名称
-		try {
-			String path=req.getServletContext().getRealPath("page/images");
-			//String imgPath=req.getContextPath()+"/page/images/";
-			File fd=new File(path);
-			if(fd.isDirectory()){
-				for (File f : fd.listFiles()) {
-					if(f.getName().startsWith("bgimg_"))
-						bgimgs.add(f.getName());
-				}
-			}
-		} catch (Exception e) {e.printStackTrace();}
+		service.useTable(VeasionUrl.tableName);
+		List<Where> wheres=new ArrayList<>();
+		wheres.add(new Where(VeasionUrl.type, JoinSql.eq, VeasionUrl.TYPE_STYLE));
+		List<Map<String, Object>> bgimgs=service.Query(wheres);
 		service.useTable(DesktopCloumn.tableName);
 		List<Map<String, Object>> icons=service.Query(null);
+		VeasionUrl.fillUrlForMap(icons, DesktopCloumn.icon, DesktopCloumn.url);
 		req.setAttribute(DesktopStyle.cloumnIds, icons);
 		req.setAttribute("bgimgs", bgimgs);
 		return "page/desktop/styleModify.jsp";
@@ -202,10 +204,12 @@ public class DesktopVeasion {
 			where.put(DesktopStyle.id, id);
 			//修改
 			count=service.Update(data, where);
+			req.setAttribute("tabid", "updateStyle");
 		}else{
 			data.put(DesktopStyle.createDate, SQLUtil.getDate());
 			//新增
 			count=service.Add(data);
+			req.setAttribute("tabid", "addStyle");
 		}
 		if(count>0)
 			return "page/success.jsp";
@@ -245,14 +249,126 @@ public class DesktopVeasion {
 				new Object[] { id, DesktopStyle.STATUS_USE, DesktopStyle.STATUS_STOP });
 	}
 	
+	/**Url管理*/
+	public String url(){
+		return "page/desktop/urlList.jsp";
+	}
+	
+	/**Url分页查询*/
+	public Map<String, Object> urlSearch() {
+		//切换表
+		service.useTable(VeasionUrl.tableName);
+		System.out.println(json);
+		Integer indexPage = json.getInt("page");
+		Integer pageCount = json.getInt("pagesize");
+		String name = json.optString(VeasionUrl.name, null);
+		int type=json.optInt(VeasionUrl.type, 0);
+		Map<String, Object> map = new HashMap<String, Object>();
+		PageModel pm = new PageModel(indexPage, pageCount);
+		List<Where> wheres = new ArrayList<>();
+		if (name != null && !"".equals(name.trim())) {
+			wheres.add(new Where(VeasionUrl.name, JoinSql.like, name));
+		}
+		if(type != 0){
+			wheres.add(new Where(VeasionUrl.type, JoinSql.eq, type));
+		}
+		List<Map<String, Object>> result = service.Query(wheres, pm);
+		result = SQLUtil.filterListMap(result, null, new String[] { VeasionUrl.createDate }, 
+				VeasionUrl.id,VeasionUrl.name, VeasionUrl.url,VeasionUrl.type, VeasionUrl.createDate);
+		map.put("Rows", result);
+		map.put("Total", pm.getCount());
+		return map;
+	}
+	
+	/**Go Url增加、修改页面*/
+	public String goUrlModify(){
+		Object id=json.get(VeasionUrl.id);
+		if(id!=null && SQLUtil.valueOfInteger(id)!=null){
+			service.useTable(VeasionUrl.tableName);
+			Map<String, Object> map=service.QueryOnly(VeasionUrl.id, id);
+			req.setAttribute(BeanConstant.object, map);
+		}
+		return "page/desktop/urlModify.jsp";
+	}
+	
+	/**url增加、修改*/
+	public String urlUpdate() {
+		Object idObj=json.get(VeasionUrl.id);
+		service.useTable(VeasionUrl.tableName);
+		JSONObject data=new JSONObject();
+		Integer id=null;
+		int count=0;
+		SQLUtil.fillJsonObject(json, data, VeasionUrl.name,VeasionUrl.url,VeasionUrl.type);
+		System.out.println(data);
+		if(idObj!=null && (id=SQLUtil.valueOfInteger(idObj))!=null){
+			JSONObject where=new JSONObject();
+			where.put(VeasionUrl.id, id);
+			//修改
+			count=service.Update(data, where);
+			req.setAttribute("tabid", "updateUrl");
+		}else{
+			data.put(VeasionUrl.createDate, SQLUtil.getDate());
+			data.put(VeasionUrl.type, VeasionUrl.TYPE_URL);
+			//新增
+			count=service.Add(data);
+			req.setAttribute("tabid", "addUrl");
+		}
+		if(count>0)
+			return "page/success.jsp";
+		else
+			return "page/failure.jsp";
+	}
+	
+	/**url删除*/
+	public String urlDelete(){
+		Object obj=json.get(VeasionUrl.id);
+		Integer id=null;
+		int count=0;
+		if(obj!=null && (id=SQLUtil.valueOfInteger(obj))!=null){
+			service.useTable(VeasionUrl.tableName);
+			count=service.Delete(VeasionUrl.id, id);
+		}
+		if(count>0)
+			return "page/success.jsp";
+		else
+			return "page/failure.jsp";
+	}
+	
 	/**上传图片*/
 	public String upFile() {
-		FileUtil fileUtil=new FileUtil();
 		try{
-			String type=json.getString("type")+"_";
-			//最大500kb
-			String fileName=fileUtil.upFile(req, 1024*500L, "page/images",type);
-			System.out.println("上传成功！\n"+fileName);
+			String typeName=json.optString("type", "").trim();
+			String name=json.optString("name", "").trim();
+			String filePath=json.optString("filePath","").trim();
+			int type=0;
+			boolean up=true;
+			if("bgimg".equals(typeName)){
+				type=VeasionUrl.TYPE_STYLE;
+			}else if("icon".equals(typeName)){
+				type=VeasionUrl.TYPE_ICON;
+			}else{
+				up=false;
+			}
+			if(!up) throw new Exception("未知上传！");
+			
+			File tempFile=new File(json.getString("file"));
+			
+			String fileName=tempFile.getName();
+			if("".equals(name)) name=fileName;
+			// 上传文件到Oss
+			OSSClient client=OssUtil.getOssClient();
+			OssUploadFile uploadFile=new OssUploadFile(tempFile, "images/", 
+					UUID.randomUUID()+fileName.substring(fileName.lastIndexOf(".")));
+			String url=OssUtil.uploadObject(client, OssUtil.bucketName, uploadFile, null);
+			client.shutdown();
+			
+			service.useTable(VeasionUrl.tableName);
+			JSONObject json=new JSONObject();
+			json.put(VeasionUrl.name, name);
+			json.put(VeasionUrl.type, type);
+			json.put(VeasionUrl.url, url);
+			json.put(VeasionUrl.createDate, SQLUtil.getDate());
+			service.Add(json);
 			return "page/success.jsp";
 		}catch(Exception e){
 			e.printStackTrace();

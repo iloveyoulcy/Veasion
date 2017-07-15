@@ -21,7 +21,7 @@ public class DesktopStyle {
 	public static final String name="name";
 	/**作者*/
 	public static final String author="author";
-	/**背景图*/
+	/**背景图,int对应veasion_url的id*/
 	public static final String bgimg="bgimg";
 	/**列宽*/
 	public static final String cloumnWidth="cloumn_width";

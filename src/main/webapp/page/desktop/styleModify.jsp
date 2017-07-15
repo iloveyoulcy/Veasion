@@ -97,11 +97,19 @@ a{text-decoration: none;}
 			<tr>
 				<th>背景：</th>
 				<th>
-					<select id="bgimg" name="bgimg" onchange="document.bgimg_img.src=options[selectedIndex].value">
+					<script type="text/javascript">
+						function bgimgChange(obj){
+							var opt=$(obj).find("option:selected");
+							document.bgimg_img.src=obj.value;
+							$("input[name='bgimg']").val(opt.attr("data-id"));
+						}
+					</script>
+					<select id="bgimg" onchange="bgimgChange(this);">
 						<c:forEach items="${bgimgs }" var="bg">
-							<option value="${pageContext.request.contextPath}/page/images/${bg }">${bg }</option>
+							<option value="${bg.url }" data-id="${bg.id }">${bg.name }</option>
 						</c:forEach>
 					</select>
+					<input type="hidden" value="0" name="bgimg" />
 				</th>
 				<th>
 					<img name="bgimg_img" src="${object.bgimg }" style="width: 140px;height: 100px;">
