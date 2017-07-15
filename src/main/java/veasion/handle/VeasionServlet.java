@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
+import veasion.bean.BeanConstant;
 import veasion.constant.Constant;
 import veasion.util.annotation.Veasion;
 
@@ -106,8 +107,7 @@ public class VeasionServlet extends HttpServlet {
 			JSONObject json = null;
 			if (!(returnObj instanceof JSONObject) && !(returnObj instanceof Map)) {
 				Map<String, Object> map = new HashMap<>();
-				final String object="object";
-				map.put(object, returnObj);
+				map.put(BeanConstant.jsonObject, returnObj);
 				json = JSONObject.fromObject(map);
 			} else {
 				json = JSONObject.fromObject(returnObj);

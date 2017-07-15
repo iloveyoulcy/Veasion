@@ -20,10 +20,10 @@ a{text-decoration: none;}
 	}
 	
 	$(function(){
-		var obj="${obj}";
+		var obj="${object}";
 		if(obj!=""&&obj!="null"){
-			$("#bgimg").val("${obj.bgimg}");
-			var ids="${obj.cloumn_ids}";
+			$("#bgimg").val("${object.bgimg}");
+			var ids="${object.cloumn_ids}";
 			if(ids!=""){
 				var idArr=ids.trim().split(",");
 				for(var i=0,l=idArr.length;i<l; i++){
@@ -75,22 +75,22 @@ a{text-decoration: none;}
 <br/>
 <div>
 	<form action="${pageContext.request.contextPath}/admin/desktop/styleUpdate.vea" method="post" onsubmit="return check();">
-	<c:if test="${obj !=null }">
-		<input type="hidden" name="id" value="${obj.id }"/>
+	<c:if test="${object !=null }">
+		<input type="hidden" name="id" value="${object.id }"/>
 	</c:if>
 	<table>
 		<tbody>
 			<tr>
 				<th>标题：</th>
 				<td>
-					<input name="name" type="text" value="${obj.name }" maxlength="10"/>
+					<input name="name" type="text" value="${object.name }" maxlength="10"/>
 				</td>
 				<td></td>
 			</tr>
 			<tr>
 				<th>作者：</th>
 				<td>
-					<input name="author" type="text" value="${obj.author }" maxlength="10"/>
+					<input name="author" type="text" value="${object.author }" maxlength="10"/>
 				</td>
 				<td></td>
 			</tr>
@@ -104,20 +104,20 @@ a{text-decoration: none;}
 					</select>
 				</th>
 				<th>
-					<img name="bgimg_img" src="${obj.bgimg }" style="width: 140px;height: 100px;">
+					<img name="bgimg_img" src="${object.bgimg }" style="width: 140px;height: 100px;">
 				</th>
 			</tr>
 			<tr>
 				<th>宽度：</th>
 				<td>
-					<input name="cloumn_width" type="text" value="${obj.cloumn_width!=null?obj.cloumn_width:36 }" maxlength="4" onkeydown="return inputInt(event);"/>
+					<input name="cloumn_width" type="text" value="${object.cloumn_width!=null?object.cloumn_width:36 }" maxlength="4" onkeydown="return inputInt(event);"/>
 				</td>
 				<td></td>
 			</tr>
 			<tr>
 				<th>高度：</th>
 				<td>
-					<input name="cloumn_height" type="text" value="${obj.cloumn_height!=null?obj.cloumn_height:36 }" maxlength="4" onkeydown="return inputInt(event);"/>
+					<input name="cloumn_height" type="text" value="${object.cloumn_height!=null?object.cloumn_height:36 }" maxlength="4" onkeydown="return inputInt(event);"/>
 				</td>
 				<td></td>
 			</tr>

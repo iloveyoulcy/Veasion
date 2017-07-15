@@ -9,6 +9,9 @@ package veasion.bean;
 public class BeanConstant {
 	
 	/**对象Request Attribute*/
-	public final static String OBJECT="obj";
+	public final static String object="object";
+	
+	/**对象Response Json*/
+	public final static String jsonObject="object";
 	
 }

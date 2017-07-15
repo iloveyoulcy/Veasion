@@ -16,10 +16,10 @@
 	}
 	
 	$(function(){
-		var obj="${obj}";
+		var obj="${object}";
 		if(obj!=""&&obj!="null"){
-			$("#icon").val("${obj.icon}");
-			$("#show_type").val("${obj.show_type}");
+			$("#icon").val("${object.icon}");
+			$("#show_type").val("${object.show_type}");
 		}else{
 			$('#icon').trigger("change");
 		}
@@ -33,15 +33,15 @@
 <br/>
 <div style="text-align: center;">
 	<form action="${pageContext.request.contextPath}/admin/desktop/iconUpdate.vea" method="post" onsubmit="return check();">
-	<c:if test="${obj !=null }">
-		<input type="hidden" name="id" value="${obj.id }"/>
+	<c:if test="${object !=null }">
+		<input type="hidden" name="id" value="${object.id }"/>
 	</c:if>
 	<table>
 		<tbody>
 			<tr>
 				<th>标题：</th>
 				<td>
-					<input name="title" type="text" value="${obj.title }" maxlength="10"/>
+					<input name="title" type="text" value="${object.title }" maxlength="10"/>
 				</td>
 				<td></td>
 			</tr>
@@ -55,13 +55,13 @@
 					</select>
 				</th>
 				<th>
-					<img name="icon_img" src="${obj.icon }" style="width: 36px;height: 36px;">
+					<img name="icon_img" src="${object.icon }" style="width: 36px;height: 36px;">
 				</th>
 			</tr>
 			<tr>
 				<th>URL：</th>
 				<td>
-					<input id="url" name="url" type="text" value="${obj.url }" />
+					<input id="url" name="url" type="text" value="${object.url }" />
 				</td>
 				<td>
 					<a href="javascript:openURL($('#url').val());">浏览</a>
@@ -70,14 +70,14 @@
 			<tr>
 				<th>宽度：</th>
 				<td>
-					<input name="width" type="text" value="${obj.width!=null?obj.width:500 }" maxlength="4" onkeydown="return inputInt(event);"/>
+					<input name="width" type="text" value="${object.width!=null?object.width:500 }" maxlength="4" onkeydown="return inputInt(event);"/>
 				</td>
 				<td></td>
 			</tr>
 			<tr>
 				<th>高度：</th>
 				<td>
-					<input name="height" type="text" value="${obj.height!=null?obj.height:500 }" maxlength="4" onkeydown="return inputInt(event);"/>
+					<input name="height" type="text" value="${object.height!=null?object.height:500 }" maxlength="4" onkeydown="return inputInt(event);"/>
 				</td>
 				<td></td>
 			</tr>

@@ -71,7 +71,7 @@ public class DesktopVeasion {
 		Object id=json.get(DesktopCloumn.id);
 		if(id!=null && SQLUtil.valueOfInteger(id)!=null){
 			service.useTable(DesktopCloumn.tableName);
-			req.setAttribute(BeanConstant.OBJECT, service.QueryOnly(DesktopCloumn.id, id));
+			req.setAttribute(BeanConstant.object, service.QueryOnly(DesktopCloumn.id, id));
 		}
 		req.setAttribute("showTypes", DesktopCloumn.showTypes);
 		List<String> icons=new ArrayList<>();
@@ -164,7 +164,7 @@ public class DesktopVeasion {
 		Object id=json.get(DesktopStyle.id);
 		if(id!=null && SQLUtil.valueOfInteger(id)!=null){
 			service.useTable(DesktopStyle.tableName);
-			req.setAttribute(BeanConstant.OBJECT, service.QueryOnly(DesktopStyle.id, id));
+			req.setAttribute(BeanConstant.object, service.QueryOnly(DesktopStyle.id, id));
 		}
 		List<String> bgimgs=new ArrayList<>();
 		//读取Style背景图标名称
