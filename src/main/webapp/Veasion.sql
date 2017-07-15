@@ -33,6 +33,16 @@ INSERT INTO `veasion_url` VALUES ('29', '小希', 'http://veasion.oss-cn-shangha
 INSERT INTO `veasion_url` VALUES ('30', '跑车', 'http://veasion.oss-cn-shanghai.aliyuncs.com/images/45962c6e-861f-4f7d-b40b-cd84f1dbeded.jpg', '2', '2017-07-15 19:27:02');
 INSERT INTO `veasion_url` VALUES ('31', '水滴', 'http://veasion.oss-cn-shanghai.aliyuncs.com/images/f3412719-2850-4d39-832e-5517422de13c.jpg', '2', '2017-07-15 19:27:22');
 INSERT INTO `veasion_url` VALUES ('32', 'Mac', 'http://veasion.oss-cn-shanghai.aliyuncs.com/images/037dd7ac-33a9-4553-a6e7-eb38d585469b.jpg', '2', '2017-07-15 19:27:41');
+INSERT INTO `veasion_url` VALUES ('35', '我的主页', '/Veasion/index.jsp', '1', '2017-07-15 22:01:56');
+INSERT INTO `veasion_url` VALUES ('36', '优酷电影', 'http://www.youku.com/', '1', '2017-07-15 22:02:17');
+INSERT INTO `veasion_url` VALUES ('37', '记事本', '/Veasion/page/notepad.jsp', '1', '2017-07-15 22:02:33');
+INSERT INTO `veasion_url` VALUES ('38', '#', '#', '1', '2017-07-15 22:02:50');
+INSERT INTO `veasion_url` VALUES ('39', '酷狗音乐', 'http://web.kugou.com/', '1', '2017-07-15 22:03:06');
+INSERT INTO `veasion_url` VALUES ('40', '4399', 'http://www.4399.com/', '1', '2017-07-15 22:03:19');
+INSERT INTO `veasion_url` VALUES ('41', 'QQ', 'http://w.qq.com/', '1', '2017-07-15 22:03:32');
+INSERT INTO `veasion_url` VALUES ('42', '百度', 'http://www.baidu.com', '1', '2017-07-15 22:03:45');
+INSERT INTO `veasion_url` VALUES ('43', '我的Github', 'https://github.com/veasion', '1', '2017-07-15 22:04:00');
+INSERT INTO `veasion_url` VALUES ('44', '我的博客', 'http://59.110.241.52/solo', '1', '2017-07-15 22:04:19');
 
 -- ----------------------------
 -- Records of desktop_cloumn
