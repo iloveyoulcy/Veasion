@@ -167,5 +167,12 @@ body, html {width: 100%;height: 100%;}
 		});
 	});
 	
+	// 鼠标右键菜单
+	document.oncontextmenu = function(){
+		// 显示右键菜单
+		//-----TODO code
+		// 禁用右键
+	    event.returnValue = false;
+	}
 </script>
 </html>

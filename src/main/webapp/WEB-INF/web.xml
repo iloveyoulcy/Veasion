@@ -29,7 +29,7 @@
   
   <!-- 首页 -->
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>/page/win7.jsp</welcome-file>
   </welcome-file-list>
   
   <error-page>

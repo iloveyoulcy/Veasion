@@ -1,0 +1,13 @@
+
+============Veasion个人网站============
+
+项目介绍：
+	本项目以轻量级部署为核心的框架搭建，用封装后的原始jdbc操作数据库，反射实现servlet访问。
+	
+1.control包为控制层代码，其中命名规则如下：
+	类名+Veasion.
+访问规则如下：
+	包名/类名.vea  // 类名不包含Veasion，小写
+	// 其他control介绍请查看/control/TestVeasion.java注释
+
+2.dao包为jdbc操作；handle包为处理类，如监听过滤器；service为业务层

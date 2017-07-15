@@ -1,5 +1,7 @@
 package veasion.util;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -21,6 +23,10 @@ public class ConfigUtil {
 		InputStream input=ConfigUtil.class.getClassLoader().getResourceAsStream(CONFIG_NAME);
 		p=new Properties();
 		try {
+			/* 
+			 * if(input==null)
+			 * 	input=new FileInputStream("F:/Eminent/MyGithub/Veasion/src/main/resources/"+CONFIG_NAME);
+			 */
 			p.load(input);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -52,7 +58,7 @@ public class ConfigUtil {
 		String value=null;
 		if(p!=null){
 			try {
-				value=p.getProperty(key);
+				value=p.getProperty(key).trim();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
