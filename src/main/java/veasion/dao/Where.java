@@ -1,6 +1,7 @@
 package veasion.dao;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import veasion.util.SQLUtil;
@@ -71,11 +72,13 @@ public class Where {
 				sql.append(" like ?");
 				break;
 			case in:
+				int size=1;
 				if(value instanceof Object[]){
-					sql.append(" in (").append(SQLUtil.getSymbol("?", ",", ((Object[])value).length)).append(")");
-				}else{
-					sql.append(" in (?)");
+					size=((Object[])value).length;
+				}else if(value instanceof Collection<?>){
+					size=((Collection<?>)value).size();
 				}
+				sql.append(" in (").append(SQLUtil.getSymbol("?", ",", size)).append(")");
 				break;
 			default:
 				sql.append(" = ?");

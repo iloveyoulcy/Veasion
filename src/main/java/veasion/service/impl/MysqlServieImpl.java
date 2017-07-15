@@ -16,6 +16,7 @@ import veasion.dao.Where;
 import veasion.service.BeanService;
 import veasion.util.PageModel;
 import veasion.util.SQLUtil;
+import veasion.util.VeaUtil;
 
 /**
  * 基本数据操作Service实现类 For Mysql.
@@ -201,7 +202,8 @@ public class MysqlServieImpl implements BeanService{
 		StringBuilder sql=new StringBuilder();
 		sql.append("SELECT * FROM ");
 		Map<String, String> tableAs=new HashMap<>();
-		if(!whereMap.containsKey(tableName)){
+		if(!VeaUtil.isNullEmpty(tableName) 
+				&& !whereMap.containsKey(tableName)){
 			whereMap.put(tableName, null);
 		}
 		if(relations!=null && !relations.isEmpty()){

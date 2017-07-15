@@ -194,10 +194,10 @@ public class SQLUtil {
 	}
 	
 	/**打印SQL*/
-	public static void printSQL(Object sql,Object param){
+	public static void printSQL(String sql,Object param){
 		if(Constant.PRINT_SQL){
 			System.out.println();
-			System.out.println(sql);
+			System.out.println(sql.toLowerCase());
 			if(param!=null){
 				if(param instanceof Object[])
 					System.out.println(Arrays.toString((Object[])param));
