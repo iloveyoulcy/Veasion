@@ -77,15 +77,10 @@
 	navigator.getUserMedia(
 		{ "video": true }, 
 		function(stream){
+			var URL= window.URL || window.webkitURL;
 			video.src = URL.createObjectURL(stream);
-			video.onerror = function(){
-	            stream.stop();
-	        };
-       		stream.onended = error;
-       		video.onloadedmetadata = function(){
-	            // 摄像头成功打开！
-	            useClick();
-	        };
+			video.play();
+			useClick();
 	}, error);
 	
 	/*
