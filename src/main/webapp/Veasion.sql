@@ -59,7 +59,7 @@ INSERT INTO `desktop_cloumn` VALUES ('8', '42', '搜索', '23', '900', '500', '0
 INSERT INTO `desktop_cloumn` VALUES ('9', '43', 'Github', '3', '0', '0', '3', '1', '2017-07-15 22:10:47');
 INSERT INTO `desktop_cloumn` VALUES ('10', '44', '博客', '2', '0', '0', '3', '1', '2017-07-15 22:11:30');
 INSERT INTO `desktop_cloumn` VALUES ('11', '38', 'Love', '16', '500', '500', '0', '1', '2017-07-15 22:11:53');
-INSERT INTO `desktop_cloumn` VALUES ('12', '45', '人脸识别', '20', '1200', '900', '1', '1', '2017-07-16 11:13:33');
+INSERT INTO `desktop_cloumn` VALUES ('12', '45', '人脸识别', '20', '1200', '900', '0', '1', '2017-07-16 11:13:33');
 
 -- ----------------------------
 -- Records of desktop_style

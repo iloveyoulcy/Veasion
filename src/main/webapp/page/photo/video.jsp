@@ -32,7 +32,7 @@
 </head>
 <body>
 <div class="box">
-	<div class="div13">
+	<div class="div13" id="htmlDiv">
 		左边
 	</div>
 	<div style="width: 60%;height:80%;float: left;text-align: center;">
@@ -43,7 +43,7 @@
 		
 		<div style="margin-top: 30px;">
 			<button id="snap">拍照</button>
-			<button style="margin-left: 5px;" onclick="upImgFile();">人脸识别</button>
+			<button style="margin-left: 5px;" onclick="upImgFile();" title="现在是看脸的时代，快来让我帮你评估一下长相吧~">长相评估</button>
 		</div>
 	</div>
 </div>
@@ -96,7 +96,12 @@
 			data:{"jtBase64Url":jtBase64Url},
 			type:"post",
 			success:function(data){
-				alert(data.message);
+				if(data.message!=null){
+					alert("评估失败！");
+				}else{
+					alert("评估完成！请在左边查看结果~");
+					$("#htmlDiv").html(data.html);
+				}
 			},
 			error:function(e){
 				alert("发生错误！");
