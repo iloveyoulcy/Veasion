@@ -82,7 +82,7 @@ public class OssUtil {
 
 		result = ossClient.putObject(putObjectRequest);
 
-		System.out.println(result.getETag());
+		//System.out.println(result.getETag());
 
 		return getOssFileUrl(bucketName, key);
 	}

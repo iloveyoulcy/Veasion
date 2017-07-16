@@ -66,4 +66,17 @@ public class ConfigUtil {
 		return value!=null?value:defaultValue;
 	}
 	
+	/**
+	 * 根据key获取boolean值
+	 */
+	public static boolean getPropertyBoolean(String key,boolean defaultVal){
+		String val=getProperty(key,"none").trim();
+		if("true".equalsIgnoreCase(val))
+			return true;
+		else if("none".equals(val))
+			return defaultVal;
+		else
+			return false;
+	}
+	
 }

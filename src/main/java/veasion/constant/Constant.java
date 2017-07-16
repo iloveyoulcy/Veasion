@@ -19,8 +19,17 @@ public class Constant {
 	/**打印在线人数*/
 	public static boolean PRINT_ON_LINE=false;
 	
+	/**自动检查库和表，没有则创建*/
+	public static final String AutoCreateDB="AutoCreateDB";
+	
 	/**打印SQL配置key*/
 	private static final String SQL_PRINT="PrintSql";
+	
+	/**人脸识别时是否和作者比较*/
+	public static final String FaceCompareAuthor="FaceCompareAuthor";
+	
+	/**保存人脸识别的图片*/
+	public static final String SaveFaceImg="SaveFaceImg";
 	
 	/**打印在线人数配置key*/
 	public static final String SYSTEM_PRINT_ON_LINE="PrintOnLine";

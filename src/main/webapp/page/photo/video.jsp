@@ -3,9 +3,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>真人秀</title>
+<title>人脸识别</title>
 <link rel="Shortcut Icon" href="${pageContext.request.contextPath}/favicon.ico">
+<link href="${pageContext.request.contextPath}/jquery/ligerUI/skins/Aqua/css/ligerui-dialog.css" rel="stylesheet" type="text/css"/>
 <script src="${pageContext.request.contextPath}/jquery/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/jquery/ligerUI/js/core/base.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/jquery/ligerUI/js/plugins/ligerDrag.js" type="text/javascript"></script> 
+<script src="${pageContext.request.contextPath}/jquery/ligerUI/js/plugins/ligerDialog.js" type="text/javascript"></script>
 <style type="text/css">
 	#canvas,#video {
 		background: #fff;
@@ -20,7 +24,6 @@
 		height:500px;
 		float: left;
 		border: 1px solid #666;
-		text-align: center;
 	}
 	.jtImg{
 		display: none;
@@ -32,15 +35,15 @@
 </head>
 <body>
 <div class="box">
-	<div class="div13" id="htmlDiv">
-		左边
+	<div class="div13" id="htmlDiv" style="width: 18%;padding-top: 15px;margin-left: 5px;">
+		<div style="text-align: center;">左边</div>
 	</div>
 	<div style="width: 60%;height:80%;float: left;text-align: center;">
 		<video id="video"></video>
 	</div>
-	<div class="div13">
+	<div class="div13" style="text-align: center;">
 		<img alt="照片" src="" id="jtImg" class="jtImg" title="点击下载照片" onclick="downImg();"/>
-		
+		<img id="loading" src="${pageContext.request.contextPath}/images/loading.gif" style="display: none;margin-top: 10px;" alt="正在评估..." title="正在评估..." />
 		<div style="margin-top: 30px;">
 			<button id="snap">拍照</button>
 			<button style="margin-left: 5px;" onclick="upImgFile();" title="现在是看脸的时代，快来让我帮你评估一下长相吧~">长相评估</button>
@@ -86,25 +89,59 @@
 	}
 	
 	// 异步上传图片
+	var faceing=false;
 	function upImgFile(){
 		if(jtBase64Url==null || jtBase64Url==""){
-			alert("请先拍照哦~");
+			$.ligerDialog.waitting('请先拍照哦~');
+            setTimeout(function (){
+                $.ligerDialog.closeWaitting();
+            }, 2000);
 			return;
 		}
+		if(faceing){
+			$.ligerDialog.waitting('正在评估,请稍后...');
+            setTimeout(function (){
+                $.ligerDialog.closeWaitting();
+            }, 1000);
+			return;
+		}
+		$("#loading").show();
+		faceing=true;
 		$.ajax({
 			url:"${pageContext.request.contextPath}/photo/face/upImgFile.vea",
 			data:{"jtBase64Url":jtBase64Url},
 			type:"post",
 			success:function(data){
+				faceing=false;
+				$("#loading").hide();
 				if(data.message!=null){
-					alert("评估失败！");
+					var manager = $.ligerDialog.waitting('评估失败！');
+			        setTimeout(function (){
+			            manager.close();
+			        }, 2000);
 				}else{
-					alert("评估完成！请在左边查看结果~");
-					$("#htmlDiv").html(data.html);
+					if(data.html=="" || data.html=="<table></table>"){
+				        $.ligerDialog.waitting('请勿遮住你的脸！请重新拍照检测...');
+	                     setTimeout(function (){
+	                         $.ligerDialog.closeWaitting();
+	                     }, 2000);
+						$("#htmlDiv").html("请勿遮住你的脸！");
+					}else{
+						$.ligerDialog.waitting('评估完成！请在左边查看结果~');
+	                     setTimeout(function (){
+	                         $.ligerDialog.closeWaitting();
+	                     }, 2000);
+						$("#htmlDiv").html(data.html);
+					}
 				}
 			},
 			error:function(e){
-				alert("发生错误！");
+				faceing=false;
+				$("#loading").hide();
+				$.ligerDialog.waitting("发生错误！");
+                setTimeout(function (){
+                    $.ligerDialog.closeWaitting();
+                }, 2000);
 			}
 		});
 	}

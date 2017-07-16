@@ -50,7 +50,7 @@ public class VeasionListener implements HttpSessionListener,ServletContextListen
 		System.out.println(SQLUtil.getDate("yyyy-MM-dd HH:mm:ss"));
 		try{
 			//检查数据库和表，没有则自动创建
-			if("true".equalsIgnoreCase(ConfigUtil.getProperty("AutoCreateDB", "false")))
+			if(ConfigUtil.getPropertyBoolean(Constant.AutoCreateDB, false))
 				AutoCreateDB.autoCreateDB();
 		}catch(Exception e){e.printStackTrace();}
 	}
