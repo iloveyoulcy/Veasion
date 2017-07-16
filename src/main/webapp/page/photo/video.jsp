@@ -60,10 +60,12 @@
 
 	var error=function(){
 		// 打开视频异常出现的回调
-		$.ligerDialog.waitting('您浏览器没有摄像头或本站点没权限读取摄像头~');
+		var message='您浏览器没有摄像头或本站点没权限读取摄像头~';
+		$.ligerDialog.waitting(message);
 		setTimeout(function() {
 			$.ligerDialog.closeWaitting();
-		}, 3000);
+		}, 5000);
+		console.log(message);
 	}
 	
 	//获取媒体对象(摄像头)
@@ -185,11 +187,6 @@
 			}
 		});
 	}
-	
-	/* $(function() {
-		// 播放
-		liveVideo();
-	}); */
 </script>
 </body>
 </html>
