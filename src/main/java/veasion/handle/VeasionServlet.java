@@ -107,7 +107,8 @@ public class VeasionServlet extends HttpServlet {
 			// 如果是文件上传则删除临时文件
 			if(!VeaUtil.isNullEmpty(fileList)){
 				fileList.forEach((f)->{
-					f.delete();
+					if(f.isFile() && f.exists())
+						f.delete();
 				});
 			}
 			fileList.clear();

@@ -21,9 +21,8 @@
 			$("#icon").val("${object.icon}");
 			$("#url").val($("option[data-url='${object.url}']").val());
 			$("#show_type").val("${object.show_type}");
-		}else{
-			$('#icon').trigger("change");
 		}
+		$('#icon').trigger("change");
 	});
 	
 	function openURL(url){
@@ -50,13 +49,13 @@
 				<th>图标：</th>
 				<th>
 					<script type="text/javascript">
-						function iconChange(obj){
-							var opt=$(obj).find("option:selected");
-							document.icon_img.src=obj.value;
+						function iconChange(){
+							var opt=$("#icon").find("option:selected");
+							document.icon_img.src=opt.val();
 							$("input[name='icon']").val(opt.attr("data-id"));
 						}
 					</script>
-					<select id="icon" onchange="iconChange(this);">
+					<select id="icon" onchange="iconChange();">
 						<c:forEach items="${icons }" var="ico">
 							<option value="${ico.url }" data-id="${ico.id }">${ico.name }</option>
 						</c:forEach>

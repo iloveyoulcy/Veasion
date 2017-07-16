@@ -30,9 +30,8 @@ a{text-decoration: none;}
 					$("#icon_"+idArr[i]).prop("checked",true);
 				}
 			}
-		}else{
-			$('#bgimg').trigger("change");
 		}
+		$('#bgimg').trigger("change");
 	});
 	
 	function openURL(url,title){
@@ -98,13 +97,13 @@ a{text-decoration: none;}
 				<th>背景：</th>
 				<th>
 					<script type="text/javascript">
-						function bgimgChange(obj){
-							var opt=$(obj).find("option:selected");
-							document.bgimg_img.src=obj.value;
+						function bgimgChange(){
+							var opt=$("#bgimg").find("option:selected");
+							document.bgimg_img.src=opt.val();
 							$("input[name='bgimg']").val(opt.attr("data-id"));
 						}
 					</script>
-					<select id="bgimg" onchange="bgimgChange(this);">
+					<select id="bgimg" onchange="bgimgChange();">
 						<c:forEach items="${bgimgs }" var="bg">
 							<option value="${bg.url }" data-id="${bg.id }">${bg.name }</option>
 						</c:forEach>

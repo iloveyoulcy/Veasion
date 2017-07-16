@@ -147,7 +147,7 @@ public class DesktopVeasion {
 	public Map<String, Object> styleSearch() {
 		//切换表
 		service.useTable(DesktopStyle.tableName);
-		System.out.println(json);
+		//System.out.println(json);
 		Integer indexPage = json.getInt("page");
 		Integer pageCount = json.getInt("pagesize");
 		String name = json.optString(DesktopStyle.name, null);
@@ -198,7 +198,7 @@ public class DesktopVeasion {
 		SQLUtil.fillJsonObject(json, data, DesktopStyle.name,DesktopStyle.author,DesktopStyle.bgimg,DesktopStyle.cloumnHeight,DesktopStyle.cloumnWidth);
 		String []cloumnIds=req.getParameterValues(DesktopStyle.cloumnIds);
 		data.put(DesktopStyle.cloumnIds, TextUtil.joinObjectArr(cloumnIds, ","));
-		System.out.println(data);
+		//System.out.println(data);
 		if(idObj!=null && (id=SQLUtil.valueOfInteger(idObj))!=null){
 			JSONObject where=new JSONObject();
 			where.put(DesktopStyle.id, id);
@@ -258,7 +258,7 @@ public class DesktopVeasion {
 	public Map<String, Object> urlSearch() {
 		//切换表
 		service.useTable(VeasionUrl.tableName);
-		System.out.println(json);
+		//System.out.println(json);
 		Integer indexPage = json.getInt("page");
 		Integer pageCount = json.getInt("pagesize");
 		String name = json.optString(VeasionUrl.name, null);
@@ -299,7 +299,7 @@ public class DesktopVeasion {
 		Integer id=null;
 		int count=0;
 		SQLUtil.fillJsonObject(json, data, VeasionUrl.name,VeasionUrl.url,VeasionUrl.type);
-		System.out.println(data);
+		//System.out.println(data);
 		if(idObj!=null && (id=SQLUtil.valueOfInteger(idObj))!=null){
 			JSONObject where=new JSONObject();
 			where.put(VeasionUrl.id, id);

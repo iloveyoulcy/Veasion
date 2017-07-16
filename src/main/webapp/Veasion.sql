@@ -43,6 +43,7 @@ INSERT INTO `veasion_url` VALUES ('41', 'QQ', 'http://w.qq.com/', '1', '2017-07-
 INSERT INTO `veasion_url` VALUES ('42', '百度', 'http://www.baidu.com', '1', '2017-07-15 22:03:45');
 INSERT INTO `veasion_url` VALUES ('43', '我的Github', 'https://github.com/veasion', '1', '2017-07-15 22:04:00');
 INSERT INTO `veasion_url` VALUES ('44', '我的博客', 'http://59.110.241.52/solo', '1', '2017-07-15 22:04:19');
+INSERT INTO `veasion_url` VALUES ('45', '真人秀之人脸识别', '/Veasion/photo/face/goPhoto.vea', '1', '2017-07-16 11:11:55');
 
 -- ----------------------------
 -- Records of desktop_cloumn
@@ -58,10 +59,11 @@ INSERT INTO `desktop_cloumn` VALUES ('8', '42', '搜索', '23', '900', '500', '0
 INSERT INTO `desktop_cloumn` VALUES ('9', '43', 'Github', '3', '0', '0', '3', '1', '2017-07-15 22:10:47');
 INSERT INTO `desktop_cloumn` VALUES ('10', '44', '博客', '2', '0', '0', '3', '1', '2017-07-15 22:11:30');
 INSERT INTO `desktop_cloumn` VALUES ('11', '38', 'Love', '16', '500', '500', '0', '1', '2017-07-15 22:11:53');
+INSERT INTO `desktop_cloumn` VALUES ('12', '45', '人脸识别', '20', '1200', '900', '1', '1', '2017-07-16 11:13:33');
 
 -- ----------------------------
 -- Records of desktop_style
 -- ----------------------------
-INSERT INTO `desktop_style` VALUES ('1', '英雄绿风', 'Veasion', '27', '36', '36', '1,2,3,4,5,6,7,8,9,10,11', '2017-07-15 22:12:46', '1');
-INSERT INTO `desktop_style` VALUES ('2', '飞机鸟', 'Veasion', '28', '36', '36', '1,2,3,4,5,6,7,8,9,10,11', '2017-07-15 22:13:18', '0');
-INSERT INTO `desktop_style` VALUES ('3', '小希', 'Veasion', '29', '36', '36', '1,3,5,8,9,10', '2017-07-15 22:13:56', '0');
+INSERT INTO `desktop_style` VALUES ('1', '英雄绿风', 'Veasion', '27', '36', '36', '1,2,3,4,5,6,7,8,9,10,11,12', '2017-07-15 22:12:46', '1');
+INSERT INTO `desktop_style` VALUES ('2', '飞机鸟', 'Veasion', '28', '36', '36', '1,2,3,4,5,6,7,8,9,10,11,12', '2017-07-15 22:13:18', '0');
+INSERT INTO `desktop_style` VALUES ('3', '小希', 'Veasion', '29', '36', '36', '1,3,5,8,9,10,12', '2017-07-15 22:13:56', '0');
