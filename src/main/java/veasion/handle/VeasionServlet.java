@@ -127,7 +127,8 @@ public class VeasionServlet extends HttpServlet {
 		//封装响应数据并跳转
 		if (returnObj == null) {
 			return true;
-		} else if (!(returnObj instanceof String)) {
+		} else if (!(returnObj instanceof String) 
+				|| !String.valueOf(returnObj).matches(".*\\.(jsp|html|htm)")) {
 			JSONObject json = null;
 			if (!(returnObj instanceof JSONObject) && !(returnObj instanceof Map)) {
 				Map<String, Object> map = new HashMap<>();
@@ -266,5 +267,4 @@ public class VeasionServlet extends HttpServlet {
 		}
 		return dir;
 	}
-	
 }

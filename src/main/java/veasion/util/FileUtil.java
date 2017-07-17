@@ -1,5 +1,6 @@
 package veasion.util;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -78,6 +79,28 @@ public class FileUtil {
 			return new String[]{type,base64Str.substring(index+base.length())};
 		}
 		return new String[]{"text",base64Str};
+	}
+	
+	/**文件转成byte数组*/
+	public static byte[] fileToBetyArray(File file) {
+		FileInputStream fileInputStream = null;
+		byte[] bFile = null;
+		try {
+			bFile = new byte[(int) file.length()];
+			fileInputStream = new FileInputStream(file);
+			fileInputStream.read(bFile);
+			fileInputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				fileInputStream.close();
+				bFile.clone();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return bFile;
 	}
 	
 }

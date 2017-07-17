@@ -10,10 +10,13 @@ import org.junit.runner.RunWith;
 import com.aliyun.oss.OSSClient;
 
 import net.sf.json.JSONObject;
+import veasion.util.FileUtil;
 import veasion.util.face.CommonOperate;
 import veasion.util.face.FaceUtil;
+import veasion.util.face.ImageOperate;
 import veasion.util.face.bean.CompareBean;
 import veasion.util.face.bean.DetectBean;
+import veasion.util.face.bean.ImageTextBean;
 import veasion.util.face.FaceResponse;
 import veasion.util.oss.OssUploadFile;
 import veasion.util.oss.OssUtil;
@@ -77,5 +80,30 @@ public class VeasionTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Ignore
+	@Test
+	public void face3(){
+		// 文字识别
+		String apiKey=FaceUtil.getFaceKey();
+		String apiSecret=FaceUtil.getFaceSecret();
+		ImageOperate image=new ImageOperate(apiKey, apiSecret);
+		String path="C:\\Users\\zhuowei.luo\\Desktop\\cc.png";
+		String base64=FileUtil.GetImageStr(path);
+		try {
+			FaceResponse resp=image.textRecognition(null, null, base64);
+			System.out.println(resp.getStatus());
+			ImageTextBean bean=new ImageTextBean(resp);
+			bean.getTextList().forEach((tv)->{
+				System.out.println(tv);
+			});
+			System.out.println();
+			//System.out.println(bean.getText());
+			System.out.println(bean.getTextStr());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
 

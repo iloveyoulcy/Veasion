@@ -60,7 +60,7 @@
 
 	var error=function(){
 		// 打开视频异常出现的回调
-		var message="您浏览器没有摄像头或本站点没权限读取摄像头，建议用最新火狐浏览器访问~";
+		var message="您的浏览器没有摄像头或本站点没权限读取摄像头，建议用最新火狐浏览器访问~";
 		 $.ligerDialog.warn(message);
 		console.log(message);
 	}
