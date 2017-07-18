@@ -57,7 +57,9 @@ public class VeasionTest {
 		try {
 			FaceResponse resp=comm.detectUrl("http://59.110.241.52/Veasion/images/ws10.jpg", 0, "gender,age,smiling,glass,headpose,facequality,blur");
 			System.out.println(resp.getStatus());
-			System.out.println(new JSONObject().fromObject(new String(resp.getContent(),"UTF-8")));
+			//System.out.println(new JSONObject().fromObject(new String(resp.getContent(),"UTF-8")));
+			DetectBean bean=new DetectBean(resp);
+			bean.getFaces().forEach(System.out::println);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -81,25 +83,22 @@ public class VeasionTest {
 		}
 	}
 	
-	@Ignore
+	//@Ignore
 	@Test
 	public void face3(){
 		// 文字识别
 		String apiKey=FaceUtil.getFaceKey();
 		String apiSecret=FaceUtil.getFaceSecret();
 		ImageOperate image=new ImageOperate(apiKey, apiSecret);
-		String path="C:\\Users\\zhuowei.luo\\Desktop\\cc.png";
+		String path="C:\\Users\\zhuowei.luo\\Desktop\\bb.png";
 		String base64=FileUtil.GetImageStr(path);
 		try {
 			FaceResponse resp=image.textRecognition(null, null, base64);
-			System.out.println(resp.getStatus());
 			ImageTextBean bean=new ImageTextBean(resp);
-			bean.getTextList().forEach((tv)->{
-				System.out.println(tv);
-			});
-			System.out.println();
-			//System.out.println(bean.getText());
-			System.out.println(bean.getTextStr());
+			if(resp.getStatus()!=200)
+				System.out.println(bean.getMessage());
+			else
+				System.out.println(bean.getTextStr());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

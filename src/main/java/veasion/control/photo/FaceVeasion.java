@@ -142,7 +142,7 @@ public class FaceVeasion {
 		if(!ConfigUtil.getPropertyBoolean(Constant.FaceCompareAuthor, false))
 			return false;
 		try {
-			Object token=req.getSession().getServletContext().getAttribute("faceToken");
+			Object token=req.getSession().getAttribute("faceToken");
 			String authoFaceToken=token!=null?token.toString():null;
 			CommonOperate comm=new CommonOperate(FaceUtil.getFaceKey(), FaceUtil.getFaceSecret(), false);
 			FaceResponse faceResponse=comm.compare(faceToken, null, null, null, authoFaceToken, authoFaceToken==null?FaceUtil.getMyFaceImg():null, null, null);
@@ -151,7 +151,7 @@ public class FaceVeasion {
 				double xsl=bean.getConfidence();
 				System.out.println("相似度："+xsl);
 				if(authoFaceToken==null){
-					req.getSession().getServletContext().setAttribute("faceToken", bean.getFaceToken2());
+					req.getSession().setAttribute("faceToken", bean.getFaceToken2());
 				}
 				if(xsl>85) return true;
 				else return false;

@@ -33,11 +33,9 @@ public class TextVeasion {
 			base64Url=FileUtil.base64Type(base64Url)[1];
 			if(VeaUtil.isNullEmpty(base64Url))
 				return "请选择图片！";
-			System.out.println(base64Url);
 			ImageOperate image=new ImageOperate(FaceUtil.getFaceKey(), FaceUtil.getFaceSecret());
 			FaceResponse resp=image.textRecognition(null, null, base64Url);
 			ImageTextBean bean=new ImageTextBean(resp);
-			System.out.println(bean.getStatus()+"\n"+bean.getTextHtml());
 			if(bean.getStatus()!=200)
 				return bean.getMessage();
 			else

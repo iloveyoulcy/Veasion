@@ -52,8 +52,9 @@ public class TestVeasion {
 	public JSONObject json;
 	
 	/**
-	 * 测试方法1
+	 * 测试方法1<br>
 	 * 
+	 * 访问链接：/Veasion/test/method1.vea
 	 * @since response输出流
 	 */
 	public String Method1() throws IOException{
@@ -67,8 +68,9 @@ public class TestVeasion {
 	}
 	
 	/**
-	 * 测试方法2
+	 * 测试方法2<br>
 	 * 
+	 * 访问链接：/Veasion/test/method2.vea
 	 * @since 跳转页面
 	 */
 	public String Method2(){
@@ -78,8 +80,9 @@ public class TestVeasion {
 	}
 	
 	/**
-	 * 测试方法3
+	 * 测试方法3<br>
 	 * 
+	 * 访问链接：/Veasion/test/method3.vea
 	 * @since 返回json
 	 */
 	public JSONObject Method3(){
@@ -89,8 +92,9 @@ public class TestVeasion {
 	}
 	
 	/**
-	 * 测试方法4 
+	 * 测试方法4<br>
 	 * 
+	 * 访问链接：/Veasion/test/method4.vea
 	 * @since 返回自定义json
 	 */
 	public Object Method4(){
@@ -102,8 +106,9 @@ public class TestVeasion {
 	}
 	
 	/**
-	 * 测试方法5
+	 * 测试方法5<br>
 	 * 
+	 * 访问链接：/Veasion/test/method5.vea
 	 * @since 使用Veasion注解
 	 */
 	@Veasion(value="method5",redirect=true)
@@ -112,8 +117,9 @@ public class TestVeasion {
 	}
 	
 	/**
-	 * 测试6 
+	 * 测试6<br>
 	 * 
+	 * From Action：/Veasion/test/method6.vea
 	 * @since 文件上传
 	 */
 	public String Method6(){

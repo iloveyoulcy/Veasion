@@ -28,7 +28,11 @@ public class ImageTextBean {
 				message+="3.客户上传的图像文件太大。本 API 要求图片文件大小不超过 2 MB <br/>\n";
 				message+="4.无法从指定的image_url下载图片，图片URL错误或者无效 <br/>\n";
 			}else if(status==412){
-				message="下载图片超时";
+				message="下载图片超时！";
+			}else if(status==403){
+				message="403，没有权限，请稍后重试...";
+			}else{
+				message="服务器发生错误！status:"+status;
 			}
 		}else{
 			try {
@@ -58,22 +62,38 @@ public class ImageTextBean {
 			}
 			textList.add(tv);
 		}
-		// 排序
+		// 文字识别，排序
 		textList.sort((t1,t2)->{
 			if(t1.getY()>t2.getY()){
-				return 1;
+				if(jdz(t1.getY()-t2.getY())<10)
+					return sortX(t1, t2);
+				else
+					return 1;
 			}else if(t1.getY()==t2.getY()){
-				if(t1.getX()==t2.getX())
-					return 0;
-				else if(t1.getX()>t2.getX())
-					return -1;
-				else return 1;
+				return sortX(t1, t2);
 			}else{
-				return -1;
+				if(jdz(t1.getY()-t2.getY())<10)
+					return sortX(t1, t2);
+				else
+					return -1;
 			}
 		});
 	}
 	
+	// 排序X坐标
+	private int sortX(TextValue t1,TextValue t2){
+		if(t1.getX()==t2.getX())
+			return 0;
+		else if(t1.getX()>t2.getX())
+			return 1;
+		else return -1;
+	}
+	
+	// 绝对值
+	private int jdz(int xxx){
+		if(xxx<0) return -xxx;
+		else return xxx;
+	}
 	
 	public int getStatus() {
 		return status;
@@ -98,7 +118,7 @@ public class ImageTextBean {
 					y=tv.getY();
 					sb.append("<br/>");
 				}
-				sb.append(tv.value).append("&nbsp;&nbsp;");
+				sb.append(tv.value).append("&nbsp;");
 			}
 			return sb.toString();
 		}else{
@@ -176,15 +196,5 @@ public class ImageTextBean {
 		public String toString() {
 			return "TextValue [x=" + x + ", y=" + y + ", value=" + value + ", type=" + type + "]";
 		}
-	}
-	
-	public static void main(String[] args) {
-		List<Integer> list=new ArrayList<>();
-		list.add(1);list.add(2);list.add(-1);
-		list.sort((t1,t2)->{
-			if(t1>t2)return 1;
-			else return -1;
-		});
-		System.out.println(list);
 	}
 }
