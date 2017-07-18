@@ -1,14 +1,8 @@
 package veasion.bean;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.MapUtils;
-
-import veasion.dao.JoinSql;
-import veasion.dao.Where;
 import veasion.service.BeanService;
 import veasion.service.impl.MysqlServieImpl;
 import veasion.util.VeaUtil;

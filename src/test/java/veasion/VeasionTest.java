@@ -57,9 +57,9 @@ public class VeasionTest {
 		try {
 			FaceResponse resp=comm.detectUrl("http://59.110.241.52/Veasion/images/ws10.jpg", 0, "gender,age,smiling,glass,headpose,facequality,blur");
 			System.out.println(resp.getStatus());
-			//System.out.println(new JSONObject().fromObject(new String(resp.getContent(),"UTF-8")));
-			DetectBean bean=new DetectBean(resp);
-			bean.getFaces().forEach(System.out::println);
+			System.out.println(new JSONObject().fromObject(new String(resp.getContent(),"UTF-8")));
+			//DetectBean bean=new DetectBean(resp);
+			//bean.getFaces().forEach(System.out::println);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -83,7 +83,7 @@ public class VeasionTest {
 		}
 	}
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void face3(){
 		// 文字识别
