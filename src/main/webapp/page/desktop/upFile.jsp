@@ -16,7 +16,7 @@
 	
 	function check(){
 		var img = $("#img").val();
-    	var pattern = /\.*.(jpg|png|gif)$/;
+    	var pattern = /\.*.(jpg|png|gif|JPG|PNG|GIF)$/;
     	if(img=="" || !pattern.test(img)){
     		alert("图片不能为空或格式错误！（只能上传jpg/png/gif格式）");
     		return false;

@@ -19,7 +19,7 @@
 	var startFace=false;
 	function faceImage(){
 		var img = $("#img").val();
-    	var pattern = /\.*.(jpg|png|gif)$/;
+    	var pattern = /\.*.(jpg|png|gif|JPG|PNG|GIF)$/;
     	if(img=="" || !pattern.test(img)){
     		$.ligerDialog.waitting('图片不能为空或格式错误！（只能上传jpg/png/gif格式）');
 			setTimeout(function() {
