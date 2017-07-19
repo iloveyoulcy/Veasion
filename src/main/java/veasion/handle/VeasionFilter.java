@@ -53,24 +53,27 @@ public class VeasionFilter implements Filter{
 		}
 		
 		if(request.getSession().isNew()){
-			String ip=HttpUtil.getIpAddress(request);
-			if (	!"0:0:0:0:0:0:0:1".equals(ip) 
-					&& !"127.0.0.1".equals(ip) 
-					&& !"localhost".equals(ip)) {
-				try {
-					// 来访记录
-					BeanService service = new MysqlServieImpl(IpRecord.tableName);
-					JSONObject data = new JSONObject();
-					data.put(IpRecord.ip, ip);
-					data.put(IpRecord.date, SQLUtil.getDate());
-					data.put(IpRecord.line, Constant.ON_LINE);
-					// 记录IP所在地及运营商
-					data.put(IpRecord.area, HttpUtil.getAreaByIp(ip));
-					service.Add(data);
-				} catch (Exception e) {
-					e.printStackTrace();
+			// 异步记录IP
+			new Thread(()->{
+				String ip=HttpUtil.getIpAddress(request);
+				if (	!"0:0:0:0:0:0:0:1".equals(ip) 
+						&& !"127.0.0.1".equals(ip) 
+						&& !"localhost".equals(ip)) {
+					try {
+						// 来访记录
+						BeanService service = new MysqlServieImpl(IpRecord.tableName);
+						JSONObject data = new JSONObject();
+						data.put(IpRecord.ip, ip);
+						data.put(IpRecord.date, SQLUtil.getDate());
+						data.put(IpRecord.line, Constant.ON_LINE);
+						// 记录IP所在地及运营商
+						data.put(IpRecord.area, HttpUtil.getAreaByIp(ip));
+						service.Add(data);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
-			}
+			}).start();
 		}
 		
 		
