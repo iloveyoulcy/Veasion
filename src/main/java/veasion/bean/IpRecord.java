@@ -18,5 +18,7 @@ public class IpRecord {
 	public static final String date="date";
 	/**当前在线人数*/
 	public static final String line="line";
+	/**地理位置*/
+	public static final String area="area";
 	
 }

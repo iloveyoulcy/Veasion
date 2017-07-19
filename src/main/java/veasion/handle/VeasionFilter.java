@@ -64,6 +64,8 @@ public class VeasionFilter implements Filter{
 					data.put(IpRecord.ip, ip);
 					data.put(IpRecord.date, SQLUtil.getDate());
 					data.put(IpRecord.line, Constant.ON_LINE);
+					// 记录IP所在地及运营商
+					data.put(IpRecord.area, HttpUtil.getAreaByIp(ip));
 					service.Add(data);
 				} catch (Exception e) {
 					e.printStackTrace();

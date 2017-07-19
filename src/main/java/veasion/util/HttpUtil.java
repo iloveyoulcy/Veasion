@@ -1,6 +1,12 @@
 package veasion.util;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 /**
  * Http帮助类
@@ -34,6 +40,32 @@ public class HttpUtil {
 			ip = request.getRemoteAddr();
 		}
 		return ip;
+	}
+	
+	/**根据ip获取所在地*/
+	public static String getAreaByIp(String ip){
+		if ("0:0:0:0:0:0:0:1".equals(ip) 
+			|| "127.0.0.1".equals(ip) 
+			|| "localhost".equals(ip)) 
+			return "本地";
+		try {
+			Document doc=Jsoup.connect("http://ip.cn/index.php?ip="+ip)
+					.header("accept", "*/*")
+					.header("connection", "Keep-Alive")
+					.header("user-agent", "Mozilla/4.0 (compatible;MSIE 6.0;Windows NT 5.1;SV1)")
+					.timeout(1_0000).get();
+			String area="p:contains(地理位置) code";
+			Elements es=doc.select(area);
+			return es.text();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static void main(String[] args) {
+		String area=getAreaByIp("211.95.45.66");
+		System.out.println(area);
 	}
 	
 }
