@@ -1,6 +1,5 @@
 package veasion.util;
 
-import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -57,15 +56,36 @@ public class HttpUtil {
 			String area="p:contains(地理位置) code";
 			Elements es=doc.select(area);
 			return es.text();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			//System.err.println(e.getMessage());
+			//e.printStackTrace();
 		}
 		return null;
 	}
 	
+	/**根据手机号码获取所在地*/
+	public static String getAreaByPhone(String phoneNum){
+		try {
+			Document doc=Jsoup.connect("http://ip.cn/db.php?num="+phoneNum)
+					.header("accept", "*/*")
+					.header("connection", "Keep-Alive")
+					.header("user-agent", "Mozilla/4.0 (compatible;MSIE 6.0;Windows NT 5.1;SV1)")
+					.timeout(1_0000).get();
+			String area="div[class='well']";
+			Elements es=doc.select(area);
+			String html=es.html();
+			int index=html.indexOf("所在城市:");
+			return html.substring(index+5, html.indexOf("<br", index)).trim();
+		} catch (Exception e) {
+			//System.err.println(e.getMessage());
+			//e.printStackTrace();
+		}
+		return "未知";
+	}
+	
 	public static void main(String[] args) {
-		String area=getAreaByIp("211.95.45.66");
-		System.out.println(area);
+		System.out.println("IP地址："+getAreaByIp("211.95.45.66"));
+		System.out.println("手机地址："+getAreaByPhone("15111384408"));
 	}
 	
 }
