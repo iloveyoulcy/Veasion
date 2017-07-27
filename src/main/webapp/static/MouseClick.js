@@ -36,14 +36,23 @@ window.onclick = function(event){
 old && old();
 createHeart(event);
 }
+window.ontouchstart = function(event){
+createHeart(event);
+}
 }
 function createHeart(event){
 var d = document.createElement("div");
 d.className = "heart";
+var xxx=event.clientX - 5;
+var yyy=event.clientY - 5;
+if("touchstart"==event.type){
+	xxx=event.touches[0].clientX;
+	yyy=event.touches[0].clientY;
+}
 hearts.push({
 el : d,
-x : event.clientX - 5,
-y : event.clientY - 5,
+x : xxx,
+y : yyy,
 scale : 1,
 alpha : 1,
 color : randomColor()
