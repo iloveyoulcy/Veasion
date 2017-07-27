@@ -217,14 +217,14 @@ a:link,a:visited,a:hover{color:#330099;}
 			<!-- 黑白切换 -->
 			<div class="black" style="width: 50%; text-align: left;">
 				&nbsp;&nbsp;
-				<div id="bgChange" onclick="bgChange();" title="晚上" class="font">晚上</div>
+				<div id="bgChange" onclick="bgChange();" title="晚上" class="font" ontouchend="this.onclick();">晚上</div>
 			</div>
 
 			<!-- 导航 -->
 			<div style="width: 50%; text-align: right;">
-				<a href="http://59.110.241.52/solo" title="Veasion的博客" class="font">
+				<a href="http://59.110.241.52/solo" title="Veasion的博客" class="font" ontouchend="location.href=this.href;">
 					我的博客 </a> &nbsp;&nbsp; <a href="https://github.com/veasion"
-					title="My Github." class="font"> Github </a> &nbsp;&nbsp;
+					title="My Github." class="font" ontouchend="location.href=this.href;"> Github </a> &nbsp;&nbsp;
 			</div>
 		</div>
 
@@ -233,8 +233,8 @@ a:link,a:visited,a:hover{color:#330099;}
 			<div id="h1" class="black">欢迎来到我的首个专属网站页面！</div>
 			<div class="font">
 				<a href="https://github.com/veasion" title="My Github."
-					style="text-decoration: none" target="_blank"> ===Github=== </a> <br />
-				<span style="color: red;"> 非常抱歉！我的个人网站还没写好，欢迎下次光临。 </span>
+					style="text-decoration: none" target="_blank" ontouchend="location.href=this.href;"> ===Github=== </a> <br />
+				<span style="color: red;"> ----Veasion---- </span>
 			</div>
 			<br />
 
